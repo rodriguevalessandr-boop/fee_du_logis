@@ -253,6 +253,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('task-nom').value = "";
     document.getElementById('btn-sauvegarder').onclick = ajouterNouvelleTache;
     document.getElementById('task-modal').classList.remove('hidden');
+    // Enregistrer le service worker pour les notifications
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(reg => {
+      Notification.requestPermission().then(perm => {
+        if (perm === 'granted') {
+          reg.active?.postMessage({ type: 'PLANIFIER_NOTIF' });
+        }
+      });
+    });
+  }
   };
 
   document.getElementById('btn-annuler').onclick = fermerModal;
