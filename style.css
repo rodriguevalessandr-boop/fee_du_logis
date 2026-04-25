@@ -2,13 +2,16 @@
 
 /* --- BASE & POLICE --- */
 body {
-        font-family: 'Constantia', Georgia, serif;
+    font-family: 'Constantia', Georgia, serif;
+    font-size: 17px;
     background-color: #fdfaf5;
-    margin: 0; padding: 0;
-    display: flex; flex-direction: column; align-items: center; /* Aligne le contenu au centre */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     color: #3d2f22;
 }
-
 /* --- HEADER MAGIQUE --- */
 .app-header {
     width: 100%; 
@@ -17,6 +20,7 @@ body {
     padding: 15px;
     border-radius: 0 0 35px 35px;
     box-sizing: border-box;
+    margin-bottom: 20px;
 }
 
 .header-top { display: flex; justify-content: flex-end; }
@@ -24,7 +28,7 @@ body {
     background: rgba(255,255,255,0.3);
     border: none;
     font-family: 'Berkshire Swash', cursive;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     color: #4a3560;
     padding: 5px 12px;
@@ -34,7 +38,7 @@ body {
 .header-main { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
 .app-title-pill {
     background: #00c2a7; color: white; padding: 8px 15px; border-radius: 20px;
-    font-family: 'Berkshire Swash', cursive; font-size: 20px;
+    font-family: 'Berkshire Swash', cursive; font-size: 24px;
 }
 .streak-pill {
     background: #ff85d2; color: white; padding: 8px 15px; border-radius: 20px;
@@ -45,7 +49,7 @@ body {
 .creature-container-box {
     background: white; border: 2px solid #eaddff;
     border-radius: 30px; 
-    margin: 20px auto; /* 'auto' centre le bloc horizontalement */
+    margin: 25px auto; /* 'auto' centre le bloc horizontalement */
     padding: 20px;
     width: 90%; 
     max-width: 100%; /* Aligné sur la jauge */
@@ -100,10 +104,10 @@ body {
 .xp-gauge-wrap { 
     width: 95%; 
     max-width: 100%; /* Même que la créature */
-    margin: 0 auto 20px auto; /* Centré */
+    margin: 0 auto 25px auto; /* Centré */
 }
 
-.xp-numbers { text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; }
+.xp-numbers { text-align: center; font-size: 20px; font-weight: bold; margin-bottom: 5px; }
 
 .xp-track {
     height: 25px;
@@ -134,12 +138,12 @@ body {
     font-family: 'Berkshire Swash', cursive; 
     text-align: center; /* Titre centré pour l'harmonie */
     color: #4a3560; 
-    margin-bottom: 15px;
+    margin-bottom: 20px; 
 }
 
 .task-card {
     font-family: 'Constantia', Georgia, serif;
-    font-size: 15px;
+    font-size: 18px;
     background: white;
     border-radius: 20px;
     padding: 18px 15px;
@@ -167,7 +171,7 @@ body {
 .shop-item { background: #fdfaf5; padding: 10px; border-radius: 15px; text-align: center; border: 1px solid #eaddff; }
 
 .add-task-btn {
-    position: fixed; bottom: 20px; right: 20px;
+    position: fixed; bottom: 20px; left: 20px;
     width: 60px; height: 60px; border-radius: 50%;
     background: #00c2a7; color: white; font-size: 30px; border: none;
     box-shadow: 0 5px 15px rgba(0, 194, 167, 0.4);

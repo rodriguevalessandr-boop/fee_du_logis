@@ -120,7 +120,7 @@ function afficherTaches() {
           <small style="color:#8a7060">${tache.piece} • ✏️ Modifier</small>
         </div>
 
-        <div style="font-weight:bold; color:#ff85d2; margin: 0 10px;">+${tache.xp}</div>
+        <div style="font-weight:bold; color:#ff85d2; margin: 0 4px;">+${tache.xp}</div>
         
         <div id="delete-ctrl-${tache.id}">
           <button onclick="demanderSuppression(${tache.id})" style="background:none; border:none; font-size:20px; cursor:pointer;">🗑️</button>
