@@ -29,6 +29,28 @@ const catalogue = [
   { id: 'phenix',   nom: 'Phénix de ses cendres',   prix: 500, stades: ['🪺','🐦','🔥','⭐','🐦‍🔥'] },
 ];
 
+const phrasesPositives = [
+    "Chaque petit geste compte pour créer ton sanctuaire. ✨",
+    "Une tâche à la fois, et la magie opère. 🪄",
+    "Ta créature est fière de tes efforts ! 🐾",
+    "Tu ne nettoies pas, tu prépares ton bonheur de demain. 🌿",
+    "Rendre son foyer beau, c'est s'offrir de l'amour. 💖",
+    "Respire... chaque objet rangé est une pensée libérée. 🌊",
+    "Bravo ! Tu es la reine de ton royaume. 👑",
+    "Transformer le chaos en harmonie, c'est ton super-pouvoir. 🧙‍♀️",
+    "Ton futur 'toi' te remercie déjà ! 💎",
+    "Le ménage est une méditation en mouvement. 🧘‍♀️",
+    "Tu mérites de vivre dans un endroit qui te ressemble. ✨",
+    "Chaque diamant est une preuve de ta détermination ! 💎",
+    "Regarde tout le chemin parcouru aujourd'hui ! 🚀",
+    "Ta maison te dit merci. 🏠✨",
+    "La magie est dans les détails. 🪄",
+    "Une maison ordonnée, un esprit léger. ☁️",
+    "Tu es incroyable, continue comme ça ! 🌟",
+    "Même le plus long voyage commence par un petit pas. 👣",
+    "Aujourd'hui, tu fais briller ton monde. ☀️",
+    "C'est l'heure de briller, petite fée ! 🧚‍♂️"
+];
 // ==========================================
 // 2. UTILITAIRES & SONS
 // ==========================================
@@ -166,6 +188,7 @@ window.cocherTache = (id) => {
   } else {
     tache.datesFaites.push(dateAuj);
     if (creature) creature.xp += tache.xp;
+    changerMantra();
     if (state.lastValidatedDate !== dateAuj) {
       state.dayCount++;
       state.diamonds += 10;
@@ -197,6 +220,7 @@ setInterval(() => {
 document.addEventListener('DOMContentLoaded', () => {
   charger();
   mettreAJourUI();
+  changerMantra();
 
   document.getElementById('add-task-btn').onclick = () => {
     document.getElementById('task-nom').value = "";
