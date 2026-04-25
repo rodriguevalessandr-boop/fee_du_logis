@@ -54,10 +54,15 @@
     </div>
 
     <!-- Tâches du jour -->
-    <section class="tasks-section">
-      <h2 class="tasks-title">Tâches du jour</h2>
-      <div class="tasks-list" id="tasks-list"></div>
-    </section>
+  <section class="tasks-section">
+  <h2 class="tasks-title">Mes missions du jour</h2>
+  <div id="tasks-list"></div>
+</section>
+
+<section class="future-tasks-section" style="margin-top: 40px; padding: 10px;">
+  <h2 class="tasks-title" style="font-size: 1.2rem; opacity: 0.7;">🔮 Calendrier de l'avenir</h2>
+  <div id="future-tasks-list" style="opacity: 0.6;"></div>
+</section>
 
     <!-- Bouton ajouter -->
     <button class="add-task-btn" id="add-task-btn">+</button>
@@ -101,19 +106,18 @@
           <option value="40">40 XP — Tâche longue</option>
         </select>
       </div>
-      <div class="form-group">
-        <label class="form-label">Lancement</label>
-        <select class="form-select" id="task-lancement">
-          <option value="aujourd'hui">Aujourd'hui</option>
-          <option value="lundi">Lundi prochain</option>
-          <option value="mardi">Mardi prochain</option>
-          <option value="mercredi">Mercredi prochain</option>
-          <option value="jeudi">Jeudi prochain</option>
-          <option value="vendredi">Vendredi prochain</option>
-          <option value="samedi">Samedi prochain</option>
-          <option value="dimanche">Dimanche prochain</option>
-        </select>
-      </div>
+    <div class="form-group">
+  <label class="form-label">Lancement</label>
+  <select class="form-select" id="task-lancement">
+    <option value="+0">Aujourd'hui</option>
+    <option value="+1">Demain !</option>
+    <option value="+2">Après-demain</option>
+    <option value="+3">Trois jours</option>
+    <option value="+7">Hebdomadaire (+7j)</option>
+    <option value="+14">Bimensuelle (+14j)</option>
+    <option value="+0">Ponctuelle</option>
+  </select>
+</div>
       <div class="modal-actions">
         <button class="btn-cancel" id="btn-annuler">Annuler</button>
         <button class="btn-save" id="btn-sauvegarder">Ajouter ✓</button>

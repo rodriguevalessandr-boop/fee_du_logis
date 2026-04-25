@@ -120,11 +120,26 @@ body {
 }
 
 .xp-fill {
-  height: 100%;
-  width: 0%;
-  border-radius: 99px;
-  background: linear-gradient(90deg, #e8a0b4, #5e9aca);
-  transition: width 0.4s ease;
+    height: 100%;
+    width: 0%;
+    border-radius: 15px;
+    background: linear-gradient(90deg, #e8a0b4, #5e9aca);
+    transition: width 0.4s ease;
+    position: relative; /* Nécessaire pour l'éclat */
+    overflow: hidden;
+}
+.xp-fill::after {
+    content: "";
+    position: absolute;
+    top: 0; 
+    left: -100%;
+    width: 50%; 
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shine 4s infinite;
+}
+@keyframes shine {
+    to { left: 200%; }
 }
 
 /* --- TÂCHES --- */
@@ -156,7 +171,10 @@ body {
     line-height: 1.5;
 }
 .task-card.completed {
-    opacity: 0.6;
+    background-color: #f0f0f0;
+    border-color: #ddd;
+    /* Petit effet de barré sur toute la carte */
+    background-image: linear-gradient(rgba(0,0,0,0) 45%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0) 55%);
 }
 /* --- MODALS --- */
 .modal-overlay {
