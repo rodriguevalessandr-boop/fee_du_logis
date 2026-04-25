@@ -144,6 +144,9 @@ function genererHtmlTache(tache, estAujourdhui) {
 window.changerHeureNotif = (heure) => {
     state.heureNotif = heure;
     sauvegarder();
+    console.log("Nouvelle heure enregistrée :", heure);
+    
+    // Test immédiat : demande la permission si ce n'est pas fait
     if ("Notification" in window && Notification.permission !== "granted") {
         Notification.requestPermission();
     }
