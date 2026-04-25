@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=MedievalSharp&display=swap');
+
+/* --- BASE & POLICE --- */
+body {
+        font-family: 'Constantia', Georgia, serif;
+    background-color: #fdfaf5;
+    margin: 0; padding: 0;
+    display: flex; flex-direction: column; align-items: center; /* Aligne le contenu au centre */
+    color: #3d2f22;
+}
+
+/* --- HEADER MAGIQUE --- */
+.app-header {
+    width: 100%; 
+    max-width: 430px; /* Largeur max du téléphone */
+    background: linear-gradient(180deg, #c4a8e8 0%, #eaddff 100%);
+    padding: 15px;
+    border-radius: 0 0 35px 35px;
+    box-sizing: border-box;
+}
+
+.header-top { display: flex; justify-content: flex-end; }
+.diamonds-display {
+    background: rgba(255,255,255,0.3);
+    border: none;
+    font-family: 'Berkshire Swash', cursive;
+    font-size: 16px;
+    font-weight: bold;
+    color: #4a3560;
+    padding: 5px 12px;
+    border-radius: 20px;
+}
+
+.header-main { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+.app-title-pill {
+    background: #00c2a7; color: white; padding: 8px 15px; border-radius: 20px;
+    font-family: 'Berkshire Swash', cursive; font-size: 20px;
+}
+.streak-pill {
+    background: #ff85d2; color: white; padding: 8px 15px; border-radius: 20px;
+    font-family: 'Berkshire Swash', cursive;
+}
+
+/* --- LA CRÉATURE (CORRIGÉ POUR L'ALIGNEMENT) --- */
+.creature-container-box {
+    background: white; border: 2px solid #eaddff;
+    border-radius: 30px; 
+    margin: 20px auto; /* 'auto' centre le bloc horizontalement */
+    padding: 20px;
+    width: 90%; 
+    max-width: 380px; /* Aligné sur la jauge */
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(155, 110, 220, 0.05);
+    box-sizing: border-box; /* Empêche le padding de déborder */
+}
+
+.creature-card {
+    width: 150px; height: 150px;
+    background: #d4e3cc;
+    border-radius: 50%; margin: 0 auto 10px;
+    display: flex; justify-content: center; align-items: center;
+    border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.creature-emoji {
+    font-size: 80px;
+    animation: levitation 3s ease-in-out infinite;
+}
+
+@keyframes levitation {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes flamme {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+}
+@keyframes fremir {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+}
+
+
+.app-title-pill span {
+    display: inline-block;
+    animation: fremir 3s ease-in-out infinite;
+}
+
+#streak-fire {
+    display: inline-block;
+    animation: flamme 0.8s ease-in-out infinite;
+}
+
+#creature-stage {
+    font-family: 'Berkshire Swash', cursive; font-size: 19px; color: #4a3560;
+}
+
+/* --- JAUGE XP (HARMONISÉE) --- */
+.xp-gauge-wrap { 
+    width: 90%; 
+    max-width: 380px; /* Même que la créature */
+    margin: 0 auto 20px auto; /* Centré */
+}
+
+.xp-numbers { text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 5px; }
+
+.xp-track {
+    height: 25px;
+    width: 100%;
+    background: #eee6f3; 
+    border-radius: 15px;
+    overflow: hidden; 
+    border: 2px solid #dcd0e8;
+    box-sizing: border-box;
+}
+
+.xp-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #e8a0b4, #5e9aca);
+  transition: width 0.4s ease;
+}
+
+/* --- TÂCHES --- */
+.tasks-section { 
+    width: 100%; 
+    max-width: 380px; /* Réduit pour s'aligner sur la créature et la jauge */
+    margin: 0 auto; 
+}
+
+.tasks-title { 
+    font-family: 'Berkshire Swash', cursive; 
+    text-align: center; /* Titre centré pour l'harmonie */
+    color: #4a3560; 
+    margin-bottom: 15px;
+}
+
+.task-card {
+    font-family: 'Constantia', Georgia, serif;
+    font-size: 15px;
+    background: white;
+    border-radius: 20px;
+    padding: 18px 15px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    box-sizing: border-box;
+    line-height: 1.5;
+}
+.task-card.completed {
+    opacity: 0.6;
+}
+/* --- MODALS --- */
+.modal-overlay {
+    position: fixed; top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 100;
+}
+.modal {
+    background: white; width: 90%; max-width: 350px; border-radius: 30px;
+    padding: 20px; box-sizing: border-box;
+}
+.shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-height: 300px; overflow-y: auto; }
+.shop-item { background: #fdfaf5; padding: 10px; border-radius: 15px; text-align: center; border: 1px solid #eaddff; }
+
+.add-task-btn {
+    position: fixed; bottom: 20px; right: 20px;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: #00c2a7; color: white; font-size: 30px; border: none;
+    box-shadow: 0 5px 15px rgba(0, 194, 167, 0.4);
+    cursor: pointer;
+}
+
+.hidden { display: none; }

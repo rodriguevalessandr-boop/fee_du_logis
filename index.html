@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fée du Logis</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=MedievalSharp&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="top-band"></div>
+
+  <!-- Contenu principal -->
+  <div class="app-container">
+
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-top">
+        <button class="diamonds-display" id="diamonds-btn">
+          💎 <span id="diamond-count">0</span>
+        </button>
+      </div>
+      <div class="header-main">
+    <div class="app-title-pill"><span>🧚</span> Fée du logis</div>
+        <div class="streak-pill">
+          <span id="streak-fire" class="hidden">🔥</span>
+          Jour <span id="day-count">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Section créature -->
+    <div class="creature-container-box">
+      <section class="creature-section">
+        <div class="creature-info">
+          <div class="creature-card">
+            <div class="creature-emoji" id="creature-emoji">🧚</div>
+          </div>
+          <div id="creature-stage">Stade 1. Graine</div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Jauge XP -->
+    <div class="xp-gauge-wrap">
+      <div class="xp-numbers">
+        <span id="xp-current">0</span> / 500 XP
+      </div>
+      <div class="xp-track">
+        <div class="xp-fill" id="xp-fill"></div>
+      </div>
+    </div>
+
+    <!-- Tâches du jour -->
+    <section class="tasks-section">
+      <h2 class="tasks-title">Tâches du jour</h2>
+      <div class="tasks-list" id="tasks-list"></div>
+    </section>
+
+    <!-- Bouton ajouter -->
+    <button class="add-task-btn" id="add-task-btn">+</button>
+
+  </div>
+
+  <!-- Modal nouvelle tâche -->
+  <div class="modal-overlay hidden" id="task-modal">
+    <div class="modal">
+      <div class="modal-handle"></div>
+      <h3 class="modal-title">Nouvelle tâche</h3>
+      <div class="form-group">
+        <label class="form-label">Nom de la tâche</label>
+        <input class="form-input" id="task-nom" type="text" placeholder="ex: Vaisselle !">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Pièce</label>
+        <select class="form-select" id="task-piece">
+          <option>Chambre</option>
+          <option>Cuisine</option>
+          <option>Salle de bain</option>
+          <option>Salon</option>
+          <option>Autre</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Fréquence</label>
+        <select class="form-select" id="task-frequence">
+          <option>Quotidienne</option>
+          <option>Tous les 3 jours</option>
+          <option>Hebdomadaire</option>
+          <option>Bimensuelle</option>
+          <option>Ponctuelle</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">XP gagnés</label>
+        <select class="form-select" id="task-xp">
+          <option value="10">10 XP — Tâche rapide</option>
+          <option value="25">25 XP — Tâche moyenne</option>
+          <option value="40">40 XP — Tâche longue</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Lancement</label>
+        <select class="form-select" id="task-lancement">
+          <option value="aujourd'hui">Aujourd'hui</option>
+          <option value="lundi">Lundi prochain</option>
+          <option value="mardi">Mardi prochain</option>
+          <option value="mercredi">Mercredi prochain</option>
+          <option value="jeudi">Jeudi prochain</option>
+          <option value="vendredi">Vendredi prochain</option>
+          <option value="samedi">Samedi prochain</option>
+          <option value="dimanche">Dimanche prochain</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="btn-annuler">Annuler</button>
+        <button class="btn-save" id="btn-sauvegarder">Ajouter ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal boutique -->
+  <div class="modal-overlay hidden" id="shop-modal">
+    <div class="modal shop-modal">
+      <div class="modal-handle"></div>
+      <h3 class="modal-title">✨ Boutique Féérique ✨</h3>
+      <p style="text-align:center; color:#8a7060; margin-bottom:15px;">
+        Tes diamants : <span id="shop-diamonds">0</span> 💎
+      </p>
+      <div class="shop-grid" id="shop-items"></div>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="btn-fermer-boutique">Quitter</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

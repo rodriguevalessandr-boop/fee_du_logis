@@ -1,0 +1,15 @@
+{
+  "name": "Fée du Logis",
+  "short_name": "FéeLogis",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f0eaf8",
+  "theme_color": "#c4a8e8",
+  "icons": [
+    {
+      "src": "logo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
