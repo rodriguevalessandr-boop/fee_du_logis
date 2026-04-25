@@ -1,5 +1,5 @@
 // ==========================================
-// 1. ÉTAT DE L'APPLI & DONNÉES
+// 1. ÉTAT DE L'APPLI
 // ==========================================
 let state = {
   diamonds: 0,
@@ -36,7 +36,6 @@ const charger = () => {
   if (data) {
     state = JSON.parse(data);
     if (!state.tasks) state.tasks = [];
-    if (!state.creatures) state.creatures = [{ id: 'fleur', xp: 0 }];
   }
 };
 const aujourdhui = () => new Date().toISOString().split('T')[0];
@@ -44,19 +43,36 @@ const aujourdhui = () => new Date().toISOString().split('T')[0];
 function jouerSon(type) {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = (type === 'win') ? 'sine' : 'triangle';
-    osc.frequency.setValueAtTime((type === 'win') ? 523 : 261, ctx.currentTime);
-    gain.gain.setValueAtTime(0.1, ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.3);
-    osc.connect(gain); gain.connect(ctx.destination);
-    osc.start(); osc.stop(ctx.currentTime + 0.3);
+    const g = ctx.createGain();
+    g.connect(ctx.destination);
+    if (type === 'win') {
+      const duration = 0.4;
+      g.gain.setValueAtTime(0, ctx.currentTime);
+      g.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.05);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+      [523.25, 659.25, 783.99].forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + (i * 0.05));
+        osc.connect(g);
+        osc.start(ctx.currentTime + (i * 0.05));
+        osc.stop(ctx.currentTime + (i * 0.05) + 0.15);
+      });
+    } else {
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(800, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.1);
+      g.gain.setValueAtTime(0.05, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+      osc.connect(g);
+      osc.start(); osc.stop(ctx.currentTime + 0.1);
+    }
   } catch(e) {}
 }
 
 // ==========================================
-// 3. LOGIQUE D'AFFICHAGE (Relative +1, +2...)
+// 3. UI & AFFICHAGE
 // ==========================================
 function mettreAJourUI() {
   document.getElementById('diamond-count').textContent = state.diamonds;
@@ -73,8 +89,13 @@ function mettreAJourUI() {
   }
 
   const feu = document.getElementById('streak-fire');
-  (state.lastValidatedDate === aujourdhui()) ? feu.classList.remove('hidden') : feu.classList.add('hidden');
-
+  if (state.lastValidatedDate === aujourdhui()) {
+    feu.classList.remove('hidden');
+    feu.style.display = "inline-block";
+  } else {
+    feu.classList.add('hidden');
+    feu.style.display = "none";
+  }
   afficherTaches();
 }
 
@@ -99,7 +120,7 @@ function afficherTaches() {
   if (listeFutur) {
     listeFutur.innerHTML = tachesFutur.sort((a,b) => a.prochaineDate.localeCompare(b.prochaineDate))
       .map(t => genererHtmlTache(t, false)).join('') 
-      || '<p style="text-align:center; font-size:0.8rem; padding:10px; opacity:0.5;">Avenir serein...</p>';
+      || '<p style="text-align:center; font-size:0.8rem; padding:10px; opacity:0.5;">Calendrier vide.</p>';
   }
 }
 
@@ -111,7 +132,6 @@ function genererHtmlTache(tache, estAujourdhui) {
   if (!estAujourdhui && tache.prochaineDate) {
       const diffTime = new Date(tache.prochaineDate) - new Date(dateAuj);
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      
       if (diffDays === 1) libelleLabel = "Demain !";
       else if (diffDays === 2) libelleLabel = "Après-demain";
       else if (diffDays <= 7) libelleLabel = "Cette semaine";
@@ -138,7 +158,6 @@ window.cocherTache = (id) => {
   const tache = state.tasks.find(t => t.id === id);
   const dateAuj = aujourdhui();
   if (!tache.datesFaites) tache.datesFaites = [];
-  
   const dejaFaite = tache.datesFaites.includes(dateAuj);
   const creature = state.creatures.find(c => c.id === state.creatureActive);
 
@@ -146,20 +165,18 @@ window.cocherTache = (id) => {
     tache.datesFaites = tache.datesFaites.filter(d => d !== dateAuj);
     if (creature) creature.xp = Math.max(0, creature.xp - tache.xp);
     tache.prochaineDate = dateAuj;
+    jouerSon('loss');
   } else {
     tache.datesFaites.push(dateAuj);
     if (creature) creature.xp += tache.xp;
-    
     let d = new Date();
     const freq = tache.frequence;
     if (freq === "Hebdomadaire") d.setDate(d.getDate() + 7);
     else if (freq === "Bimensuelle") d.setDate(d.getDate() + 14);
     else if (freq === "Tous les 3 jours") d.setDate(d.getDate() + 3);
-    else if (freq === "Ponctuelle") d.setFullYear(d.getFullYear() + 1); 
-    else d.setDate(d.getDate() + 1); // Quotidienne
-    
+    else if (freq === "Ponctuelle") d.setFullYear(d.getFullYear() + 10);
+    else d.setDate(d.getDate() + 1);
     tache.prochaineDate = d.toISOString().split('T')[0];
-
     if (state.lastValidatedDate !== dateAuj) {
       state.dayCount++;
       state.diamonds += 10;
@@ -184,14 +201,9 @@ function ajouterNouvelleTache() {
   const nom = document.getElementById('task-nom').value;
   const lancementValue = document.getElementById('task-lancement').value;
   if (!nom) return;
-
   let d = new Date();
-  // Analyse de la valeur (ex: "+1", "+2")
-  if (lancementValue.startsWith("+")) {
-      const joursEnPlus = parseInt(lancementValue.replace("+", ""));
-      d.setDate(d.getDate() + joursEnPlus);
-  }
-
+  const joursEnPlus = parseInt(lancementValue.replace("+", ""));
+  d.setDate(d.getDate() + joursEnPlus);
   state.tasks.push({
     id: Date.now(),
     nom: nom,
@@ -201,34 +213,12 @@ function ajouterNouvelleTache() {
     prochaineDate: d.toISOString().split('T')[0],
     datesFaites: []
   });
-
   sauvegarder(); fermerModal(); mettreAJourUI();
 }
 
 // ==========================================
-// 5. INITIALISATION & MODALS
+// 5. BOUTIQUE & MODIF
 // ==========================================
-function fermerModal() {
-  document.getElementById('task-modal').classList.add('hidden');
-  document.getElementById('shop-modal').classList.add('hidden');
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  charger();
-  mettreAJourUI();
-
-  document.getElementById('add-task-btn').onclick = () => {
-    document.getElementById('task-nom').value = "";
-    document.getElementById('btn-sauvegarder').onclick = ajouterNouvelleTache;
-    document.getElementById('task-modal').classList.remove('hidden');
-  };
-
-  document.getElementById('btn-annuler').onclick = fermerModal;
-  document.getElementById('diamonds-btn').onclick = window.ouvrirBoutique;
-  document.getElementById('btn-fermer-boutique').onclick = fermerModal;
-});
-
-// Fonctions Boutique et Modif à conserver telles quelles
 window.ouvrirPourModifier = (id) => {
   const tache = state.tasks.find(t => t.id === id);
   document.getElementById('task-nom').value = tache.nom;
@@ -249,12 +239,12 @@ window.ouvrirBoutique = () => {
   grille.innerHTML = catalogue.map(item => {
     const possedee = state.creatures.find(c => c.id === item.id);
     return `<div class="shop-item"><div style="font-size:35px;">${item.stades[4]}</div><div style="font-weight:bold; margin:5px 0">${item.nom}</div>
-        <button onclick="acheter('${item.id}', ${item.prix})" style="background:${possedee ? '#aaa' : '#00c2a7'}; color:white; border:none; border-radius:10px; padding:8px; cursor:pointer; width:100%;">${possedee ? '✓ Utiliser' : '💎 ' + item.prix}</button></div>`;
+        <button onclick="acheter('${item.id}', ${item.prix})" style="background:${possedee ? '#aaa' : '#00c2a7'}; color:white; border:none; border-radius:10px; padding:8px; width:100%;">${possedee ? '✓ Utiliser' : '💎 ' + item.prix}</button></div>`;
   }).join('');
   document.getElementById('shop-modal').classList.remove('hidden');
 };
 
-window.acheter = function(id, prix) {
+window.acheter = (id, prix) => {
   const possedee = state.creatures.find(c => c.id === id);
   if (possedee) state.creatureActive = id;
   else if (state.diamonds >= prix) {
@@ -265,3 +255,20 @@ window.acheter = function(id, prix) {
   } else { alert("Pas assez de diamants ! 💎"); return; }
   sauvegarder(); mettreAJourUI(); fermerModal();
 };
+
+function fermerModal() {
+  document.getElementById('task-modal').classList.add('hidden');
+  document.getElementById('shop-modal').classList.add('hidden');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  charger(); mettreAJourUI();
+  document.getElementById('add-task-btn').onclick = () => {
+    document.getElementById('task-nom').value = "";
+    document.getElementById('btn-sauvegarder').onclick = ajouterNouvelleTache;
+    document.getElementById('task-modal').classList.remove('hidden');
+  };
+  document.getElementById('btn-annuler').onclick = fermerModal;
+  document.getElementById('diamonds-btn').onclick = window.ouvrirBoutique;
+  document.getElementById('btn-fermer-boutique').onclick = fermerModal;
+});
