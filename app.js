@@ -139,9 +139,22 @@ window.cocherTache = (id) => {
   // Trouver la créature active pour modifier son XP
   const creatureActive = state.creatures.find(c => c.id === state.creatureActive);
 
-  if (dejaFaite) {
+ if (dejaFaite) {
     tache.datesFaites = tache.datesFaites.filter(d => d !== dateJour);
     if (creatureActive) creatureActive.xp = Math.max(0, creatureActive.xp - tache.xp);
+    
+    // Vérifier s'il reste des tâches cochées aujourd'hui
+    const encoreDesTaches = state.tasks.some(t => 
+        t.datesFaites && t.datesFaites.includes(dateJour)
+    );
+    
+    // Si plus aucune tâche cochée, annuler le jour
+    if (!encoreDesTaches) {
+        state.dayCount = Math.max(0, state.dayCount - 1);
+        state.lastValidatedDate = null;
+        state.diamonds = Math.max(0, state.diamonds - 10);
+    }
+    
     jouerSon('loss');
   } else {
     tache.datesFaites.push(dateJour);

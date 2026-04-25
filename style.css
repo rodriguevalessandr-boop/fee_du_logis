@@ -11,6 +11,7 @@ body {
     flex-direction: column;
     align-items: center;
     color: #3d2f22;
+    width: 100%;
 }
 /* --- HEADER MAGIQUE --- */
 .app-header {
@@ -51,7 +52,7 @@ body {
     border-radius: 30px; 
     margin: 25px auto; /* 'auto' centre le bloc horizontalement */
     padding: 20px;
-    width: 90%; 
+    width: 98%; 
     max-width: 100%; /* Aligné sur la jauge */
     text-align: center;
     box-shadow: 0 8px 20px rgba(155, 110, 220, 0.05);
@@ -102,7 +103,7 @@ body {
 
 /* --- JAUGE XP (HARMONISÉE) --- */
 .xp-gauge-wrap { 
-    width: 95%; 
+    width: 98%; 
     max-width: 100%; /* Même que la créature */
     margin: 0 auto 25px auto; /* Centré */
 }
@@ -129,7 +130,7 @@ body {
 
 /* --- TÂCHES --- */
 .tasks-section { 
-    width: 95%; 
+    width: 98%; 
     max-width: 100%; /* Réduit pour s'aligner sur la créature et la jauge */
     margin: 0 auto; 
 }
