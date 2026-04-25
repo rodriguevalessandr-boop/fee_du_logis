@@ -45,25 +45,27 @@ function jouerSon(type) {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const g = ctx.createGain();
     g.connect(ctx.destination);
+    
     if (type === 'win') {
-      const duration = 0.4;
-      g.gain.setValueAtTime(0, ctx.currentTime);
-      g.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.05);
-      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
-      [523.25, 659.25, 783.99].forEach((freq, i) => {
-        const osc = ctx.createOscillator();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, ctx.currentTime + (i * 0.05));
-        osc.connect(g);
-        osc.start(ctx.currentTime + (i * 0.05));
-        osc.stop(ctx.currentTime + (i * 0.05) + 0.15);
-      });
+      // Effet "Boing" rigolo : une note qui glisse très vite vers le haut
+      const osc = ctx.createOscillator();
+      osc.type = 'sine'; 
+      osc.frequency.setValueAtTime(150, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.2);
+      
+      g.gain.setValueAtTime(0.2, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+      
+      osc.connect(g);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.3);
     } else {
+      // Petit "plop" descendant pour le décochage
       const osc = ctx.createOscillator();
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(800, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.1);
-      g.gain.setValueAtTime(0.05, ctx.currentTime);
+      osc.frequency.setValueAtTime(300, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.1);
+      g.gain.setValueAtTime(0.1, ctx.currentTime);
       g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
       osc.connect(g);
       osc.start(); osc.stop(ctx.currentTime + 0.1);
@@ -104,23 +106,36 @@ function afficherTaches() {
   const listeFutur = document.getElementById('future-tasks-list');
   const dateAuj = aujourdhui();
 
-  const tachesJour = state.tasks.filter(t => {
-    const faiteAuj = t.datesFaites && t.datesFaites.includes(dateAuj);
-    return !t.prochaineDate || t.prochaineDate <= dateAuj || faiteAuj;
+  // 1. MISSIONS DU JOUR : Tout ce qui a une date <= aujourd'hui
+  let tachesJour = state.tasks.filter(t => t.prochaineDate <= dateAuj);
+
+  // Tri interne : les cochées descendent en bas de la liste du jour
+  tachesJour.sort((a, b) => {
+    const aFaite = a.datesFaites && a.datesFaites.includes(dateAuj);
+    const bFaite = b.datesFaites && b.datesFaites.includes(dateAuj);
+    return aFaite - bFaite; 
   });
 
-  const tachesFutur = state.tasks.filter(t => {
-    const faiteAuj = t.datesFaites && t.datesFaites.includes(dateAuj);
-    return t.prochaineDate && t.prochaineDate > dateAuj && !faiteAuj;
+  // 2. AVENIR : Tout ce qui a une date > aujourd'hui
+  let tachesFutur = state.tasks.filter(t => t.prochaineDate > dateAuj);
+
+  // Tri interne : par date, puis les cochées d'avance en bas de leur journée
+  tachesFutur.sort((a, b) => {
+    if (a.prochaineDate !== b.prochaineDate) {
+      return a.prochaineDate.localeCompare(b.prochaineDate);
+    }
+    const aFaite = a.datesFaites && a.datesFaites.includes(dateAuj);
+    const bFaite = b.datesFaites && b.datesFaites.includes(dateAuj);
+    return aFaite - bFaite;
   });
 
+  // AFFICHAGE
   listeJour.innerHTML = tachesJour.map(t => genererHtmlTache(t, true)).join('') 
     || '<p style="text-align:center; padding:20px; opacity:0.5;">🌿 Rien pour aujourd\'hui.</p>';
 
   if (listeFutur) {
-    listeFutur.innerHTML = tachesFutur.sort((a,b) => a.prochaineDate.localeCompare(b.prochaineDate))
-      .map(t => genererHtmlTache(t, false)).join('') 
-      || '<p style="text-align:center; font-size:0.8rem; padding:10px; opacity:0.5;">Calendrier vide.</p>';
+    listeFutur.innerHTML = tachesFutur.map(t => genererHtmlTache(t, false)).join('') 
+      || '<p style="text-align:center; font-size:0.8rem; padding:10px; opacity:0.5;">Avenir serein...</p>';
   }
 }
 
@@ -139,14 +154,25 @@ function genererHtmlTache(tache, estAujourdhui) {
   }
 
   return `
-    <div class="task-card ${faite ? 'completed' : ''}" style="border-left: 5px solid ${estAujourdhui ? '#00c2a7' : '#c4a8e8'}">
-      <input type="checkbox" ${faite ? 'checked' : ''} onclick="cocherTache(${tache.id})" style="width:22px; height:22px; margin-right:15px;">
-      <div style="flex:1;" onclick="ouvrirPourModifier(${tache.id})">
-        <div style="font-weight:bold; ${faite ? 'text-decoration:line-through' : ''}">${tache.nom}</div>
-        <small style="color:#8a7060">${tache.piece} • ${estAujourdhui ? 'Aujourd\'hui' : libelleLabel}</small>
+    <div class="task-card ${faite ? 'completed' : ''}" style="border-left: 5px solid ${estAujourdhui ? '#00c2a7' : '#c4a8e8'}; display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; flex: 1;">
+        <input type="checkbox" ${faite ? 'checked' : ''} onclick="cocherTache(${tache.id})" style="width:22px; height:22px; margin-right:15px;">
+        <div onclick="ouvrirPourModifier(${tache.id})">
+          <div style="font-weight:bold; ${faite ? 'text-decoration:line-through; opacity: 0.6;' : ''}">${tache.nom}</div>
+          <small style="color:#8a7060">${tache.piece} • ${estAujourdhui ? 'Aujourd\'hui' : libelleLabel}</small>
+        </div>
       </div>
-      <div id="delete-zone-${tache.id}">
-        <button onclick="demanderSuppression(${tache.id})" style="background:none; border:none; font-size:20px; cursor:pointer;">🗑️</button>
+      
+      <div style="display: flex; align-items: center; gap: 10px;">
+<span style="background: #e0f2ff; color: #2b7bb9; padding: 6px 12px; border-radius: 12px; font-weight: 900; border: 2px solid #2b7bb9; display: flex; align-items: center; justify-content: center; gap: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); min-width: 80px;">
+  <span style="font-size: 1.4rem;">+${tache.xp}</span>
+  <span style="font-size: 0.7rem; margin-top: 4px;">XP</span>
+</span>
+</span>
+        </span>
+        <div id="delete-zone-${tache.id}">
+          <button onclick="demanderSuppression(${tache.id})" style="background:none; border:none; font-size:20px; cursor:pointer; opacity: 0.5;">🗑️</button>
+        </div>
       </div>
     </div>`;
 }
@@ -158,25 +184,21 @@ window.cocherTache = (id) => {
   const tache = state.tasks.find(t => t.id === id);
   const dateAuj = aujourdhui();
   if (!tache.datesFaites) tache.datesFaites = [];
+  
   const dejaFaite = tache.datesFaites.includes(dateAuj);
   const creature = state.creatures.find(c => c.id === state.creatureActive);
 
   if (dejaFaite) {
+    // ON DÉCOCHE
     tache.datesFaites = tache.datesFaites.filter(d => d !== dateAuj);
     if (creature) creature.xp = Math.max(0, creature.xp - tache.xp);
-    tache.prochaineDate = dateAuj;
     jouerSon('loss');
   } else {
+    // ON COCHE
     tache.datesFaites.push(dateAuj);
     if (creature) creature.xp += tache.xp;
-    let d = new Date();
-    const freq = tache.frequence;
-    if (freq === "Hebdomadaire") d.setDate(d.getDate() + 7);
-    else if (freq === "Bimensuelle") d.setDate(d.getDate() + 14);
-    else if (freq === "Tous les 3 jours") d.setDate(d.getDate() + 3);
-    else if (freq === "Ponctuelle") d.setFullYear(d.getFullYear() + 10);
-    else d.setDate(d.getDate() + 1);
-    tache.prochaineDate = d.toISOString().split('T')[0];
+    
+    // On gagne des diamants seulement si c'est la première fois de la journée
     if (state.lastValidatedDate !== dateAuj) {
       state.dayCount++;
       state.diamonds += 10;
@@ -184,7 +206,9 @@ window.cocherTache = (id) => {
     }
     jouerSon('win');
   }
-  sauvegarder(); mettreAJourUI();
+  
+  sauvegarder(); 
+  mettreAJourUI();
 };
 
 window.demanderSuppression = (id) => {
@@ -272,3 +296,40 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('diamonds-btn').onclick = window.ouvrirBoutique;
   document.getElementById('btn-fermer-boutique').onclick = fermerModal;
 });
+// --- LOGIQUE DES NOTIFICATIONS ---
+
+// 1. Enregistre l'heure choisie par l'utilisateur
+window.changerHeureNotif = (heureChoisie) => {
+    state.heureNotif = heureChoisie;
+    sauvegarder();
+    console.log("Réveil réglé à : " + heureChoisie);
+};
+
+// 2. Vérifie l'heure toutes les 30 secondes
+setInterval(() => {
+    if (!state.heureNotif) return;
+
+    const maintenant = new Date();
+    // Format HH:mm (ex: 08:00)
+    const heureActuelle = `${String(maintenant.getHours()).padStart(2, '0')}:${String(maintenant.getMinutes()).padStart(2, '0')}`;
+
+    // Si c'est l'heure et qu'on n'a pas encore notifié aujourd'hui
+    if (state.heureNotif === heureActuelle && state.derniereNotif !== aujourdhui()) {
+        const sw = navigator.serviceWorker.controller;
+        if (sw) {
+            sw.postMessage({
+                type: 'DECLENCHER_NOTIF',
+                message: 'Tes créatures t\'attendent pour leurs missions ! 🧚‍♂️'
+            });
+            state.derniereNotif = aujourdhui();
+            sauvegarder();
+        }
+    }
+}, 30000);
+
+// 3. Initialise l'affichage de l'heure au chargement de la page
+// À ajouter à l'intérieur de ton document.addEventListener('DOMContentLoaded', ...
+const inputHeure = document.getElementById('notif-time');
+if (inputHeure && state.heureNotif) {
+    inputHeure.value = state.heureNotif;
+}

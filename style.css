@@ -203,10 +203,32 @@ body {
     line-height: 1.5;
 }
 .task-card.completed {
-    background-color: #f0f0f0;
-    border-color: #ddd;
-    /* Petit effet de barré sur toute la carte */
-    background-image: linear-gradient(rgba(0,0,0,0) 45%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0) 55%);
+    background-color: #f8f8f8;
+    border-color: #eee;
+    opacity: 0.6; /* Rend la tâche plus discrète */
+    transition: all 0.3s ease;
+    /* On garde ton effet de barré mais en plus léger */
+    background-image: linear-gradient(rgba(0,0,0,0) 48%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0) 52%);
+}
+
+.task-card.completed div {
+    text-decoration: line-through; /* Barre le texte spécifiquement */
+}
+/* Style pour les badges d'XP */
+.task-card span {
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+/* Petit effet quand on survole la carte */
+.task-card:hover span {
+    transform: scale(1.1);
+}
+
+/* Style de la coche plus gros */
+input[type="checkbox"] {
+    cursor: pointer;
+    transform: scale(1.2); /* Agrandit un peu la case à cocher */
 }
 /* --- MODALS --- */
 .modal-overlay {
