@@ -6,22 +6,16 @@
     <title>Fée du Logis</title>
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=MedievalSharp&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <div class="top-band"></div>
-
-  <!-- Contenu principal -->
   <div class="app-container">
-    <div style="background: #fdfaf5; padding: 15px; border-radius: 20px; margin: 15px auto; border: 2px solid #eaddff; width: 85%; text-align: center; box-sizing: border-box;">
-    <label style="font-weight: bold; color: #4a3560; font-family: 'Berkshire Swash', cursive;">⏰ Rappel quotidien : </label>
-    <input type="time" id="notif-time" 
-           onchange="changerHeureNotif(this.value)"
-           style="border: 2px solid #c4a8e8; background: white; padding: 5px 10px; border-radius: 10px; font-family: inherit; color: #4a3560; font-weight: bold;">
-</div>
+    <div class="notif-setter">
+        <label style="font-family: 'Berkshire Swash', cursive;">⏰ Rappel : </label>
+        <input type="time" id="notif-time" onchange="changerHeureNotif(this.value)">
+    </div>
 
-    <!-- Header -->
     <header class="app-header">
       <div class="header-top">
         <button class="diamonds-display" id="diamonds-btn">
@@ -29,133 +23,75 @@
         </button>
       </div>
       <div class="header-main">
-    <div class="app-title-pill"><span>🧚</span> Fée du logis</div>
+        <div class="app-title-pill"><span>🧚</span> Fée du logis</div>
         <div class="streak-pill">
-          <span id="streak-fire" class="hidden">🔥</span>
+          <span id="streak-fire" style="display:none;">🔥</span>
           Jour <span id="day-count">0</span>
         </div>
       </div>
     </header>
 
-    <!-- Section créature -->
     <div class="creature-container-box">
-      <section class="creature-section">
-        <div class="creature-info">
-          <div class="creature-card">
-            <div class="creature-emoji" id="creature-emoji">🧚</div>
-          </div>
-          <div id="creature-stage">Stade 1. Graine</div>
+        <div class="creature-card">
+          <div class="creature-emoji" id="creature-emoji">🧚</div>
         </div>
-      </section>
+        <div id="creature-stage">Chargement...</div>
     </div>
 
-    <!-- Jauge XP -->
     <div class="xp-gauge-wrap">
-      <div class="xp-numbers">
-        <span id="xp-current">0</span> / 500 XP
-      </div>
+      <div class="xp-numbers"><span id="xp-current">0</span> / 500 XP</div>
       <div class="xp-track">
         <div class="xp-fill" id="xp-fill"></div>
       </div>
     </div>
-<div id="mantra-container" style="
-    font-style: italic; 
-    color: #6d5d8e; 
-    text-align: center; 
-    margin: 15px auto; 
-    padding: 10px 20px; 
-    background: rgba(255, 255, 255, 0.5); 
-    border-radius: 15px; 
-    min-height: 20px; 
-    max-width: 85%; 
-    font-size: 0.9rem;
-    border: 1px dashed #c4a8e8;">
-    Prête pour un peu de magie ? ✨
-</div>
-    <!-- Tâches du jour -->
-  <section class="tasks-section">
-  <h2 class="tasks-title">Mes missions du jour</h2>
-  <div id="tasks-list"></div>
-</section>
 
-<section class="future-tasks-section" style="margin-top: 40px; padding: 10px;">
-  <h2 class="tasks-title" style="font-size: 1.2rem; opacity: 0.7;">🔮 Calendrier de l'avenir</h2>
-  <div id="future-tasks-list" style="opacity: 0.6;"></div>
-</section>
+    <div id="mantra-container">Prête pour un peu de magie ? ✨</div>
 
-    <!-- Bouton ajouter -->
+    <section class="tasks-section">
+      <h2 class="tasks-title">Missions du jour</h2>
+      <div id="tasks-list"></div>
+    </section>
+
+    <section class="tasks-section future-tasks">
+      <h2 class="tasks-title" style="opacity:0.6; font-size: 1.1rem;">🔮 Avenir</h2>
+      <div id="future-tasks-list"></div>
+    </section>
+
     <button class="add-task-btn" id="add-task-btn">+</button>
-
   </div>
 
-  <!-- Modal nouvelle tâche -->
   <div class="modal-overlay hidden" id="task-modal">
     <div class="modal">
-      <div class="modal-handle"></div>
-      <h3 class="modal-title">Nouvelle tâche</h3>
-      <div class="form-group">
-        <label class="form-label">Nom de la tâche</label>
-        <input class="form-input" id="task-nom" type="text" placeholder="ex: Vaisselle !">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Pièce</label>
-        <select class="form-select" id="task-piece">
-          <option>Chambre</option>
-          <option>Cuisine</option>
-          <option>Salle de bain</option>
-          <option>Salon</option>
-          <option>Autre</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Fréquence</label>
-        <select class="form-select" id="task-frequence">
-          <option>Quotidienne</option>
-          <option>Tous les 3 jours</option>
-          <option>Hebdomadaire</option>
-          <option>Bimensuelle</option>
-          <option>Ponctuelle</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">XP gagnés</label>
-        <select class="form-select" id="task-xp">
-          <option value="10">10 XP — Tâche rapide</option>
-          <option value="25">25 XP — Tâche moyenne</option>
-          <option value="40">40 XP — Tâche longue</option>
-        </select>
-      </div>
-    <div class="form-group">
-  <label class="form-label">Lancement</label>
-  <select class="form-select" id="task-lancement">
-    <option value="+0">Aujourd'hui</option>
-    <option value="+1">Demain !</option>
-    <option value="+2">Après-demain</option>
-    <option value="+3">Trois jours</option>
-    <option value="+7">Hebdomadaire (+7j)</option>
-    <option value="+14">Bimensuelle (+14j)</option>
-    <option value="+0">Ponctuelle</option>
-  </select>
-</div>
-      <div class="modal-actions">
-        <button class="btn-cancel" id="btn-annuler">Annuler</button>
-        <button class="btn-save" id="btn-sauvegarder">Ajouter ✓</button>
+      <h3 style="font-family: 'Berkshire Swash';">Nouvelle Mission</h3>
+      <input type="text" id="task-nom" placeholder="Nom de la tâche" style="width:100%; padding:10px; margin-bottom:10px; border-radius:10px; border:1px solid #ddd;">
+      
+      <label>XP :</label>
+      <select id="task-xp" style="width:100%; padding:10px; margin-bottom:10px; border-radius:10px;">
+        <option value="10">10 XP (Facile)</option>
+        <option value="25">25 XP (Moyen)</option>
+        <option value="40">40 XP (Difficile)</option>
+      </select>
+
+      <label>Lancement :</label>
+      <select id="task-lancement" style="width:100%; padding:10px; margin-bottom:20px; border-radius:10px;">
+        <option value="0">Aujourd'hui</option>
+        <option value="1">Demain</option>
+        <option value="2">Après-demain</option>
+      </select>
+
+      <div class="modal-actions" style="display:flex; gap:10px;">
+        <button id="btn-annuler" style="flex:1; padding:10px; border-radius:10px; border:none; background:#eee;">Annuler</button>
+        <button id="btn-sauvegarder" style="flex:1; padding:10px; border-radius:10px; border:none; background:#00c2a7; color:white;">Ajouter ✓</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal boutique -->
   <div class="modal-overlay hidden" id="shop-modal">
-    <div class="modal shop-modal">
-      <div class="modal-handle"></div>
-      <h3 class="modal-title">✨ Boutique Féérique ✨</h3>
-      <p style="text-align:center; color:#8a7060; margin-bottom:15px;">
-        Tes diamants : <span id="shop-diamonds">0</span> 💎
-      </p>
-      <div class="shop-grid" id="shop-items"></div>
-      <div class="modal-actions">
-        <button class="btn-cancel" id="btn-fermer-boutique">Quitter</button>
-      </div>
+    <div class="modal">
+      <h3 style="font-family: 'Berkshire Swash';">Boutique ✨</h3>
+      <p>Tes diamants : <span id="shop-diamonds">0</span> 💎</p>
+      <div class="shop-grid" id="shop-items" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;"></div>
+      <button id="btn-fermer-boutique" style="width:100%; padding:10px; border-radius:10px; border:none; background:#ddd;">Quitter</button>
     </div>
   </div>
 

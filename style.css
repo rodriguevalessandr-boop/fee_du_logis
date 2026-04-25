@@ -1,253 +1,81 @@
-@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=MedievalSharp&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap');
 
-/* --- BASE & POLICE --- */
 body {
-    font-family: 'Constantia', Georgia, serif;
-    font-size: 17px;
+    font-family: 'Nunito', sans-serif;
     background-color: #fdfaf5;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin: 0; padding: 0;
     color: #3d2f22;
-    width: 100%;
+    -webkit-tap-highlight-color: transparent;
 }
-/* --- HEADER MAGIQUE --- */
+
+.app-container { width: 100%; display: flex; flex-direction: column; align-items: center; }
+
+.notif-setter {
+    background: white; padding: 12px; border-radius: 20px; 
+    margin: 15px auto; border: 2px solid #eaddff; width: 90%; 
+    text-align: center; box-sizing: border-box;
+}
+
 .app-header {
-    width: 100%; 
-    max-width: 100%; /* Largeur max du téléphone */
-    background: linear-gradient(180deg, #c4a8e8 0%, #eaddff 100%);
-    padding: 15px;
-    border-radius: 0 0 35px 35px;
-    box-sizing: border-box;
-    margin-bottom: 20px;
+    width: 100%; background: linear-gradient(180deg, #c4a8e8 0%, #eaddff 100%);
+    padding: 15px; border-radius: 0 0 35px 35px; box-sizing: border-box; margin-bottom: 10px;
 }
 
 .header-top { display: flex; justify-content: flex-end; }
-.diamonds-display {
-    background: rgba(255,255,255,0.3);
-    border: none;
-    font-family: 'Berkshire Swash', cursive;
-    font-size: 20px;
-    font-weight: bold;
-    color: #4a3560;
-    padding: 5px 12px;
-    border-radius: 20px;
+.diamonds-display { 
+    background: rgba(255,255,255,0.4); border: none; padding: 8px 15px; 
+    border-radius: 20px; font-weight: bold; font-family: 'Berkshire Swash';
 }
 
-.header-main { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-.app-title-pill {
-    background: #00c2a7; color: white; padding: 8px 15px; border-radius: 20px;
-    font-family: 'Berkshire Swash', cursive; font-size: 24px;
-}
-.streak-pill {
-    background: #ff85d2; color: white; padding: 8px 15px; border-radius: 20px;
-    font-family: 'Berkshire Swash', cursive;
-}
+.header-main { display: flex; justify-content: space-between; align-items: center; }
+.app-title-pill { background: #00c2a7; color: white; padding: 8px 15px; border-radius: 20px; font-family: 'Berkshire Swash'; font-size: 20px; }
+.streak-pill { background: #ff85d2; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold; }
 
-/* --- LA CRÉATURE (CORRIGÉ POUR L'ALIGNEMENT) --- */
 .creature-container-box {
-    background: white; border: 2px solid #eaddff;
-    border-radius: 30px; 
-    margin: 25px auto; /* 'auto' centre le bloc horizontalement */
-    padding: 20px;
-    width: 98%; 
-    max-width: 100%; /* Aligné sur la jauge */
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(155, 110, 220, 0.05);
-    box-sizing: border-box; /* Empêche le padding de déborder */
+    background: white; border: 2px solid #eaddff; border-radius: 30px; 
+    margin: 15px auto; padding: 20px; width: 90%; text-align: center; box-sizing: border-box;
 }
 
 .creature-card {
-    width: 150px; height: 150px;
-    background: #d4e3cc;
-    border-radius: 50%; margin: 0 auto 10px;
-    display: flex; justify-content: center; align-items: center;
-    border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    width: 130px; height: 130px; background: #d4e3cc; border-radius: 50%; 
+    margin: 0 auto 10px; display: flex; justify-content: center; align-items: center;
+    border: 5px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.creature-emoji {
-    font-size: 80px;
-    display: inline-block;
-    animation: levitation 3s ease-in-out infinite;
+.creature-emoji { font-size: 70px; animation: levitation 3s ease-in-out infinite; }
+
+@keyframes levitation { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+.xp-gauge-wrap { width: 90%; margin: 10px auto; }
+.xp-track { height: 25px; background: #eee6f3; border-radius: 15px; border: 2px solid #dcd0e8; overflow: hidden; }
+.xp-fill { height: 100%; background: linear-gradient(90deg, #e8a0b4, #5e9aca); transition: width 0.5s ease; width: 0%; }
+
+#mantra-container {
+    width: 90%; margin: 15px auto; padding: 15px; font-style: italic;
+    text-align: center; color: #6d5d8e; background: #fff; 
+    border: 2px dashed #c4a8e8; border-radius: 20px; box-sizing: border-box;
+    transition: opacity 0.3s;
 }
 
-@keyframes levitation {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-15px) scale(1.05); }
-}
-@keyframes flamme {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.4); }
-}
-@keyframes fremir {
-    0%, 100% { transform: rotate(-5deg); }
-    50% { transform: rotate(5deg); }
-}
-
-
-/* L'animation de la fée dans le titre */
-/* Animation de la petite fée dans le titre */
-.app-title-pill span {
-    display: inline-block;
-    animation: flottement 2s ease-in-out infinite;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
-}
-
-@keyframes flottement {
-    0%, 100% { 
-        transform: translateY(0) rotate(0deg); 
-    }
-    25% {
-        transform: translateY(-4px) rotate(-5deg);
-    }
-    75% {
-        transform: translateY(2px) rotate(5deg);
-    }
-}
-
-/* La flamme qui brûle et saute */
-#streak-fire {
-    display: inline-block;
-    animation: flamme-vive 0.8s ease-in-out infinite alternate;
-    filter: drop-shadow(0 0 8px #ff8c00);
-    transform-origin: bottom center;
-}
-
-@keyframes flamme-vive {
-    0% { transform: scale(1) rotate(-3deg); filter: drop-shadow(0 0 5px orange); }
-    100% { transform: scale(1.3) rotate(3deg); filter: drop-shadow(0 0 15px red); }
-}
-
-@keyframes fremir {
-    from { transform: rotate(-3deg) translateX(-1px); }
-    to { transform: rotate(3deg) translateX(1px); }
-}
-/* On cache la flamme proprement quand elle n'est pas active */
-.hidden {
-    display: none !important;
-}
-#creature-stage {
-    font-family: 'Berkshire Swash', cursive; font-size: 19px; color: #4a3560;
-}
-
-/* --- JAUGE XP (HARMONISÉE) --- */
-.xp-gauge-wrap { 
-    width: 98%; 
-    max-width: 100%; /* Même que la créature */
-    margin: 0 auto 25px auto; /* Centré */
-}
-
-.xp-numbers { text-align: center; font-size: 20px; font-weight: bold; margin-bottom: 5px; }
-
-.xp-track {
-    height: 35px;
-    width: 100%;
-    background: #eee6f3; 
-    border-radius: 15px;
-    overflow: hidden; 
-    border: 3px solid #dcd0e8;
-    box-sizing: border-box;
-}
-
-.xp-fill {
-    height: 100%;
-    width: 0%;
-    border-radius: 15px;
-    background: linear-gradient(90deg, #e8a0b4, #5e9aca);
-    transition: width 0.4s ease;
-    position: relative; /* Nécessaire pour l'éclat */
-    overflow: hidden;
-}
-.xp-fill::after {
-    content: "";
-    position: absolute;
-    top: 0; 
-    left: -100%;
-    width: 50%; 
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    animation: shine 4s infinite;
-}
-@keyframes shine {
-    to { left: 200%; }
-}
-
-/* --- TÂCHES --- */
-.tasks-section { 
-    width: 98%; 
-    max-width: 100%; /* Réduit pour s'aligner sur la créature et la jauge */
-    margin: 0 auto; 
-}
-
-.tasks-title { 
-    font-family: 'Berkshire Swash', cursive; 
-    text-align: center; /* Titre centré pour l'harmonie */
-    color: #4a3560; 
-    margin-bottom: 20px; 
-}
+.tasks-section { width: 90%; margin: 10px auto; }
+.tasks-title { font-family: 'Berkshire Swash'; color: #4a3560; margin-bottom: 15px; }
 
 .task-card {
-    font-family: 'Constantia', Georgia, serif;
-    font-size: 18px;
-    background: white;
-    border-radius: 20px;
-    padding: 18px 15px;
-    margin-bottom: 10px auto;
-    display: flex;
-    align-items: center;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    background: white; border-radius: 18px; padding: 15px; margin-bottom: 12px;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.04); border-left: 6px solid #00c2a7;
     box-sizing: border-box;
-    line-height: 1.5;
-}
-.task-card.completed {
-    background-color: #f8f8f8;
-    border-color: #eee;
-    opacity: 0.6; /* Rend la tâche plus discrète */
-    transition: all 0.3s ease;
-    /* On garde ton effet de barré mais en plus léger */
-    background-image: linear-gradient(rgba(0,0,0,0) 48%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0) 52%);
 }
 
-.task-card.completed div {
-    text-decoration: line-through; /* Barre le texte spécifiquement */
-}
-/* Style pour les badges d'XP */
-.task-card span {
-    display: inline-block;
-    transition: transform 0.2s ease;
-}
-
-/* Petit effet quand on survole la carte */
-.task-card:hover span {
-    transform: scale(1.1);
-}
-
-/* Style de la coche plus gros */
-input[type="checkbox"] {
-    cursor: pointer;
-    transform: scale(1.2); /* Agrandit un peu la case à cocher */
-}
-/* --- MODALS --- */
-.modal-overlay {
-    position: fixed; top:0; left:0; right:0; bottom:0;
-    background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 100;
-}
-.modal {
-    background: white; width: 92%; max-width: 100%; border-radius: 30px;
-    padding: 20px; box-sizing: border-box;
-}
-.shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-height: 300px; overflow-y: auto; }
-.shop-item { background: #fdfaf5; padding: 10px; border-radius: 15px; text-align: center; border: 1px solid #eaddff; }
+.task-card.completed { opacity: 0.5; background: #f9f9f9; text-decoration: line-through; }
 
 .add-task-btn {
-    position: fixed; bottom: 20px; left: 20px;
-    width: 60px; height: 60px; border-radius: 50%;
-    background: #00c2a7; color: white; font-size: 30px; border: none;
-    box-shadow: 0 5px 15px rgba(0, 194, 167, 0.4);
-    cursor: pointer;
+    position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px;
+    border-radius: 50%; background: #00c2a7; color: white; font-size: 35px;
+    border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 99;
 }
 
-.hidden { display: none; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.modal { background: white; padding: 25px; border-radius: 30px; width: 88%; box-sizing: border-box; }
+
+.hidden { display: none !important; }
