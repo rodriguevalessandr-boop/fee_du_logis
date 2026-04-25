@@ -81,13 +81,17 @@ function mettreAJourUI() {
   }
 
   // Flamme — uniquement si aujourd'hui est validé
-  const feu = document.getElementById('streak-fire');
-  if (state.lastValidatedDate === aujourdhui()) {
-    feu.classList.remove('hidden');
-  } else {
-    feu.classList.add('hidden');
-  }
+const feu = document.getElementById('streak-fire');
+const dateAujourdhui = aujourdhui();
+console.log('lastValidatedDate:', state.lastValidatedDate);
+console.log('aujourdhui:', dateAujourdhui);
+console.log('egaux', state.lastValidatedDate === dateAujourdhui);
 
+if (state.lastValidatedDate === dateAujourdhui) {
+  feu.classList.remove('hidden');
+} else {
+  feu.classList.add('hidden');
+}
   afficherTaches();
 }
 
