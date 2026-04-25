@@ -95,7 +95,7 @@ function mettreAJourUI() {
 
   // Flamme streak
   const feu = document.getElementById('streak-fire');
-  state.dayCount > 0 ? feu.classList.remove('hidden') : feu.classList.add('hidden');
+  state.lastValidatedDate === aujourdhui() ? feu.classList.remove('hidden') : feu.classList.add('hidden');
 
   afficherTaches();
 }
