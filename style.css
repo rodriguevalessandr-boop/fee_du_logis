@@ -103,11 +103,35 @@ body {
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
 .modal { background: white; padding: 25px; border-radius: 30px; width: 90%; max-width: 400px; box-sizing: border-box; }
 .hidden { display: none !important; }
-.app-title-pill span {
-    display: inline-block;
-    animation: fremir 3s ease-in-out infinite;
+/* Titre principal en haut (La pilule blanche) */
+.app-title-pill {
+    background: rgba(255, 255, 255, 0.95); /* Fond blanc presque opaque */
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-family: 'Berkshire Swash', cursive;
+    color: #4a3560; /* Violet foncé chic */
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: inline-flex; /* Pour qu'il s'adapte à la taille du texte */
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Ombre douce */
+    margin: 10px 0;
 }
 
+/* Positionner la pilule du Jour à droite */
+.streak-pill {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    /* Ces deux lignes l'envoient à droite */
+    margin-left: auto; 
+    margin-right: 10px;
+}
 #streak-fire {
     animation: flamme 0.8s ease-in-out infinite;
 }
@@ -120,4 +144,18 @@ body {
 @keyframes flamme {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.4); }
+}
+/* Animation de flottement */
+@keyframes flotter {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Appliquer l'animation à l'émoji de la créature */
+#creature-emoji {
+    display: inline-block;
+    animation: flotter 3s ease-in-out infinite;
+    cursor: pointer;
+    font-size: 50px; /* Tu peux ajuster la taille ici */
 }

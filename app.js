@@ -104,10 +104,10 @@ function mettreAJourUI() {
     document.getElementById('xp-current').textContent = xpDansStade;
   }
 
-  // Flamme — uniquement si aujourd'hui est validé
+// Flamme — Visible dès qu'on a au moins 1 jour de série
   const feu = document.getElementById('streak-fire');
   if (feu) {
-    if (state.lastValidatedDate === aujourdhui()) {
+    if (state.dayCount > 0) {
       feu.style.display = 'inline-block';
     } else {
       feu.style.display = 'none';
@@ -156,28 +156,35 @@ function genererHtmlTache(tache, estAuj) {
   const faite = tache.datesFaites?.includes(aujourdhui());
   
   return `
-    <div class="task-card ${faite ? 'completed' : ''}">
+    <div class="task-card ${faite ? 'completed' : ''}" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; background: white; border-radius: 20px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid #f0e6ff;">
       
-      <div style="display: flex; align-items: center; flex: 1;" onclick="ouvrirPourModifier(${tache.id})">
+      <div style="display: flex; align-items: center; flex: 1; cursor: pointer;" onclick="ouvrirPourModifier(${tache.id})">
+        
         <input type="checkbox" ${faite ? 'checked' : ''} 
                onclick="event.stopPropagation(); cocherTache(${tache.id})" 
-               style="width:20px; height:20px; margin-right:12px; cursor:pointer;">
+               style="width:22px; height:22px; margin-right:12px; cursor:pointer; flex-shrink:0;">
         
-        <span class="task-icon-flower">🌸</span>
+        <span style="font-size: 1.2rem; margin-right: 10px; display: flex; align-items: center;">🌸</span>
         
-        <div class="task-info">
-          <div style="${faite ? 'text-decoration:line-through; opacity:0.5;' : ''}">${tache.nom}</div>
-          <small>${tache.piece || 'Maison'} • ${estAuj ? 'Aujourd\'hui' : 'Le ' + tache.prochaineDate}</small>
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+          <div style="font-weight: 600; color: #4a3560; ${faite ? 'text-decoration:line-through; opacity:0.5;' : ''}">
+            ${tache.nom}
+          </div>
+          <small style="color: #a594b5; font-size: 0.8rem;">
+            ${tache.piece || 'Maison'} • ${estAuj ? "Aujourd'hui" : 'Le ' + tache.prochaineDate} • <span style="font-style: italic; color: #6d5d8e;">✏️ Modifier</span>
+          </small>
         </div>
       </div>
 
-      <div style="display: flex; align-items: center; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 12px; flex-shrink:0;">
         <span style="font-weight:bold; color:#7fb3d5; font-size: 0.85rem;">+${tache.xp} XP</span>
         <div id="delete-zone-${tache.id}" style="display: flex; align-items: center;">
-          <button onclick="event.stopPropagation(); demanderSuppression(${tache.id})" style="background:none; border:none; font-size:18px; cursor:pointer; opacity:0.6;">🗑️</button>
+          <button onclick="event.stopPropagation(); demanderSuppression(${tache.id})" 
+                  style="background:none; border:none; font-size:18px; cursor:pointer; opacity:0.6; padding: 5px;">
+            🗑️
+          </button>
         </div>
       </div>
-      
     </div>`;
 }
 
