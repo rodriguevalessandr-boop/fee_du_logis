@@ -8,6 +8,12 @@ body {
     display: flex; flex-direction: column; align-items: center;
 }
 
+.tasks-title {
+    font-family: 'Berkshire Swash', cursive;
+    text-align: center;
+    color: #4a3560;
+    margin-bottom: 15px;
+}
 .app-container { width: 100%; display: flex; flex-direction: column; align-items: center; }
 
 /* Largeur ajustée pour les rappels */

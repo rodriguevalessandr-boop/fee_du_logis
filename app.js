@@ -193,44 +193,49 @@ window.cocherTache = (id) => {
   const creature = state.creatures.find(c => c.id === state.creatureActive);
 
   if (dejaFaite) {
-    // Décocher
     tache.datesFaites = tache.datesFaites.filter(d => d !== dateAuj);
     if (creature) creature.xp = Math.max(0, creature.xp - tache.xp);
-    tache.prochaineDate = dateAuj;
+    
+    // Restaurer la date d'origine au lieu de mettre aujourd'hui
+    if (tache.datePrecedente) {
+        tache.prochaineDate = tache.datePrecedente;
+    } else {
+        tache.prochaineDate = dateAuj;
+    }
 
-    // Annuler le jour si plus aucune tâche cochée
     const encoreDesTaches = state.tasks.some(t => t.datesFaites?.includes(dateAuj));
     if (!encoreDesTaches) {
-      state.dayCount = Math.max(0, state.dayCount - 1);
-      state.lastValidatedDate = null;
-      state.diamonds = Math.max(0, state.diamonds - 10);
+        state.dayCount = Math.max(0, state.dayCount - 1);
+        state.lastValidatedDate = null;
+        state.diamonds = Math.max(0, state.diamonds - 10);
     }
     jouerSon('loss');
 
-  } else {
-    // Cocher
+
+ } else {
     tache.datesFaites.push(dateAuj);
     if (creature) creature.xp += tache.xp;
     changerMantra();
 
-    // Calculer prochaine date
+    // Sauvegarder la date actuelle avant de calculer la suivante
+    tache.datePrecedente = tache.prochaineDate;
+
     let d = new Date();
     const freq = tache.frequence;
-    if (freq === 'Hebdomadaire')    d.setDate(d.getDate() + 7);
+    if (freq === 'Hebdomadaire') d.setDate(d.getDate() + 7);
     else if (freq === 'Bimensuelle') d.setDate(d.getDate() + 14);
     else if (freq === 'Tous les 3 jours') d.setDate(d.getDate() + 3);
     else if (freq === 'Ponctuelle') d.setFullYear(d.getFullYear() + 10);
-    else d.setDate(d.getDate() + 1); // Quotidienne
+    else d.setDate(d.getDate() + 1);
     tache.prochaineDate = d.toISOString().split('T')[0];
 
-    // Valider la journée
     if (state.lastValidatedDate !== dateAuj) {
-      state.dayCount++;
-      state.diamonds += 10;
-      state.lastValidatedDate = dateAuj;
+        state.dayCount++;
+        state.diamonds += 10;
+        state.lastValidatedDate = dateAuj;
     }
     jouerSon('win');
-  }
+}
 
   sauvegarder();
   mettreAJourUI();
@@ -351,6 +356,12 @@ document.addEventListener('DOMContentLoaded', () => {
   charger();
   mettreAJourUI();
   changerMantra();
+  // Planifier la notif au démarrage avec l'heure sauvegardée
+if (state.heureNotif) {
+    Notification.requestPermission().then(perm => {
+        if (perm === 'granted') planifierNotification(state.heureNotif);
+    });
+}
 
   document.getElementById('add-task-btn').onclick = () => {
     document.getElementById('task-nom').value = '';
