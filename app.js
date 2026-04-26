@@ -1,5 +1,5 @@
 // ==========================================
-// 1. ÉTAT & CATALOGUE COMPLET (14 Créatures)
+// 1. ÉTAT & CATALOGUE
 // ==========================================
 let state = {
   diamonds: 0,
@@ -7,54 +7,57 @@ let state = {
   lastValidatedDate: null,
   tasks: [],
   creatures: [{ id: 'fleur', xp: 0 }],
-  creatureActive: 'fleur',
-  heureNotif: "08:00",
-  derniereNotif: null
+  creatureActive: 'fleur'
 };
 
 const catalogue = [
-  { id: 'fleur',    nom: 'Fleur parfumée',         prix: 0,   stades: ['🪴','🌱','🌸','🌺','🌹'] },
-  { id: 'poule',    nom: 'Poule cui-cui',           prix: 50,  stades: ['🥚','🐣','🐤','🐔','🪽'] },
-  { id: 'papillon', nom: 'Papillon libre',          prix: 80,  stades: ['🥚','🐛','🫘','🌀','🦋'] },
-  { id: 'chaton',   nom: 'Chaton poilu',            prix: 100, stades: ['🐾','😸','🐈‍⬛','🐈','🐱'] },
-  { id: 'fee',      nom: 'Fée du logis',            prix: 120, stades: ['🌱','✨','🌟','🪄','🧚'] },
-  { id: 'lune',     nom: 'Lune solaire',            prix: 200, stades: ['🌚','🌑','🌛','🌝','🌞'] },
-  { id: 'etoiles',  nom: 'Étoiles brillantes',      prix: 150, stades: ['⚡','✨','🌟','⭐','💫'] },
-  { id: 'coeurs',   nom: 'Cœurs d\'amour',           prix: 180, stades: ['🧡','💛','💚','🩷','❤️'] },
-  { id: 'sirene',   nom: 'Sirène d\'argent',         prix: 250, stades: ['🐟','🐳','🧝‍♀️','👸','🧜‍♀️'] },
-  { id: 'reine',    nom: 'Reine Queen B',           prix: 220, stades: ['👗','🥻','👠','👑','💍'] },
-  { id: 'licorne',  nom: 'Licorne Rose',            prix: 280, stades: ['🥚','🎠','🪅','🌈','🦄'] },
-  { id: 'vampire',  nom: 'Vampire de sang',         prix: 300, stades: ['🩸','🦇','🌙','👁️','🧛‍♀️'] },
-  { id: 'dragon',   nom: 'Dragonnet',               prix: 350, stades: ['🦕','🦎','🐍','🐲','🐉'] },
-  { id: 'phenix',   nom: 'Phénix de ses cendres',   prix: 500, stades: ['🪺','🐦','🔥','⭐','🐦‍🔥'] },
+  { id: 'fleur',    nom: 'Fleur parfumée',       prix: 0,   stades: ['🪴','🌱','🌸','🌺','🌹'] },
+  { id: 'poule',    nom: 'Poule cui-cui',         prix: 50,  stades: ['🥚','🐣','🐤','🐔','🪽'] },
+  { id: 'papillon', nom: 'Papillon libre',        prix: 80,  stades: ['🥚','🐛','🫘','🌀','🦋'] },
+  { id: 'chaton',   nom: 'Chaton poilu',          prix: 100, stades: ['🐾','😸','🐈‍⬛','🐈','🐱'] },
+  { id: 'fee',      nom: 'Fée du logis',          prix: 120, stades: ['🌱','✨','🌟','🪄','🧚'] },
+  { id: 'lune',     nom: 'Lune solaire',          prix: 200, stades: ['🌚','🌑','🌛','🌝','🌞'] },
+  { id: 'etoiles',  nom: 'Étoiles brillantes',    prix: 150, stades: ['⚡','✨','🌟','⭐','💫'] },
+  { id: 'coeurs',   nom: "Cœurs d'amour",         prix: 180, stades: ['🧡','💛','💚','🩷','❤️'] },
+  { id: 'sirene',   nom: "Sirène d'argent",       prix: 250, stades: ['🐟','🐳','🧝‍♀️','👸','🧜‍♀️'] },
+  { id: 'reine',    nom: 'Reine Queen B',         prix: 220, stades: ['👗','🥻','👠','👑','💍'] },
+  { id: 'licorne',  nom: 'Licorne Rose',          prix: 280, stades: ['🥚','🎠','🪅','🌈','🦄'] },
+  { id: 'vampire',  nom: 'Vampire de sang',       prix: 300, stades: ['🩸','🦇','🌙','👁️','🧛‍♀️'] },
+  { id: 'dragon',   nom: 'Dragonnet',             prix: 350, stades: ['🦕','🦎','🐍','🐲','🐉'] },
+  { id: 'phenix',   nom: 'Phénix de ses cendres', prix: 500, stades: ['🪺','🐦','🔥','⭐','🐦‍🔥'] },
 ];
 
 const phrasesPositives = [
-    "Chaque petit geste compte pour ton sanctuaire. ✨",
-    "Une tâche à la fois, et la magie opère. 🪄",
-    "Ta créature est fière de tes efforts ! 🐾",
-    "Tu prépares ton bonheur de demain. 🌿",
-    "Bravo ! Tu es la reine de ton royaume. 👑",
-    "Ta maison te dit merci. 🏠✨",
-    "C'est l'heure de briller, petite fée ! 🧚‍♂️",
-    "Regarde tout ce que tu as accompli ! 🌟",
-    "Petit pas par petit pas, la magie grandit. 🍃"
+  "Chaque petit geste compte pour ton sanctuaire. ✨",
+  "Une tâche à la fois, et la magie opère. 🪄",
+  "Ta créature est fière de tes efforts ! 🐾",
+  "Tu prépares ton bonheur de demain. 🌿",
+  "Bravo ! Tu es la reine de ton royaume. 👑",
+  "Ta maison te dit merci. 🏠✨",
+  "C'est l'heure de briller, petite fée ! 🧚",
+  "Regarde tout ce que tu as accompli ! 🌟",
+  "Petit pas par petit pas, la magie grandit. 🍃"
 ];
 
 // ==========================================
-// 2. UTILITAIRES & SONS
+// 2. UTILITAIRES
 // ==========================================
-const sauvegarder = () => localStorage.setItem('fee_du_logis_v2', JSON.stringify(state));
+const sauvegarder = () => localStorage.setItem('fee_du_logis_v3', JSON.stringify(state));
 const charger = () => {
-  const data = localStorage.getItem('fee_du_logis_v2');
+  const data = localStorage.getItem('fee_du_logis_v3');
   if (data) {
     state = JSON.parse(data);
     if (!state.tasks) state.tasks = [];
-    if (!state.heureNotif) state.heureNotif = "08:00";
+    if (!state.creatures) state.creatures = [{ id: 'fleur', xp: 0 }];
+    if (!state.creatureActive) state.creatureActive = 'fleur';
+    if (state.lastValidatedDate === undefined) state.lastValidatedDate = null;
   }
 };
 const aujourdhui = () => new Date().toISOString().split('T')[0];
 
+// ==========================================
+// 3. SONS
+// ==========================================
 function jouerSon(type) {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -62,45 +65,63 @@ function jouerSon(type) {
     g.connect(ctx.destination);
     const osc = ctx.createOscillator();
     if (type === 'win') {
-      osc.frequency.setValueAtTime(150, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.2);
-      g.gain.setValueAtTime(0.2, ctx.currentTime);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(1046.50, ctx.currentTime + 0.3);
+      g.gain.setValueAtTime(0.1, ctx.currentTime);
       g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
     } else {
+      osc.type = 'triangle';
       osc.frequency.setValueAtTime(300, ctx.currentTime);
       osc.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.1);
       g.gain.setValueAtTime(0.1, ctx.currentTime);
       g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
     }
-    osc.connect(g); osc.start(); osc.stop(ctx.currentTime + 0.3);
+    osc.connect(g);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.3);
   } catch(e) {}
 }
 
 // ==========================================
-// 3. UI ET AFFICHAGE (Calendrier & Phrases)
+// 4. AFFICHAGE
 // ==========================================
 function mettreAJourUI() {
   document.getElementById('diamond-count').textContent = state.diamonds;
   document.getElementById('day-count').textContent = state.dayCount;
 
-  const cActuelle = state.creatures.find(c => c.id === state.creatureActive);
-  const cInfos = catalogue.find(c => c.id === state.creatureActive);
-  
-  if (cActuelle && cInfos) {
-    const stadeIdx = Math.min(4, Math.floor(cActuelle.xp / 500));
-    document.getElementById('creature-emoji').textContent = cInfos.stades[stadeIdx];
-    document.getElementById('creature-stage').textContent = `Stade ${stadeIdx + 1}. ${cInfos.nom}`;
-    document.getElementById('xp-fill').style.width = ((cActuelle.xp % 500) / 500 * 100) + '%';
-    document.getElementById('xp-current').textContent = cActuelle.xp % 500;
+  // Créature
+  const creatureEtat = state.creatures.find(c => c.id === state.creatureActive);
+  const creatureCatalogue = catalogue.find(c => c.id === state.creatureActive);
+
+  if (creatureEtat && creatureCatalogue) {
+    const stadeIdx = Math.min(4, Math.floor(creatureEtat.xp / 500));
+    const xpDansStade = creatureEtat.xp % 500;
+    document.getElementById('creature-emoji').textContent = creatureCatalogue.stades[stadeIdx];
+    document.getElementById('creature-stage').textContent = `Stade ${stadeIdx + 1}. ${creatureCatalogue.nom}`;
+    const barre = document.getElementById('xp-fill');
+    if (barre) barre.style.width = (xpDansStade / 500 * 100) + '%';
+    document.getElementById('xp-current').textContent = xpDansStade;
   }
 
+  // Flamme — uniquement si aujourd'hui est validé
   const feu = document.getElementById('streak-fire');
-  if (feu) feu.style.display = (state.lastValidatedDate === aujourdhui()) ? "inline-block" : "none";
-
-  const inputHeure = document.getElementById('notif-time');
-  if (inputHeure) inputHeure.value = state.heureNotif;
+  if (feu) {
+    if (state.lastValidatedDate === aujourdhui()) {
+      feu.style.display = 'inline-block';
+    } else {
+      feu.style.display = 'none';
+    }
+  }
 
   afficherTaches();
+}
+
+function changerMantra() {
+  const el = document.getElementById('mantra-container');
+  if (el) {
+    el.textContent = phrasesPositives[Math.floor(Math.random() * phrasesPositives.length)];
+  }
 }
 
 function afficherTaches() {
@@ -108,179 +129,241 @@ function afficherTaches() {
   const listeFutur = document.getElementById('future-tasks-list');
   const dateAuj = aujourdhui();
 
-  // 1. On trie les tâches
-  let tJour = state.tasks.filter(t => t.prochaineDate <= dateAuj || (t.datesFaites && t.datesFaites.includes(dateAuj)));
-  tJour.sort((a, b) => (a.datesFaites?.includes(dateAuj)) - (b.datesFaites?.includes(dateAuj)));
+  // Tâches du jour
+  let tachesJour = state.tasks.filter(t => t.prochaineDate && t.prochaineDate <= dateAuj);
+  tachesJour.sort((a, b) => {
+    const aFaite = a.datesFaites?.includes(dateAuj) ? 1 : 0;
+    const bFaite = b.datesFaites?.includes(dateAuj) ? 1 : 0;
+    return aFaite - bFaite;
+  });
 
-  let tFutur = state.tasks.filter(t => t.prochaineDate > dateAuj && !(t.datesFaites && t.datesFaites.includes(dateAuj)));
-  tFutur.sort((a, b) => a.prochaineDate.localeCompare(b.prochaineDate));
+  // Tâches futures
+  let tachesFutur = state.tasks.filter(t => t.prochaineDate && t.prochaineDate > dateAuj);
+  tachesFutur.sort((a, b) => a.prochaineDate.localeCompare(b.prochaineDate));
 
-  // 2. On affiche (avec une sécurité si les listes n'existent pas dans le HTML)
   if (listeJour) {
-      listeJour.innerHTML = tJour.map(t => genererHtmlTache(t, true)).join('') || '<p style="text-align:center; padding:20px; opacity:0.5;">🌿 Rien pour aujourd\'hui.</p>';
+    listeJour.innerHTML = tachesJour.map(t => genererHtmlTache(t, true)).join('')
+      || '<p style="text-align:center; padding:20px; opacity:0.5;">🌿 Rien pour aujourd\'hui.</p>';
   }
-  
+
   if (listeFutur) {
-      listeFutur.innerHTML = tFutur.map(t => genererHtmlTache(t, false)).join('') || '<p style="text-align:center; padding:10px; opacity:0.5;">Avenir serein...</p>';
+    listeFutur.innerHTML = tachesFutur.map(t => genererHtmlTache(t, false)).join('')
+      || '<p style="text-align:center; padding:10px; opacity:0.5;">Avenir serein...</p>';
   }
 }
 
-// ON AJOUTE "window." pour que les clics sur Modifier et Supprimer fonctionnent
-window.genererHtmlTache = (tache, estAuj) => {
-  const faite = tache.datesFaites?.includes(aujourdhui());
-  
+function genererHtmlTache(tache, estAujourdhui) {
+  const dateAuj = aujourdhui();
+  const faite = tache.datesFaites?.includes(dateAuj);
+
   return `
-    <div class="task-card ${faite ? 'completed' : ''}" style="border-left: 5px solid ${estAuj ? '#00c2a7' : '#c4a8e8'}; display: flex; align-items: center; justify-content: space-between; padding: 15px; background: white; border-radius: 18px; margin-bottom: 10px;">
-      
-      <div style="display: flex; align-items: center; flex: 1; cursor: pointer;" onclick="ouvrirPourModifier(${tache.id})">
-        <input type="checkbox" ${faite ? 'checked' : ''} 
-               onclick="event.stopPropagation(); cocherTache(${tache.id})" 
-               style="width:22px; height:22px; margin-right:15px; cursor:pointer;">
-        <div style="display: flex; flex-direction: column; justify-content: center;">
-          <div style="font-weight:bold; ${faite ? 'text-decoration:line-through; opacity:0.6;' : ''}">${tache.nom}</div>
-          <small style="color:#8a7060">${tache.piece || 'Maison'} • ${estAuj ? 'Aujourd\'hui' : 'Le ' + tache.prochaineDate}</small>
+    <div class="task-card ${faite ? 'completed' : ''}"
+         style="border-left: 5px solid ${estAujourdhui ? '#00c2a7' : '#c4a8e8'};">
+
+      <input type="checkbox" ${faite ? 'checked' : ''}
+             onclick="cocherTache(${tache.id})"
+             style="width:22px; height:22px; margin-right:15px; cursor:pointer; flex-shrink:0;">
+
+      <div style="flex:1; cursor:pointer;" onclick="ouvrirPourModifier(${tache.id})">
+        <div style="font-weight:bold; ${faite ? 'text-decoration:line-through; opacity:0.6;' : ''}">
+          ${tache.nom}
         </div>
+        <small style="color:#8a7060">
+          ${tache.piece} • ${estAujourdhui ? "Aujourd'hui" : 'Le ' + tache.prochaineDate} • ✏️ Modifier
+        </small>
       </div>
 
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <span style="font-weight:bold; color:#2b7bb9;">+${tache.xp} XP</span>
-        <div id="delete-zone-${tache.id}">
-           <button onclick="event.stopPropagation(); demanderSuppression(${tache.id})" style="background:none; border:none; font-size:20px; cursor:pointer;">🗑️</button>
-        </div>
-      </div>
+      <div style="font-weight:bold; color:#ff85d2; margin: 0 4px;">+${tache.xp} XP</div>
 
+      <div id="delete-zone-${tache.id}">
+        <button onclick="demanderSuppression(${tache.id})"
+                style="background:none; border:none; font-size:20px; cursor:pointer;">🗑️</button>
+      </div>
     </div>`;
 }
 
-function changerMantra() {
-    const el = document.getElementById('mantra-container');
-    if (el) {
-        el.style.opacity = 0;
-        setTimeout(() => {
-            el.textContent = phrasesPositives[Math.floor(Math.random() * phrasesPositives.length)];
-            el.style.opacity = 1;
-        }, 300);
-    }
-}
-
 // ==========================================
-// 4. ACTIONS & NOTIFS
+// 5. ACTIONS
 // ==========================================
 window.cocherTache = (id) => {
   const tache = state.tasks.find(t => t.id === id);
-  const auj = aujourdhui();
+  const dateAuj = aujourdhui();
   if (!tache.datesFaites) tache.datesFaites = [];
+  const dejaFaite = tache.datesFaites.includes(dateAuj);
   const creature = state.creatures.find(c => c.id === state.creatureActive);
 
-  if (tache.datesFaites.includes(auj)) {
-    // DECOCHER : On retire les points et on remet à aujourd'hui
-    tache.datesFaites = tache.datesFaites.filter(d => d !== auj);
+  if (dejaFaite) {
+    // Décocher
+    tache.datesFaites = tache.datesFaites.filter(d => d !== dateAuj);
     if (creature) creature.xp = Math.max(0, creature.xp - tache.xp);
-    tache.prochaineDate = auj; 
+    tache.prochaineDate = dateAuj;
+
+    // Annuler le jour si plus aucune tâche cochée
+    const encoreDesTaches = state.tasks.some(t => t.datesFaites?.includes(dateAuj));
+    if (!encoreDesTaches) {
+      state.dayCount = Math.max(0, state.dayCount - 1);
+      state.lastValidatedDate = null;
+      state.diamonds = Math.max(0, state.diamonds - 10);
+    }
     jouerSon('loss');
+
   } else {
-    // COCHER : On gagne les points et on calcule la prochaine date
-    tache.datesFaites.push(auj);
+    // Cocher
+    tache.datesFaites.push(dateAuj);
     if (creature) creature.xp += tache.xp;
-    jouerSon('win');
     changerMantra();
 
-    // CALCUL DE LA PROCHAINE DATE SELON LA FRÉQUENCE
+    // Calculer prochaine date
     let d = new Date();
-    const freq = tache.frequence; // Récupère "Hebdomadaire", etc.
-    
-    if (freq === "Hebdomadaire") d.setDate(d.getDate() + 7);
-    else if (freq === "Bimensuelle") d.setDate(d.getDate() + 14);
-    else if (freq === "Tous les 3 jours") d.setDate(d.getDate() + 3);
-    else if (freq === "Ponctuelle") d.setFullYear(d.getFullYear() + 1); // Disparaît
-    else d.setDate(d.getDate() + 1); // Quotidienne par défaut
-
+    const freq = tache.frequence;
+    if (freq === 'Hebdomadaire')    d.setDate(d.getDate() + 7);
+    else if (freq === 'Bimensuelle') d.setDate(d.getDate() + 14);
+    else if (freq === 'Tous les 3 jours') d.setDate(d.getDate() + 3);
+    else if (freq === 'Ponctuelle') d.setFullYear(d.getFullYear() + 10);
+    else d.setDate(d.getDate() + 1); // Quotidienne
     tache.prochaineDate = d.toISOString().split('T')[0];
 
-    // Gestion du Streak (flamme) et Diamants
-    if (state.lastValidatedDate !== auj) {
+    // Valider la journée
+    if (state.lastValidatedDate !== dateAuj) {
       state.dayCount++;
       state.diamonds += 10;
-      state.lastValidatedDate = auj;
+      state.lastValidatedDate = dateAuj;
     }
+    jouerSon('win');
   }
-  sauvegarder(); mettreAJourUI();
-};;
 
-window.changerHeureNotif = (h) => {
-    state.heureNotif = h; sauvegarder();
-    if ("Notification" in window) Notification.requestPermission();
+  sauvegarder();
+  mettreAJourUI();
+};
+
+window.ouvrirPourModifier = (id) => {
+  const tache = state.tasks.find(t => t.id === id);
+  if (!tache) return;
+  document.getElementById('task-nom').value = tache.nom;
+  document.getElementById('task-piece').value = tache.piece;
+  document.getElementById('task-xp').value = tache.xp;
+  document.getElementById('task-frequence').value = tache.frequence;
+
+  document.getElementById('btn-sauvegarder').onclick = () => {
+    tache.nom = document.getElementById('task-nom').value;
+    tache.piece = document.getElementById('task-piece').value;
+    tache.xp = parseInt(document.getElementById('task-xp').value);
+    tache.frequence = document.getElementById('task-frequence').value;
+    sauvegarder();
+    fermerModal();
+    mettreAJourUI();
+  };
+  document.getElementById('task-modal').classList.remove('hidden');
 };
 
 window.demanderSuppression = (id) => {
-    const zone = document.getElementById(`delete-zone-${id}`);
-    if (zone) zone.innerHTML = `<button onclick="supprimerDefinitif(${id})" style="background:#ff4757; color:white; border:none; border-radius:8px; padding:2px 5px; font-size:10px;">OK?</button>`;
+  const zone = document.getElementById(`delete-zone-${id}`);
+  if (zone) {
+    zone.innerHTML = `<button onclick="supprimerDefinitif(${id})"
+      style="color:white; background:#ff4757; border:none; border-radius:8px;
+             padding:5px 10px; font-size:11px; font-weight:bold; cursor:pointer;">
+      Valider ?</button>`;
+  }
 };
 
 window.supprimerDefinitif = (id) => {
-    state.tasks = state.tasks.filter(t => t.id !== id);
-    sauvegarder(); mettreAJourUI();
+  state.tasks = state.tasks.filter(t => t.id !== id);
+  sauvegarder();
+  mettreAJourUI();
 };
 
 function ajouterNouvelleTache() {
-    const nom = document.getElementById('task-nom').value;
-    const lancementValue = document.getElementById('task-lancement').value;
-    if (!nom) return;
+  const nom = document.getElementById('task-nom').value.trim();
+  if (!nom) return;
 
-    let d = new Date();
-    const joursEnPlus = parseInt(lancementValue.replace("+", "")) || 0;
-    d.setDate(d.getDate() + joursEnPlus);
+  const lancementValue = document.getElementById('task-lancement').value;
+  let d = new Date();
+  const joursEnPlus = parseInt(lancementValue.replace('+', '')) || 0;
+  d.setDate(d.getDate() + joursEnPlus);
 
-    state.tasks.push({
-        id: Date.now(),
-        nom: nom,
-        piece: document.getElementById('task-piece').value,
-        xp: parseInt(document.getElementById('task-xp').value) || 10,
-        frequence: document.getElementById('task-frequence').value, // <-- TRÈS IMPORTANT
-        prochaineDate: d.toISOString().split('T')[0],
-        datesFaites: []
-    });
-    sauvegarder(); document.getElementById('task-modal').classList.add('hidden'); mettreAJourUI();
+  state.tasks.push({
+    id: Date.now(),
+    nom: nom,
+    piece: document.getElementById('task-piece').value,
+    xp: parseInt(document.getElementById('task-xp').value) || 10,
+    frequence: document.getElementById('task-frequence').value,
+    prochaineDate: d.toISOString().split('T')[0],
+    datesFaites: []
+  });
+
+  sauvegarder();
+  fermerModal();
+  mettreAJourUI();
 }
 
 // ==========================================
-// 5. BOUTIQUE & START
+// 6. BOUTIQUE
 // ==========================================
 window.ouvrirBoutique = () => {
-    document.getElementById('shop-diamonds').textContent = state.diamonds;
-    const grid = document.getElementById('shop-items');
-    grid.innerHTML = catalogue.map(i => {
-        const p = state.creatures.find(c => c.id === i.id);
-        return `<div style="background:#f9f9f9; padding:10px; border-radius:15px; text-align:center; border:1px solid #eee;">
-            <div style="font-size:30px;">${i.stades[4]}</div>
-            <div style="font-size:11px;">${i.nom}</div>
-            <button onclick="acheter('${i.id}', ${i.prix})" style="width:100%; margin-top:5px; border:none; border-radius:8px; background:${p ? '#ccc' : '#00c2a7'}; color:white; padding:5px;">
-                ${p ? (state.creatureActive === i.id ? 'Actif' : 'Choisir') : '💎 ' + i.prix}
-            </button>
-        </div>`;
-    }).join('');
-    document.getElementById('shop-modal').classList.remove('hidden');
+  document.getElementById('shop-diamonds').textContent = state.diamonds;
+  const grille = document.getElementById('shop-items');
+  grille.innerHTML = catalogue.map(item => {
+    const possedee = state.creatures.find(c => c.id === item.id);
+    const estActive = state.creatureActive === item.id;
+    return `
+      <div style="background:#fdfaf5; padding:10px; border-radius:15px;
+                  text-align:center; border:1px solid #eaddff; box-sizing:border-box;">
+        <div style="font-size:30px;">${item.stades[0]}</div>
+        <div style="font-weight:bold; font-size:12px; margin:5px 0;">${item.nom}</div>
+        <button onclick="acheter('${item.id}', ${item.prix})"
+          style="background:${estActive ? '#c4a8e8' : possedee ? '#aaa' : '#00c2a7'};
+                 color:white; border:none; border-radius:10px;
+                 padding:8px; cursor:pointer; width:100%; font-size:12px;">
+          ${estActive ? '✓ Active' : possedee ? 'Choisir' : '💎 ' + item.prix}
+        </button>
+      </div>`;
+  }).join('');
+  document.getElementById('shop-modal').classList.remove('hidden');
 };
 
 window.acheter = (id, prix) => {
-    const possede = state.creatures.find(c => c.id === id);
-    if (possede) {
-        state.creatureActive = id;
-    } else if (state.diamonds >= prix) {
-        state.diamonds -= prix;
-        state.creatures.push({ id, xp: 0 });
-        state.creatureActive = id;
-    } else {
-        alert("Pas assez de diamants !");
-    }
-    sauvegarder(); mettreAJourUI(); document.getElementById('shop-modal').classList.add('hidden');
+  const possedee = state.creatures.find(c => c.id === id);
+  if (possedee) {
+    state.creatureActive = id;
+  } else if (state.diamonds >= prix) {
+    state.diamonds -= prix;
+    state.creatures.push({ id: id, xp: 0 });
+    state.creatureActive = id;
+    jouerSon('win');
+  } else {
+    alert('Pas assez de diamants ! 💎');
+    return;
+  }
+  sauvegarder();
+  mettreAJourUI();
+  document.getElementById('shop-modal').classList.add('hidden');
 };
 
+// ==========================================
+// 7. MODALS & INIT
+// ==========================================
+function fermerModal() {
+  document.getElementById('task-modal').classList.add('hidden');
+  document.getElementById('shop-modal').classList.add('hidden');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  charger(); mettreAJourUI(); changerMantra();
-  document.getElementById('add-task-btn').onclick = () => document.getElementById('task-modal').classList.remove('hidden');
-  document.getElementById('btn-annuler').onclick = () => document.getElementById('task-modal').classList.add('hidden');
-  document.getElementById('btn-sauvegarder').onclick = window.ajouterNouvelleTache;
+  charger();
+  mettreAJourUI();
+  changerMantra();
+
+  document.getElementById('add-task-btn').onclick = () => {
+    document.getElementById('task-nom').value = '';
+    document.getElementById('btn-sauvegarder').onclick = ajouterNouvelleTache;
+    document.getElementById('task-modal').classList.remove('hidden');
+  };
+
+  document.getElementById('btn-annuler').onclick = fermerModal;
   document.getElementById('diamonds-btn').onclick = window.ouvrirBoutique;
-  document.getElementById('btn-fermer-boutique').onclick = () => document.getElementById('shop-modal').classList.add('hidden');
+  document.getElementById('btn-fermer-boutique').onclick = fermerModal;
+
+  // Service worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  }
 });
