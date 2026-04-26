@@ -1,81 +1,66 @@
 @import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap');
 
 body {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Segoe UI', Roboto, sans-serif;
     background-color: #fdfaf5;
     margin: 0; padding: 0;
     color: #3d2f22;
-    -webkit-tap-highlight-color: transparent;
+    display: flex; flex-direction: column; align-items: center;
 }
 
 .app-container { width: 100%; display: flex; flex-direction: column; align-items: center; }
 
+/* Largeur ajustée pour les rappels */
 .notif-setter {
-    background: white; padding: 12px; border-radius: 20px; 
+    background: white; padding: 15px; border-radius: 20px; 
     margin: 15px auto; border: 2px solid #eaddff; width: 90%; 
     text-align: center; box-sizing: border-box;
 }
 
 .app-header {
     width: 100%; background: linear-gradient(180deg, #c4a8e8 0%, #eaddff 100%);
-    padding: 15px; border-radius: 0 0 35px 35px; box-sizing: border-box; margin-bottom: 10px;
+    padding: 15px; border-radius: 0 0 35px 35px; box-sizing: border-box;
 }
 
-.header-top { display: flex; justify-content: flex-end; }
-.diamonds-display { 
-    background: rgba(255,255,255,0.4); border: none; padding: 8px 15px; 
-    border-radius: 20px; font-weight: bold; font-family: 'Berkshire Swash';
-}
-
-.header-main { display: flex; justify-content: space-between; align-items: center; }
-.app-title-pill { background: #00c2a7; color: white; padding: 8px 15px; border-radius: 20px; font-family: 'Berkshire Swash'; font-size: 20px; }
-.streak-pill { background: #ff85d2; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold; }
-
+/* Largeur ajustée pour la créature */
 .creature-container-box {
     background: white; border: 2px solid #eaddff; border-radius: 30px; 
-    margin: 15px auto; padding: 20px; width: 90%; text-align: center; box-sizing: border-box;
-}
-
-.creature-card {
-    width: 130px; height: 130px; background: #d4e3cc; border-radius: 50%; 
-    margin: 0 auto 10px; display: flex; justify-content: center; align-items: center;
-    border: 5px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin: 20px auto; padding: 20px; width: 90%; text-align: center; box-sizing: border-box;
 }
 
 .creature-emoji { font-size: 70px; animation: levitation 3s ease-in-out infinite; }
+@keyframes levitation { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-@keyframes levitation { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-
+/* Jauge XP */
 .xp-gauge-wrap { width: 90%; margin: 10px auto; }
 .xp-track { height: 25px; background: #eee6f3; border-radius: 15px; border: 2px solid #dcd0e8; overflow: hidden; }
-.xp-fill { height: 100%; background: linear-gradient(90deg, #e8a0b4, #5e9aca); transition: width 0.5s ease; width: 0%; }
+.xp-fill { height: 100%; background: linear-gradient(90deg, #e8a0b4, #5e9aca); transition: width 0.5s; }
 
+/* Nouveau Mantra (Phrases de la fée) */
 #mantra-container {
-    width: 90%; margin: 15px auto; padding: 15px; font-style: italic;
+    width: 90%; margin: 10px auto; padding: 15px; font-style: italic;
     text-align: center; color: #6d5d8e; background: #fff; 
     border: 2px dashed #c4a8e8; border-radius: 20px; box-sizing: border-box;
-    transition: opacity 0.3s;
 }
 
-.tasks-section { width: 90%; margin: 10px auto; }
-.tasks-title { font-family: 'Berkshire Swash'; color: #4a3560; margin-bottom: 15px; }
-
+/* Sections de missions */
+.tasks-section { width: 90%; margin: 20px auto; }
 .task-card {
     background: white; border-radius: 18px; padding: 15px; margin-bottom: 12px;
     display: flex; align-items: center; justify-content: space-between;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.04); border-left: 6px solid #00c2a7;
-    box-sizing: border-box;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05); box-sizing: border-box;
 }
 
-.task-card.completed { opacity: 0.5; background: #f9f9f9; text-decoration: line-through; }
+.task-card.completed { opacity: 0.5; text-decoration: line-through; }
 
+/* Bouton + fixe */
 .add-task-btn {
-    position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px;
-    border-radius: 50%; background: #00c2a7; color: white; font-size: 35px;
-    border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 99;
+    position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px;
+    border-radius: 50%; background: #00c2a7; color: white; font-size: 30px;
+    border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 99;
 }
 
+/* Modals */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-.modal { background: white; padding: 25px; border-radius: 30px; width: 88%; box-sizing: border-box; }
-
+.modal { background: white; padding: 25px; border-radius: 30px; width: 90%; max-width: 400px; box-sizing: border-box; }
 .hidden { display: none !important; }

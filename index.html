@@ -60,28 +60,44 @@
     <button class="add-task-btn" id="add-task-btn">+</button>
   </div>
 
-  <div class="modal-overlay hidden" id="task-modal">
+<div class="modal-overlay hidden" id="task-modal">
     <div class="modal">
       <h3 style="font-family: 'Berkshire Swash';">Nouvelle Mission</h3>
-      <input type="text" id="task-nom" placeholder="Nom de la tâche" style="width:100%; padding:10px; margin-bottom:10px; border-radius:10px; border:1px solid #ddd;">
       
-      <label>XP :</label>
-      <select id="task-xp" style="width:100%; padding:10px; margin-bottom:10px; border-radius:10px;">
+      <label class="form-label">Nom de la mission :</label>
+      <input type="text" id="task-nom" placeholder="Ex: Faire la vaisselle" style="width:100%; padding:10px; margin-bottom:10px; border-radius:10px; border:1px solid #ddd; box-sizing: border-box;">
+      
+      <label class="form-label">Pièce :</label>
+      <input type="text" id="task-piece" placeholder="Ex: Cuisine" style="width:100%; padding:10px; margin-bottom:10px; border-radius:10px; border:1px solid #ddd; box-sizing: border-box;">
+
+      <label class="form-label">XP :</label>
+      <select id="task-xp" style="width:100%; padding:10px; margin-bottom:10px; border-radius:10px; border:1px solid #ddd;">
         <option value="10">10 XP (Facile)</option>
         <option value="25">25 XP (Moyen)</option>
         <option value="40">40 XP (Difficile)</option>
       </select>
 
-      <label>Lancement :</label>
-      <select id="task-lancement" style="width:100%; padding:10px; margin-bottom:20px; border-radius:10px;">
-        <option value="0">Aujourd'hui</option>
-        <option value="1">Demain</option>
-        <option value="2">Après-demain</option>
+      <label class="form-label">Fréquence :</label>
+      <select class="form-select" id="task-frequence" style="width:100%; padding:10px; margin-bottom:10px; border-radius:10px; border:1px solid #ddd;">
+          <option value="Quotidienne">Chaque jour</option>
+          <option value="Tous les 3 jours">Tous les 3 jours</option>
+          <option value="Hebdomadaire">Hebdomadaire (7j)</option>
+          <option value="Bimensuelle">Bimensuelle (14j)</option>
+          <option value="Ponctuelle">Une seule fois</option>
+      </select>
+
+      <label class="form-label">Lancement :</label>
+      <select class="form-select" id="task-lancement" style="width:100%; padding:10px; margin-bottom:20px; border-radius:10px; border:1px solid #ddd;">
+          <option value="+0">Aujourd'hui</option>
+          <option value="+1">Demain !</option>
+          <option value="+2">Après-demain</option>
+          <option value="+3">Trois jours</option>
+          <option value="+7">Dans une semaine</option>
       </select>
 
       <div class="modal-actions" style="display:flex; gap:10px;">
-        <button id="btn-annuler" style="flex:1; padding:10px; border-radius:10px; border:none; background:#eee;">Annuler</button>
-        <button id="btn-sauvegarder" style="flex:1; padding:10px; border-radius:10px; border:none; background:#00c2a7; color:white;">Ajouter ✓</button>
+        <button id="btn-annuler" style="flex:1; padding:10px; border-radius:10px; border:none; background:#eee; cursor:pointer;">Annuler</button>
+        <button id="btn-sauvegarder" style="flex:1; padding:10px; border-radius:10px; border:none; background:#00c2a7; color:white; cursor:pointer;">Ajouter ✓</button>
       </div>
     </div>
   </div>
