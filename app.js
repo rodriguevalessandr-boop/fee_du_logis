@@ -152,33 +152,32 @@ function afficherTaches() {
   }
 }
 
-function genererHtmlTache(tache, estAujourdhui) {
-  const dateAuj = aujourdhui();
-  const faite = tache.datesFaites?.includes(dateAuj);
-
+function genererHtmlTache(tache, estAuj) {
+  const faite = tache.datesFaites?.includes(aujourdhui());
+  
   return `
-    <div class="task-card ${faite ? 'completed' : ''}"
-         style="border-left: 5px solid ${estAujourdhui ? '#00c2a7' : '#c4a8e8'};">
-
-      <input type="checkbox" ${faite ? 'checked' : ''}
-             onclick="cocherTache(${tache.id})"
-             style="width:22px; height:22px; margin-right:15px; cursor:pointer; flex-shrink:0;">
-
-      <div style="flex:1; cursor:pointer;" onclick="ouvrirPourModifier(${tache.id})">
-        <div style="font-weight:bold; ${faite ? 'text-decoration:line-through; opacity:0.6;' : ''}">
-          ${tache.nom}
+    <div class="task-card ${faite ? 'completed' : ''}">
+      
+      <div style="display: flex; align-items: center; flex: 1;" onclick="ouvrirPourModifier(${tache.id})">
+        <input type="checkbox" ${faite ? 'checked' : ''} 
+               onclick="event.stopPropagation(); cocherTache(${tache.id})" 
+               style="width:20px; height:20px; margin-right:12px; cursor:pointer;">
+        
+        <span class="task-icon-flower">🌸</span>
+        
+        <div class="task-info">
+          <div style="${faite ? 'text-decoration:line-through; opacity:0.5;' : ''}">${tache.nom}</div>
+          <small>${tache.piece || 'Maison'} • ${estAuj ? 'Aujourd\'hui' : 'Le ' + tache.prochaineDate}</small>
         </div>
-        <small style="color:#8a7060">
-          ${tache.piece} • ${estAujourdhui ? "Aujourd'hui" : 'Le ' + tache.prochaineDate} • ✏️ Modifier
-        </small>
       </div>
 
-      <div style="font-weight:bold; color:#ff85d2; margin: 0 4px;">+${tache.xp} XP</div>
-
-      <div id="delete-zone-${tache.id}">
-        <button onclick="demanderSuppression(${tache.id})"
-                style="background:none; border:none; font-size:20px; cursor:pointer;">🗑️</button>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span style="font-weight:bold; color:#7fb3d5; font-size: 0.85rem;">+${tache.xp} XP</span>
+        <div id="delete-zone-${tache.id}" style="display: flex; align-items: center;">
+          <button onclick="event.stopPropagation(); demanderSuppression(${tache.id})" style="background:none; border:none; font-size:18px; cursor:pointer; opacity:0.6;">🗑️</button>
+        </div>
       </div>
+      
     </div>`;
 }
 

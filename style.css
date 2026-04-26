@@ -52,9 +52,42 @@ body {
 /* Sections de missions */
 .tasks-section { width: 90%; margin: 20px auto; }
 .task-card {
-    background: white; border-radius: 18px; padding: 15px; margin-bottom: 12px;
-    display: flex; align-items: center; justify-content: space-between;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.05); box-sizing: border-box;
+    background: white;
+    border-radius: 20px;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03); /* Ombre très légère */
+    border: 1px solid #f0e6ff; /* Bordure très fine */
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+.task-icon-flower {
+    font-size: 1.2rem;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* Alignement des textes */
+.task-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+}
+
+.task-info div {
+    font-size: 1rem;
+    color: #4a3560;
+    font-weight: 600;
+}
+
+.task-info small {
+    color: #a594b5;
+    font-size: 0.8rem;
 }
 
 .task-card.completed { opacity: 0.5; text-decoration: line-through; }
