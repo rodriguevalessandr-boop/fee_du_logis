@@ -18,22 +18,25 @@
   <!-- Ligne 1 : Titre centré -->
   <h1 class="app-title">🧚 Fée du logis</h1>
 
-  <!-- Ligne 2 : Diamants -->
-  <div class="header-row-2">
+
+ <!-- Ligne 2 : Diamants + Jour empilés à gauche -->
+<div class="header-row-2">
+  <div style="display:flex; flex-direction:column; gap:6px; align-items:flex-start;">
     <button class="diamonds-display" id="diamonds-btn">
       💎 <span id="diamond-count">0</span>
     </button>
-  </div>
-
-  <!-- Ligne 3 : Jour + Réveil + Bouton + -->
-  <div class="header-row-3">
     <div class="streak-pill">
       <span id="streak-fire" style="display:none;">🔥</span>
       Jour <span id="day-count">0</span>
     </div>
-    <button class="notif-btn" id="notif-btn">🕐</button>
-    <button class="add-task-btn" id="add-task-btn">+</button>
   </div>
+</div>
+
+<!-- Ligne 3 : Réveil + Bouton + à droite -->
+<div class="header-row-3">
+  <button class="notif-btn" id="notif-btn">🕐</button>
+  <button class="add-task-btn" id="add-task-btn">+</button>
+</div>
 
 </header>
 
