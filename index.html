@@ -13,30 +13,27 @@
   <div class="app-container">
 
     <!-- HEADER -->
-  <header class="app-header">
+ <header class="app-header">
 
-  <!-- Ligne 1 : Titre centré -->
+  <!-- Ligne 1 : Titre -->
   <h1 class="app-title">🧚 Fée du logis</h1>
 
-
- <!-- Ligne 2 : Diamants + Jour empilés à gauche -->
-<div class="header-row-2">
-  <div style="display:flex; flex-direction:column; gap:6px; align-items:flex-start;">
+  <!-- Ligne 2 : Diamants seul à gauche -->
+  <div class="header-row-2">
     <button class="diamonds-display" id="diamonds-btn">
       💎 <span id="diamond-count">0</span>
     </button>
+  </div>
+
+  <!-- Ligne 3 : Jour + Réveil + Bouton + sur la même ligne -->
+  <div class="header-row-3">
     <div class="streak-pill">
       <span id="streak-fire" style="display:none;">🔥</span>
       Jour <span id="day-count">0</span>
     </div>
+    <button class="notif-btn" id="notif-btn">🕐</button>
+    <button class="add-task-btn" id="add-task-btn">+</button>
   </div>
-</div>
-
-<!-- Ligne 3 : Réveil + Bouton + à droite -->
-<div class="header-row-3">
-  <button class="notif-btn" id="notif-btn">🕐</button>
-  <button class="add-task-btn" id="add-task-btn">+</button>
-</div>
 
 </header>
 
