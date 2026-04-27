@@ -130,40 +130,39 @@ function afficherTaches() {
   const listeFutur = document.getElementById('future-tasks-list');
   const dateAuj = aujourdhui();
 
-  // Tâches du jour
- // Missions du jour : dues aujourd'hui OU cochées aujourd'hui
-let tachesJour = state.tasks.filter(t => {
-const faiteAuj = t.datesFaites?.includes(dateAuj);
+  // --- FILTRE MISSIONS DU JOUR ---
+  // On ne prend QUE ce qui est prévu pour aujourd'hui ou avant.
+  // MÊME SI la date change après avoir coché, le filtre doit l'ignorer tant qu'on est le même jour.
+  let tJour = state.tasks.filter(t => {
+    const faiteAuj = t.datesFaites?.includes(dateAuj);
+    // Elle reste en haut si elle était due aujourd'hui OU si on l'a faite aujourd'hui
     return t.prochaineDate <= dateAuj || faiteAuj;
-});
+  });
 
-tachesJour.sort((a, b) => {
+  tJour.sort((a, b) => {
     const aFaite = a.datesFaites?.includes(dateAuj) ? 1 : 0;
     const bFaite = b.datesFaites?.includes(dateAuj) ? 1 : 0;
-    return aFaite - bFaite;
-});
+    return aFaite - bFaite; // Non-cochées en premier
+  });
 
-// Avenir : dans le futur ET pas cochée aujourd'hui
-let tachesFutur = state.tasks.filter(t => {
-const faiteAuj = t.datesFaites?.includes(dateAuj);
+  // --- FILTRE AVENIR ---
+  // On ne prend QUE ce qui est strictement supérieur à aujourd'hui
+  // MAIS on interdit à une tâche faite aujourd'hui de monter ici.
+  let tFutur = state.tasks.filter(t => {
+    const faiteAuj = t.datesFaites?.includes(dateAuj);
     return t.prochaineDate > dateAuj && !faiteAuj;
-});
+  });
 
-tachesFutur.sort((a, b) => {
+  tFutur.sort((a, b) => {
     const aFaite = a.datesFaites?.includes(dateAuj) ? 1 : 0;
     const bFaite = b.datesFaites?.includes(dateAuj) ? 1 : 0;
     if (aFaite !== bFaite) return aFaite - bFaite;
     return a.prochaineDate.localeCompare(b.prochaineDate);
-});
-  if (listeJour) {
-    listeJour.innerHTML = tachesJour.map(t => genererHtmlTache(t, true)).join('')
-      || '<p style="text-align:center; padding:20px; opacity:0.5;">🌿 Rien pour aujourd\'hui.</p>';
-  }
+  });
 
-  if (listeFutur) {
-    listeFutur.innerHTML = tachesFutur.map(t => genererHtmlTache(t, false)).join('')
-      || '<p style="text-align:center; padding:10px; opacity:0.5;">Avenir serein...</p>';
-  }
+  // Affichage
+  if (listeJour) listeJour.innerHTML = tJour.map(t => genererHtmlTache(t, true)).join('') || '<p>🌿 Rien aujourd\'hui.</p>';
+  if (listeFutur) listeFutur.innerHTML = tFutur.map(t => genererHtmlTache(t, false)).join('') || '<p>Avenir serein...</p>';
 }
 
 function genererHtmlTache(tache, estAuj) {
