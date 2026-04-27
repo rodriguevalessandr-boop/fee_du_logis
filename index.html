@@ -11,33 +11,41 @@
 <body>
 
   <div class="app-container">
-    <div class="notif-setter">
-        <label style="font-family: 'Berkshire Swash', cursive;">⏰ Rappel : </label>
-        <input type="time" id="notif-time" onchange="changerHeureNotif(this.value)">
+
+    <!-- HEADER -->
+  <header class="app-header">
+
+  <!-- Ligne 1 : Titre centré -->
+  <h1 class="app-title">🧚 Fée du logis</h1>
+
+  <!-- Ligne 2 : Diamants -->
+  <div class="header-row-2">
+    <button class="diamonds-display" id="diamonds-btn">
+      💎 <span id="diamond-count">0</span>
+    </button>
+  </div>
+
+  <!-- Ligne 3 : Jour + Réveil + Bouton + -->
+  <div class="header-row-3">
+    <div class="streak-pill">
+      <span id="streak-fire" style="display:none;">🔥</span>
+      Jour <span id="day-count">0</span>
     </div>
+    <button class="notif-btn" id="notif-btn">🕐</button>
+    <button class="add-task-btn" id="add-task-btn">+</button>
+  </div>
 
-    <header class="app-header">
-      <div class="header-top">
-        <button class="diamonds-display" id="diamonds-btn">
-          💎 <span id="diamond-count">0</span>
-        </button>
-      </div>
-      <div class="header-main">
-      <div class="app-title-pill"><span>🧚</span> Fée du logis</div>
-        <div class="streak-pill">
-          <span id="streak-fire" style="display:none;">🔥</span>
-          Jour <span id="day-count">0</span>
-        </div>
-      </div>
-    </header>
+</header>
 
-    <div class="creature-container-box">
-        <div class="creature-card">
-          <div class="creature-emoji" id="creature-emoji">🧚</div>
-        </div>
-        <div id="creature-stage">Chargement...</div>
-    </div>
+    <!-- CRÉATURE -->
+<div class="creature-container-box">
+  <div class="creature-circle">
+    <div class="creature-emoji" id="creature-emoji">🧚</div>
+  </div>
+  <div id="creature-stage">Chargement...</div>
+</div>
 
+    <!-- JAUGE XP -->
     <div class="xp-gauge-wrap">
       <div class="xp-numbers"><span id="xp-current">0</span> / 500 XP</div>
       <div class="xp-track">
@@ -45,71 +53,125 @@
       </div>
     </div>
 
-    <div id="mantra-container">Prête pour un peu de magie ? ✨</div>
+    <!-- MANTRA -->
+    <div id="mantra-container" style="opacity:0">Prête pour un peu de magie ? ✨</div>
 
+    <!-- MISSIONS DU JOUR -->
     <section class="tasks-section">
       <h2 class="tasks-title">Missions du jour</h2>
       <div id="tasks-list"></div>
     </section>
 
-    <section class="tasks-section future-tasks">
-      <h2 class="tasks-title" style="opacity:0.6; font-size: 1.1rem;">🔮 Avenir</h2>
+    <!-- AVENIR -->
+    <section class="tasks-section">
+      <h2 class="tasks-title tasks-title--avenir">🔮 Avenir</h2>
       <div id="future-tasks-list"></div>
     </section>
 
-    <button class="add-task-btn" id="add-task-btn">+</button>
   </div>
 
-<div class="modal-overlay hidden" id="task-modal">
+  <!-- MODAL RÉVEIL -->
+  <div class="modal-overlay hidden" id="notif-modal">
     <div class="modal">
-      <h3 style="font-family: 'Berkshire Swash';">Nouvelle Mission</h3>
-      
+      <h3 style="font-family:'Berkshire Swash'; text-align:center;">⏰ Rappel quotidien</h3>
+      <p style="text-align:center; color:#8a7060;">Choisir l'heure de ta notification :</p>
+      <input type="time" id="notif-time"
+             style="width:100%; padding:12px; border-radius:10px;
+                    border:1px solid #eaddff; font-size:20px;
+                    text-align:center; margin:15px 0; box-sizing:border-box;">
+      <div style="display:flex; gap:10px;">
+        <button id="btn-annuler-notif"
+                style="flex:1; padding:10px; border-radius:10px;
+                       border:none; background:#eee; cursor:pointer;">
+          Annuler
+        </button>
+        <button id="btn-sauver-notif"
+                style="flex:1; padding:10px; border-radius:10px;
+                       border:none; background:#c4a8e8;
+                       color:white; cursor:pointer; font-weight:bold;">
+          Enregistrer ✓
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL NOUVELLE TÂCHE -->
+  <div class="modal-overlay hidden" id="task-modal">
+    <div class="modal">
+      <h3 style="font-family:'Berkshire Swash';">Nouvelle Mission</h3>
+
       <label class="form-label">Nom de la mission :</label>
-      <input type="text" id="task-nom" placeholder="Ex: Faire la vaisselle" style="width:100%; padding:10px; margin-bottom:10px; border-radius:10px; border:1px solid #ddd; box-sizing: border-box;">
-      
+      <input type="text" id="task-nom" placeholder="Ex: Faire la vaisselle"
+             style="width:100%; padding:10px; margin-bottom:10px;
+                    border-radius:10px; border:1px solid #ddd; box-sizing:border-box;">
+
       <label class="form-label">Pièce :</label>
-      <input type="text" id="task-piece" placeholder="Ex: Cuisine" style="width:100%; padding:10px; margin-bottom:10px; border-radius:10px; border:1px solid #ddd; box-sizing: border-box;">
+      <input type="text" id="task-piece" placeholder="Ex: Cuisine"
+             style="width:100%; padding:10px; margin-bottom:10px;
+                    border-radius:10px; border:1px solid #ddd; box-sizing:border-box;">
 
       <label class="form-label">XP :</label>
-      <select id="task-xp" style="width:100%; padding:10px; margin-bottom:10px; border-radius:10px; border:1px solid #ddd;">
+      <select id="task-xp"
+              style="width:100%; padding:10px; margin-bottom:10px;
+                     border-radius:10px; border:1px solid #ddd;">
         <option value="10">10 XP (Facile)</option>
         <option value="25">25 XP (Moyen)</option>
         <option value="40">40 XP (Difficile)</option>
       </select>
 
-  <div style="margin-bottom: 15px;">
-  <label class="form-label" style="display:block; margin-bottom:5px; font-weight:bold; color:#6d5d8e;">Fréquence :</label>
-  <select id="task-frequence" style="width:100%; padding:12px; border-radius:15px; border:1px solid #eaddff; background:#fdfaf5; color:#4a3560; font-size:16px;">
-      <option value="Quotidienne">Chaque jour</option>
-      <option value="Tous les 3 jours">Tous les 3 jours</option>
-      <option value="Hebdomadaire">Hebdomadaire (7j)</option>
-      <option value="Bimensuelle">Bimensuelle (14j)</option>
-      <option value="Ponctuelle">Une seule fois</option>
-  </select>
-</div>
-
-      <label class="form-label">Lancement :</label>
-      <select class="form-select" id="task-lancement" style="width:100%; padding:10px; margin-bottom:20px; border-radius:10px; border:1px solid #ddd;">
-          <option value="+0">Aujourd'hui</option>
-          <option value="+1">Demain </option>
-          <option value="+2">Après-demain</option>
-          <option value="+3">Trois jours</option>
-          <option value="+7">Dans une semaine</option>
+      <label class="form-label">Fréquence :</label>
+      <select id="task-frequence"
+              style="width:100%; padding:10px; margin-bottom:10px;
+                     border-radius:10px; border:1px solid #ddd;">
+        <option value="Quotidienne">Chaque jour</option>
+        <option value="Tous les 3 jours">Tous les 3 jours</option>
+        <option value="Hebdomadaire">Hebdomadaire (7j)</option>
+        <option value="Bimensuelle">Bimensuelle (14j)</option>
+        <option value="Ponctuelle">Une seule fois</option>
       </select>
 
-      <div class="modal-actions" style="display:flex; gap:10px;">
-        <button id="btn-annuler" style="flex:1; padding:10px; border-radius:10px; border:none; background:#eee; cursor:pointer;">Annuler</button>
-        <button id="btn-sauvegarder" style="flex:1; padding:10px; border-radius:10px; border:none; background:#00c2a7; color:white; cursor:pointer;">Ajouter ✓</button>
+      <label class="form-label">Lancement :</label>
+      <select id="task-lancement"
+              style="width:100%; padding:10px; margin-bottom:20px;
+                     border-radius:10px; border:1px solid #ddd;">
+        <option value="+0">Aujourd'hui</option>
+        <option value="+1">Demain</option>
+        <option value="+2">Après-demain</option>
+        <option value="+3">Dans 3 jours</option>
+        <option value="+7">Dans une semaine</option>
+      </select>
+
+      <div style="display:flex; gap:10px;">
+        <button id="btn-annuler"
+                style="flex:1; padding:10px; border-radius:10px;
+                       border:none; background:#eee; cursor:pointer;">
+          Annuler
+        </button>
+        <button id="btn-sauvegarder"
+                style="flex:1; padding:10px; border-radius:10px;
+                       border:none; background:#00c2a7;
+                       color:white; cursor:pointer;">
+          Ajouter ✓
+        </button>
       </div>
     </div>
   </div>
 
+  <!-- MODAL BOUTIQUE -->
   <div class="modal-overlay hidden" id="shop-modal">
     <div class="modal">
-      <h3 style="font-family: 'Berkshire Swash';">Boutique ✨</h3>
-      <p>Tes diamants : <span id="shop-diamonds">0</span> 💎</p>
-      <div class="shop-grid" id="shop-items" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;"></div>
-      <button id="btn-fermer-boutique" style="width:100%; padding:10px; border-radius:10px; border:none; background:#ddd;">Quitter</button>
+      <h3 style="font-family:'Berkshire Swash'; text-align:center;">Boutique ✨</h3>
+      <p style="text-align:center;">Tes diamants : <span id="shop-diamonds">0</span> 💎</p>
+      <div id="shop-items"
+           style="display:grid; grid-template-columns:1fr 1fr;
+                  gap:10px; margin-bottom:20px; max-height:60vh; overflow-y:auto;">
+      </div>
+      <button id="btn-fermer-boutique"
+              style="width:100%; padding:12px; border-radius:10px;
+                     border:none; background:#c4a8e8;
+                     color:white; font-weight:bold; cursor:pointer;">
+        ← Retour
+      </button>
     </div>
   </div>
 

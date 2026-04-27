@@ -68,13 +68,13 @@ function jouerSon(type) {
       osc.type = 'sine';
       osc.frequency.setValueAtTime(523.25, ctx.currentTime);
       osc.frequency.exponentialRampToValueAtTime(1046.50, ctx.currentTime + 0.3);
-      g.gain.setValueAtTime(0.1, ctx.currentTime);
+      g.gain.setValueAtTime(0.3, ctx.currentTime);
       g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
     } else {
       osc.type = 'triangle';
       osc.frequency.setValueAtTime(300, ctx.currentTime);
       osc.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.1);
-      g.gain.setValueAtTime(0.1, ctx.currentTime);
+      g.gain.setValueAtTime(0.3, ctx.currentTime);
       g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
     }
     osc.connect(g);
@@ -107,7 +107,7 @@ function mettreAJourUI() {
 // Flamme — Visible dès qu'on a au moins 1 jour de série
   const feu = document.getElementById('streak-fire');
   if (feu) {
-    if (state.dayCount > 0) {
+   if (state.lastValidatedDate === aujourdhui()) {
       feu.style.display = 'inline-block';
     } else {
       feu.style.display = 'none';
@@ -118,10 +118,11 @@ function mettreAJourUI() {
 }
 
 function changerMantra() {
-  const el = document.getElementById('mantra-container');
-  if (el) {
+    const el = document.getElementById('mantra-container');
+    if (!el) return;
     el.textContent = phrasesPositives[Math.floor(Math.random() * phrasesPositives.length)];
-  }
+    el.style.opacity = '1';
+    setTimeout(() => { el.style.opacity = '0'; }, 4000);
 }
 
 function afficherTaches() {
@@ -139,8 +140,12 @@ function afficherTaches() {
 
   // Tâches futures
   let tachesFutur = state.tasks.filter(t => t.prochaineDate && t.prochaineDate > dateAuj);
-  tachesFutur.sort((a, b) => a.prochaineDate.localeCompare(b.prochaineDate));
-
+  tachesFutur.sort((a, b) => {
+    const aFaite = a.datesFaites?.includes(dateAuj) ? 1 : 0;
+    const bFaite = b.datesFaites?.includes(dateAuj) ? 1 : 0;
+    if (aFaite !== bFaite) return aFaite - bFaite;
+    return a.prochaineDate.localeCompare(b.prochaineDate);
+});
   if (listeJour) {
     listeJour.innerHTML = tachesJour.map(t => genererHtmlTache(t, true)).join('')
       || '<p style="text-align:center; padding:20px; opacity:0.5;">🌿 Rien pour aujourd\'hui.</p>';
@@ -198,7 +203,7 @@ window.cocherTache = (id) => {
   const dejaFaite = tache.datesFaites.includes(dateAuj);
   const creature = state.creatures.find(c => c.id === state.creatureActive);
 
-  if (dejaFaite) {
+if (dejaFaite) {
     tache.datesFaites = tache.datesFaites.filter(d => d !== dateAuj);
     if (creature) creature.xp = Math.max(0, creature.xp - tache.xp);
     
@@ -215,10 +220,8 @@ window.cocherTache = (id) => {
         state.lastValidatedDate = null;
         state.diamonds = Math.max(0, state.diamonds - 10);
     }
-    jouerSon('loss');
-
-
- } else {
+    jouerSon('loss');}
+ else {
     tache.datesFaites.push(dateAuj);
     if (creature) creature.xp += tache.xp;
     changerMantra();
@@ -319,7 +322,7 @@ window.ouvrirBoutique = () => {
     return `
       <div style="background:#fdfaf5; padding:10px; border-radius:15px;
                   text-align:center; border:1px solid #eaddff; box-sizing:border-box;">
-        <div style="font-size:30px;">${item.stades[0]}</div>
+        <div style="font-size:30px;">${item.stades[4]}</div>
         <div style="font-weight:bold; font-size:12px; margin:5px 0;">${item.nom}</div>
         <button onclick="acheter('${item.id}', ${item.prix})"
           style="background:${estActive ? '#c4a8e8' : possedee ? '#aaa' : '#00c2a7'};
@@ -349,19 +352,41 @@ window.acheter = (id, prix) => {
   mettreAJourUI();
   document.getElementById('shop-modal').classList.add('hidden');
 };
+function planifierNotification(heure) {
+    if (!('serviceWorker' in navigator)) return;
+    const [h, m] = heure.split(':').map(Number);
+    const cible = new Date();
+    cible.setHours(h, m, 0, 0);
+    if (cible <= new Date()) cible.setDate(cible.getDate() + 1);
+    navigator.serviceWorker.ready.then(reg => {
+        if (reg.active) {
+            reg.active.postMessage({
+                type: 'PLANIFIER_NOTIF',
+                timestamp: cible.getTime()
+            });
+        }
+    });
+}
 
+window.changerHeureNotif = (heure) => {
+    state.heureNotif = heure;
+    sauvegarder();
+    Notification.requestPermission().then(perm => {
+        if (perm === 'granted') planifierNotification(heure);
+    });
+};
 // ==========================================
 // 7. MODALS & INIT
 // ==========================================
 function fermerModal() {
-  document.getElementById('task-modal').classList.add('hidden');
-  document.getElementById('shop-modal').classList.add('hidden');
+    document.getElementById('task-modal').classList.add('hidden');
+    document.getElementById('shop-modal').classList.add('hidden');
+    document.getElementById('notif-modal').classList.add('hidden');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   charger();
   mettreAJourUI();
-  changerMantra();
   // Planifier la notif au démarrage avec l'heure sauvegardée
 if (state.heureNotif) {
     Notification.requestPermission().then(perm => {
@@ -383,4 +408,22 @@ if (state.heureNotif) {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(() => {});
   }
+  // Réveil
+document.getElementById('notif-btn').onclick = () => {
+    const input = document.getElementById('notif-time');
+    input.value = state.heureNotif || '08:00';
+    document.getElementById('notif-modal').classList.remove('hidden');
+};
+
+document.getElementById('btn-annuler-notif').onclick = () => {
+    document.getElementById('notif-modal').classList.add('hidden');
+};
+
+document.getElementById('btn-sauver-notif').onclick = () => {
+    const heure = document.getElementById('notif-time').value;
+    if (heure) {
+        window.changerHeureNotif(heure);
+        document.getElementById('notif-modal').classList.add('hidden');
+    }
+};
 });
