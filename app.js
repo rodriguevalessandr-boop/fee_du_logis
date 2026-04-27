@@ -1,6 +1,11 @@
 // ==========================================
 // 1. ÉTAT & CATALOGUE
 // ==========================================
+if ("Notification" in window) {
+    if (Notification.permission !== "granted" && Notification.permission !== "denied") {
+        Notification.requestPermission();
+    }
+}
 let state = {
   diamonds: 0,
   dayCount: 0,
@@ -425,9 +430,11 @@ if (state.heureNotif) {
   document.getElementById('btn-fermer-boutique').onclick = fermerModal;
 
   // Service worker
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').catch(() => {});
-  }
+ if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+    .then(() => console.log("L'esprit de la fée (Service Worker) est prêt !"))
+    .catch(err => console.error("Le sort a échoué :", err));
+}
   // Réveil
 document.getElementById('notif-btn').onclick = () => {
     const input = document.getElementById('notif-time');

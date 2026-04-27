@@ -18,8 +18,9 @@ body {
 /* 2. L'Ovale Carré de la créature */
 .creature-container-box {
     /* 1. On passe à une taille plus généreuse */
-    width: 280px;
+    width: 360px;
     height: 280px;
+    max-width: 95vw;
     
     /* 2. On ajuste l'arrondi proportionnellement */
     border-radius: 80px; 
@@ -201,6 +202,38 @@ body {
 /* Modals */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
 .modal { background: white; padding: 25px; border-radius: 30px; width: 90%; max-width: 400px; box-sizing: border-box; }
+/* Style des étiquettes (Nom de l'Incantation, etc.) */
+.modal label {
+    font-family: 'Berkshire Swash', cursive !important;
+    color: #573d72 !important; /* Un violet plus doux */
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+/* Style des champs de saisie et listes */
+.modal input[type="text"], 
+.modal select {
+    font-family: 'Emilys Candy', serif !important;
+    background-color: #fffaf0; /* Un blanc crème */
+    border: 2px solid #eaddff !important;
+    color: #5a4a75;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+/* Effet quand on clique dans un champ */
+.modal input[type="text"]:focus, 
+.modal select:focus {
+    border-color: #c4a8e8 !important;
+    box-shadow: 0 0 8px rgba(196, 168, 232, 0.5);
+    background-color: #ffffff;
+}
+
+/* Pour le texte d'exemple (placeholder) */
+::placeholder {
+    color: #c0b4d6;
+    font-style: italic;
+}
 .hidden { display: none !important; }
 /* Titre principal en haut (La pilule blanche) */
 h1.app-title {
