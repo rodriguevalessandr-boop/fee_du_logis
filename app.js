@@ -485,3 +485,37 @@ function ajouterXP(montant) {
         xpFill.style.width = nouvelleLargeur + "%";
     }
 }
+window.sauvegarderNotif = () => {
+    const heure = document.getElementById('notif-time').value;
+    state.heureNotif = heure;
+    sauvegarder(); // On enregistre dans le localStorage
+    
+    // On ferme la fenêtre
+    document.getElementById('notif-modal').classList.add('hidden');
+    
+    // On programme le rappel
+    planifierRappelQuotidien(heure);
+    
+    alert(`Sortilège de rappel réglé sur ${heure} ! ✨`);
+};
+function planifierRappelQuotidien(heure) {
+    const [h, m] = heure.split(':');
+    let maintenant = new Date();
+    let cible = new Date();
+    cible.setHours(h, m, 0, 0);
+
+    if (cible <= maintenant) {
+        cible.setDate(cible.getDate() + 1);
+    }
+
+    // On envoie l'ordre au Service Worker
+    if (navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+            type: 'PLANIFIER_NOTIF',
+            timestamp: cible.getTime()
+        });
+        console.log("Sortilège de rappel envoyé au Service Worker pour :", cible.toLocaleString());
+    } else {
+        console.error("Le Service Worker n'est pas encore prêt à recevoir des messages.");
+    }
+}
