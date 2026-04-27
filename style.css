@@ -59,6 +59,11 @@ body {
     width: 90%;
     margin: 0 auto 0;
 }
+
+.tasks-section {
+    width: 90%;
+    margin: 5px auto 10px;
+}
 .xp-track { height: 35px; background: #eee6f3; border-radius: 15px; border: 2px solid #dcd0e8; overflow: hidden; }
 .xp-fill { height: 100%; background: linear-gradient(90deg, #e8a0b4, #5e9aca); transition: width 0.5s; }
 
@@ -71,10 +76,7 @@ body {
 }
 
 /* Sections de missions */
-.tasks-section {
-    width: 90%;
-    margin: 15px auto 10px;
-}
+
 .task-card {
     background: white;
     border-radius: 20px;
@@ -190,10 +192,7 @@ h1.app-title {
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0,194,167,0.3);
 }
-.tasks-title--avenir {
-    opacity: 0.6;
-    font-size: 1.1rem;
-}
+
 #streak-fire {
     animation: flamme 0.8s ease-in-out infinite;
 }

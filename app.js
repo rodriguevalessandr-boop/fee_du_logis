@@ -131,16 +131,27 @@ function afficherTaches() {
   const dateAuj = aujourdhui();
 
   // Tâches du jour
-  let tachesJour = state.tasks.filter(t => t.prochaineDate && t.prochaineDate <= dateAuj);
-  tachesJour.sort((a, b) => {
+ // Missions du jour : dues aujourd'hui OU cochées aujourd'hui
+let tachesJour = state.tasks.filter(t => {
+    const dueAujourdhui = t.prochaineDate && t.prochaineDate <= dateAuj;
+    const cocheeAujourdhui = t.datesFaites?.includes(dateAuj);
+    return dueAujourdhui || cocheeAujourdhui;
+});
+
+tachesJour.sort((a, b) => {
     const aFaite = a.datesFaites?.includes(dateAuj) ? 1 : 0;
     const bFaite = b.datesFaites?.includes(dateAuj) ? 1 : 0;
     return aFaite - bFaite;
-  });
+});
 
-  // Tâches futures
-  let tachesFutur = state.tasks.filter(t => t.prochaineDate && t.prochaineDate > dateAuj);
-  tachesFutur.sort((a, b) => {
+// Avenir : dans le futur ET pas cochée aujourd'hui
+let tachesFutur = state.tasks.filter(t => {
+    const dansFutur = t.prochaineDate && t.prochaineDate > dateAuj;
+    const cocheeAujourdhui = t.datesFaites?.includes(dateAuj);
+    return dansFutur && !cocheeAujourdhui;
+});
+
+tachesFutur.sort((a, b) => {
     const aFaite = a.datesFaites?.includes(dateAuj) ? 1 : 0;
     const bFaite = b.datesFaites?.includes(dateAuj) ? 1 : 0;
     if (aFaite !== bFaite) return aFaite - bFaite;
