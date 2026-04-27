@@ -7,7 +7,47 @@
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
 </head>
+<style>
+  /* --- Appliquer la police douce à tous tes titres --- */
+  h1, h2 {
+    font-family: 'Satisfy', cursive !important;
+    font-weight: normal; /* Ces polices sont plus belles quand elles ne sont pas grasses */
+  }
+
+  /* --- 1. La recette pour une flamme douce (Pulsation lente) --- */
+  @keyframes pulserDoucement {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+  }
+
+  /* --- 2. La recette pour une fée dansante (Mouvement fluide et lent) --- */
+  @keyframes danserFee {
+    0% { transform: translateY(0) rotate(0deg); }
+    33% { transform: translateY(-8px) rotate(-8deg); }
+    66% { transform: translateY(-3px) rotate(8deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+  }
+
+  #streak-fire {
+    display: inline-block;
+    animation: pulserDoucement 2s ease-in-out infinite; /* Animation lente (2s) et fluide */
+    transform-origin: bottom center;
+  }
+
+  /* --- 4. La classe pour faire danser n'importe quel emoji fée --- */
+    .fee-dansante {
+    display: inline-block;
+    font-size: 1.8em; /* On l'agrandit encore un peu pour la rendre plus majestueuse */
+    margin-right: 15px;
+    animation: danserFee 5s ease-in-out infinite; /* Très lente (5s) et fluide */
+    transform-origin: center center;
+  }
+</style>
 <style>
   .modal.hidden {
     display: none !important;
@@ -21,7 +61,10 @@
  <header class="app-header">
 
   <!-- Ligne 1 : Titre -->
-  <h1 class="app-title">🧚 Fée du logis</h1>
+<h1>
+  <span class="fee-dansante">🧚</span>
+  Fée du logis
+</h1>
 
   <!-- Ligne 2 : Diamants seul à gauche -->
   <div class="header-row-2">
