@@ -198,6 +198,22 @@ function afficherTaches() {
 }
 function genererHtmlTache(tache, estAuj) {
   const faite = tache.datesFaites?.includes(aujourdhui());
+  let pieceEnchantee = (tache.piece || 'Ton Sanctuaire');
+  let emojiPiece = '🌸';
+  
+  if (pieceEnchantee.includes('Cuisine')) emojiPiece = '🍲';
+  else if (pieceEnchantee.includes('Chambre')) emojiPiece = '🪞';
+  else if (pieceEnchantee.includes('bain')) emojiPiece = '🛁';
+  else if (pieceEnchantee.includes('Bureau')) emojiPiece = '📚';
+  else if (pieceEnchantee.includes('Toute')) emojiPiece = '🏠';
+
+  // Formatage de la date pour un effet plus doux
+  let dateAffiche = "Le " + tache.prochaineDate;
+  if (estAuj) dateAffiche = "Enchantement de ce Jour";
+  else {
+    const parts = tache.prochaineDate.split('-');
+    dateAffiche = `Éclosion le ${parts[2]}/${parts[1]}`;
+  }
   
   return `
     <div class="task-card ${faite ? 'completed' : ''}" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; background: white; border-radius: 20px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid #f0e6ff;">
