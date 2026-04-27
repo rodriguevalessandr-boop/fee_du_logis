@@ -42,6 +42,27 @@
     animation: pulserDoucement 1.5s ease-in-out infinite; /* Animation lente (2s) et fluide */
     transform-origin: bottom center;
   }
+  #creature-container {
+    background: #fffdf9;
+    border: 3px solid #eaddff;
+    /* Voici l'astuce pour l'ovale carré (super-ellipse) */
+    border-radius: 60px; 
+    padding: 30px;
+    margin: 20px auto;
+    width: fit-content;
+    box-shadow: 0 8px 20px rgba(234, 221, 255, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  #creature-img {
+    width: 200px !important; /* Taille imposante */
+    height: 200px !important;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+    margin-bottom: 15px;
+  }
 
   /* --- 4. La classe pour faire danser n'importe quel emoji fée --- */
     .fee-dansante {
@@ -99,14 +120,14 @@
   <div id="creature-stage">Chargement...</div>
 </div>
 
-    <!-- JAUGE XP -->
-    <div class="xp-gauge-wrap">
-      <div class="xp-numbers"><span id="xp-current">0</span> / 500 XP</div>
-      <div class="xp-track">
-        <div class="xp-fill" id="xp-fill"></div>
-      </div>
-    </div>
-
+<div class="xp-gauge-wrap">
+  <div class="xp-numbers" style="text-align:right;">
+    <span id="xp-current">0</span> / 500 XP
+  </div>
+  <div class="xp-track">
+    <div class="xp-fill" id="xp-fill"></div>
+  </div>
+</div>
     <!-- MANTRA -->
     <div id="mantra-container" style="opacity:0">Prête pour un peu de magie ? ✨</div>
 

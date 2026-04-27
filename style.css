@@ -1,21 +1,100 @@
 @import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap');
+/* 1. Les Polices */
+h1, h2 { 
+    font-family: 'Berkshire Swash', cursive !important; 
+    font-weight: normal; 
+}
+body, h3, label, button, .task-card { 
+    font-family: 'Emilys Candy', serif !important; 
+}
 
 body {
-    font-family: 'Segoe UI', Roboto, sans-serif;
     background-color: #fdfaf5;
     margin: 0; padding: 0;
     color: #3d2f22;
     display: flex; flex-direction: column; align-items: center;
 }
 
+/* 2. L'Ovale Carré de la créature */
+.creature-container-box {
+    /* 1. On passe à une taille plus généreuse */
+    width: 280px;
+    height: 280px;
+    
+    /* 2. On ajuste l'arrondi proportionnellement */
+    border-radius: 80px; 
+    
+    /* 3. On réduit les marges pour éviter que ça touche la jauge ou le haut */
+    margin: 10px auto; 
+    
+    /* 4. Le reste reste identique pour garder le style */
+    background: #ffffff;
+    border: 3px solid #eaddff;
+    box-shadow: 0 8px 20px rgba(109, 93, 142, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Sécurité pour le placement interne */
+}
+
+/* On s'assure que le cercle de la fée est bien au centre */
+.creature-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.xp-track-externe {
+    width: 250px;
+    background: #eee;
+    border-radius: 20px;
+    height: 20px;
+    overflow: hidden;
+    border: 2px solid #f0e6ff;
+    margin: 10px auto;
+}
+
+
+.visuel-geant {
+    font-size: 100px !important;
+}
+
+.xp-bar-container {
+    width: 100%;
+    background: #eee;
+    border-radius: 20px;
+    height: 18px;
+    overflow: hidden;
+    border: 1px solid #eaddff;
+    margin-top: 15px;
+}
+
+#xp-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #e8a0b4, #5e9aca);
+    transition: width 0.5s;
+}
+.xp-text {
+    font-family: 'Emilys Candy', serif;
+    font-size: 1.2rem;
+    color: #6d5d8e;
+    margin-bottom: 8px;
+}
+
+/* 4. Les Animations */
+@keyframes levitation {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
 .tasks-title {
-    font-family: 'Berkshire Swash', cursive;
     text-align: center;
     color: #4a3560;
     margin-bottom: 20px;
 }
 .app-container { width: 100%; display: flex; flex-direction: column; align-items: center; }
-
 
 
 .app-header {
@@ -51,7 +130,8 @@ body {
     box-shadow: 0 0 30px rgba(142, 190, 173, 0.8), 0 0 60px rgba(196,168,232,0.4);
 }
 
-.creature-emoji { font-size: 70px; animation: levitation 3s ease-in-out infinite; }
+.creature-emoji { font-size: 80px; /* Une belle grande fée ! */
+    margin-bottom: 5px; animation: levitation 3s ease-in-out infinite; }
 @keyframes levitation { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
 /* Jauge XP */
@@ -75,7 +155,6 @@ body {
     transition: opacity 0.5s ease;
 }
 
-/* Sections de missions */
 
 .task-card {
     background: white;
@@ -213,7 +292,7 @@ h1.app-title {
 /* Animation de flottement */
 #creature-emoji {
     display: inline-block; /* Crucial pour l'animation */
-    font-size: 80px; 
+    font-size: 100px !important;
     animation: flotter 3s ease-in-out infinite;
 }
 .modal.hidden {

@@ -55,38 +55,7 @@ const charger = () => {
 };
 const aujourdhui = () => new Date().toISOString().split('T')[0];
 
-// Fonction manquante pour calculer la date suivante selon la fréquence
-function calculerProchaineDate(dateDepart, frequence) {
-    let d = new Date(dateDepart);
-    
-    switch (frequence) {
-        case 'Quotidienne':
-            d.setDate(d.getDate() + 1);
-            break;
-        case 'Tous les 2 jours':
-            d.setDate(d.getDate() + 2);
-            break;
-        case 'Tous les 3 jours':
-            d.setDate(d.getDate() + 3);
-            break;
-        case 'Hebdomadaire':
-            d.setDate(d.getDate() + 7);
-            break;
-        case 'Bimensuelle':
-            d.setDate(d.getDate() + 14);
-            break;
-        case 'Mensuelle':
-            d.setMonth(d.getMonth() + 1);
-            break;
-        case 'Ponctuelle':
-            // Pour les tâches ponctuelles, on les projette très loin pour qu'elles sortent de la liste
-            d.setFullYear(d.getFullYear() + 10); 
-            break;
-        default:
-            d.setDate(d.getDate() + 1);
-    }
-    return d.toISOString().split('T')[0];
-}
+
 // ==========================================
 // 3. SONS
 // ==========================================
@@ -198,22 +167,6 @@ function afficherTaches() {
 }
 function genererHtmlTache(tache, estAuj) {
   const faite = tache.datesFaites?.includes(aujourdhui());
-  let pieceEnchantee = (tache.piece || 'Ton Sanctuaire');
-  let emojiPiece = '🌸';
-  
-  if (pieceEnchantee.includes('Cuisine')) emojiPiece = '🍲';
-  else if (pieceEnchantee.includes('Chambre')) emojiPiece = '🪞';
-  else if (pieceEnchantee.includes('bain')) emojiPiece = '🛁';
-  else if (pieceEnchantee.includes('Bureau')) emojiPiece = '📚';
-  else if (pieceEnchantee.includes('Toute')) emojiPiece = '🏠';
-
-  // Formatage de la date pour un effet plus doux
-  let dateAffiche = "Le " + tache.prochaineDate;
-  if (estAuj) dateAffiche = "Enchantement de ce Jour";
-  else {
-    const parts = tache.prochaineDate.split('-');
-    dateAffiche = `Éclosion le ${parts[2]}/${parts[1]}`;
-  }
   
   return `
     <div class="task-card ${faite ? 'completed' : ''}" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; background: white; border-radius: 20px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid #f0e6ff;">
@@ -266,7 +219,7 @@ window.cocherTache = (id) => {
     // --- ACTIONS : VALIDER LA TÂCHE ---
     jouerSon('win');
     tache.datesFaites.push(dateAuj);
-
+ajouterXP(tache.xp || 10);
     // Attribution de l'XP (Vérification stricte)
     if (creature) {
         creature.xp = (creature.xp || 0) + (tache.xp || 10);
@@ -494,3 +447,34 @@ document.getElementById('btn-sauver-notif').onclick = () => {
     }
 };
 });
+function calculerProchaineDate(baseDate, frequence) {
+    let d = new Date(baseDate);
+    if (frequence === 'Quotidienne') {
+        d.setDate(d.getDate() + 1);
+    } else if (frequence === 'Hebdomadaire') {
+        d.setDate(d.getDate() + 7);
+    } else if (frequence === 'Bimensuelle') {
+        d.setDate(d.getDate() + 14);
+    } else if (frequence === 'Mensuelle') {
+        d.setMonth(d.getMonth() + 1);
+    } else {
+        // Pour les tâches ponctuelles, on la décale de 100 ans pour qu'elle disparaisse du "Aujourd'hui"
+        d.setFullYear(d.getFullYear() + 100);
+    }
+    return d.toISOString().split('T')[0];
+}
+function ajouterXP(montant) {
+    console.log("Animation de la barre d'XP : +", montant);
+    const xpFill = document.getElementById('xp-fill');
+    if (xpFill) {
+        // On récupère la largeur actuelle (ex: "30%")
+        let largeurActuelle = parseFloat(xpFill.style.width) || 0;
+        let nouvelleLargeur = largeurActuelle + (montant / 5); // Ajuste le /5 pour que ça remplisse plus ou moins vite
+        
+        // On bloque à 100%
+        if (nouvelleLargeur > 100) nouvelleLargeur = 100;
+        
+        // On applique le changement visuel
+        xpFill.style.width = nouvelleLargeur + "%";
+    }
+}
