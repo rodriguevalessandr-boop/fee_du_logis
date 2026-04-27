@@ -15,7 +15,7 @@ self.addEventListener('message', e => {
             notifTimer = setTimeout(() => {
                 self.registration.showNotification('Fée du logis en approche ! 🧚', {
                     body: 'Tes créatures t\'attendent ✨',
-                    icon: '/logo512.png',
+                    icon: '/logo512.jpg',
                     vibrate: [200, 100, 200]
                 });
             }, delai);
