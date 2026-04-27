@@ -133,9 +133,8 @@ function afficherTaches() {
   // Tâches du jour
  // Missions du jour : dues aujourd'hui OU cochées aujourd'hui
 let tachesJour = state.tasks.filter(t => {
-    const dueAujourdhui = t.prochaineDate && t.prochaineDate <= dateAuj;
-    const cocheeAujourdhui = t.datesFaites?.includes(dateAuj);
-    return dueAujourdhui || cocheeAujourdhui;
+const faiteAuj = t.datesFaites?.includes(dateAuj);
+    return t.prochaineDate <= dateAuj || faiteAuj;
 });
 
 tachesJour.sort((a, b) => {
@@ -146,9 +145,8 @@ tachesJour.sort((a, b) => {
 
 // Avenir : dans le futur ET pas cochée aujourd'hui
 let tachesFutur = state.tasks.filter(t => {
-    const dansFutur = t.prochaineDate && t.prochaineDate > dateAuj;
-    const cocheeAujourdhui = t.datesFaites?.includes(dateAuj);
-    return dansFutur && !cocheeAujourdhui;
+const faiteAuj = t.datesFaites?.includes(dateAuj);
+    return t.prochaineDate > dateAuj && !faiteAuj;
 });
 
 tachesFutur.sort((a, b) => {
