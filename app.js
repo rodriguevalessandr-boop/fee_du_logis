@@ -217,9 +217,9 @@ window.cocherTache = (id) => {
 if (dejaFaite) {
     tache.datesFaites = tache.datesFaites.filter(d => d !== dateAuj);
     if (creature) creature.xp = Math.max(0, creature.xp - tache.xp);
-    
-    // Restaurer la date d'origine au lieu de mettre aujourd'hui
-    if (tache.datePrecedente) {
+
+    // Restaurer la date précédente si elle existe et est dans le futur
+    if (tache.datePrecedente && tache.datePrecedente > dateAuj) {
         tache.prochaineDate = tache.datePrecedente;
     } else {
         tache.prochaineDate = dateAuj;
@@ -231,7 +231,8 @@ if (dejaFaite) {
         state.lastValidatedDate = null;
         state.diamonds = Math.max(0, state.diamonds - 10);
     }
-    jouerSon('loss');}
+    jouerSon('loss');
+}
  else {
     tache.datesFaites.push(dateAuj);
     if (creature) creature.xp += tache.xp;
