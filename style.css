@@ -1,11 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap');
 /* 1. Les Polices */
-h1, h2 { 
-    font-family: 'Berkshire Swash', cursive !important; 
-    font-weight: normal; 
+/* --- TITRES MAGIQUES --- */
+h1 {
+    font-family: 'Berkshire Swash', cursive !important;
+    font-weight: normal;
+    /* On met le paquet sur la taille des titres */
+    font-size: 2.8rem !important; 
+    color: #4a3560;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.2;
 }
-body, h3, label, button, .task-card { 
-    font-family: 'Emilys Candy', serif !important; 
+
+h2 {
+    font-family: 'Berkshire Swash', cursive !important;
+    font-weight: normal;
+    /* On met le paquet sur la taille des titres */
+    font-size: 2.4rem !important; 
+    color: #4a3560;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+/* --- TEXTE DE L'APPLI --- */
+body, h3, label, button, .task-card {
+    font-family: 'Emilys Candy', serif !important;
+}
+
+/* Taille spécifique pour les étiquettes de ton formulaire */
+label {
+    font-size: 1.4rem !important; /* Assez grand, mais plus petit que le h2 */
+    color: #6d5d8e;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Taille pour le texte dans ton Squircle */
+h3 {
+    font-size: 1.6rem !important; 
 }
 
 body {
@@ -21,6 +53,7 @@ body {
     width: 360px;
     height: 280px;
     max-width: 95vw;
+    font-size: 1.6rem !important;
     
     /* 2. On ajuste l'arrondi proportionnellement */
     border-radius: 80px; 
@@ -204,16 +237,22 @@ body {
 .modal { background: white; padding: 25px; border-radius: 30px; width: 90%; max-width: 400px; box-sizing: border-box; }
 /* Style des étiquettes (Nom de l'Incantation, etc.) */
 .modal label {
-    font-family: 'Berkshire Swash', cursive !important;
+
     color: #573d72 !important; /* Un violet plus doux */
-    font-size: 1.1rem;
     margin-top: 10px;
+    font-size: 1.3rem !important; /* On l'agrandit bien */
+    font-family: 'Berkshire Swash', cursive !important;
+    display: block;
+    margin-bottom: 8px;
 }
 
 /* Style des champs de saisie et listes */
 .modal input[type="text"], 
 .modal select {
     font-family: 'Emilys Candy', serif !important;
+    padding: 12px !important;
+    border-radius: 15px !important;
+    font-size: 1.1rem !important;
     background-color: #fffaf0; /* Un blanc crème */
     border: 2px solid #eaddff !important;
     color: #5a4a75;
@@ -233,6 +272,7 @@ body {
 ::placeholder {
     color: #c0b4d6;
     font-style: italic;
+    font-size: 1rem;
 }
 .hidden { display: none !important; }
 /* Titre principal en haut (La pilule blanche) */
@@ -330,4 +370,35 @@ h1.app-title {
 }
 .modal.hidden {
   display: none !important;
+}
+/* L'effet de pétillement autour de la fée */
+.fairy-sparkle {
+    display: inline-block;
+    position: relative;
+    animation: flight 3s infinite ease-in-out;
+}
+
+.fairy-sparkle::after {
+    content: '✨'; /* La poussière de fée */
+    color: #ffd700; /* Or pur */
+    text-shadow: 0 0 5px #fff;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    font-size: 0.8rem;
+    animation: sparkle-dust 1s infinite alternate;
+    opacity: 0;
+}
+
+/* Animation de vol (légers battements) */
+@keyframes flight {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(5deg); }
+}
+
+/* Animation des étincelles (pétillement) */
+@keyframes sparkle-dust {
+    0% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+    100% { opacity: 0; transform: scale(0.8) rotate(360deg); }
 }
