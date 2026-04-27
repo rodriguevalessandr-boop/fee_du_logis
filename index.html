@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 </head>
+<style>
+  .modal.hidden {
+    display: none !important;
+  }
+</style>
 <body>
 
   <div class="app-container">
@@ -120,24 +125,30 @@
         <option value="🌿 Salon de Thé">🌿 Salon de Thé</option>
         <option value="🍲 Cuisine Alchimique">🍲 Cuisine Alchimique</option>
         <option value="🪞 Chambre aux Rêves">🪞 Chambre aux Rêves</option>
-        <option value="Source Pure"> Source Pure</option>
+        <option value="🛁Source Pure"> 🛁 Source Pure</option>
         <option value="📚 Bureau des Sorts">📚 Bureau des Sorts</option>
-        <option value="🚪 Hall des Murmures">🚪 Hall des Murmures</option>
         <option value="🏠 Sanctuaire Entier">🏠 Sanctuaire Entier</option>
+        <option value="🚪 Hall des Murmures">🚪 Hall des Murmures</option>
+
       </select>
     </div>
 
-    <div style="display: flex; gap: 15px; margin-bottom: 15px;">
-      <div style="flex:1;">
-        <label style="display: block; color: #6d5d8e; font-weight: bold; margin-bottom: 5px;">Résonance</label>
-        <input type="number" id="task-xp" value="10" style="width: 100%; border-radius: 12px; border: 1px solid #eaddff; padding: 10px; box-sizing: border-box;">
-      </div>
+<div style="flex:1;">
+  <label style="display: block; color: #6d5d8e; font-weight: bold; margin-bottom: 5px;">Résonnance</label>
+  <select id="task-xp" style="width: 100%; border-radius: 12px; border: 1px solid #eaddff; padding: 10px; background: white; cursor: pointer;">
+    <option value="10">✨ Petit Geste (10 XP)</option>
+    <option value="25">🌟 Bel Effort (25 XP)</option>
+    <option value="40">🔥 Grande Quête (40 XP)</option>
+  </select>
+</div>
       <div style="flex:2;">
         <label style="display: block; color: #6d5d8e; font-weight: bold; margin-bottom: 5px;">Élan de Lancement</label>
         <select id="task-lancement" style="width: 100%; border-radius: 12px; border: 1px solid #eaddff; padding: 10px;">
-          <option value="0">✨ Immédiat</option>
-          <option value="+1">🌅 Dès demain</option>
-          <option value="+7">🕯️ Semaine prochaine</option>
+          <option value="0">🍭 Aujourd'hui </option>
+          <option value="+1">🫧Dès demain</option>
+          <option value="+2"> ✨Surlendemain</option>
+          <option value="+7">🌺Semaine prochaine</option>
+          <option value="+14"> 💐Dans deux semaines</option>
         </select>
       </div>
     </div>
@@ -145,9 +156,13 @@
     <div style="margin-bottom: 20px;">
       <label style="display: block; color: #6d5d8e; font-weight: bold; margin-bottom: 5px;">Rituel Temporel</label>
       <select id="task-frequence" style="width: 100%; border-radius: 12px; border: 1px solid #eaddff; padding: 10px;">
-        <option value="Quotidienne">☀️ Rituel Quotidien</option>
-        <option value="Hebdomadaire">🕯️ Cycle Hebdomadaire</option>
-        <option value="Ponctuelle">✨ Geste Unique</option>
+        <option value="Quotidienne"> Quotidienne</option>
+        <option value="Hebdomadaire">Dans 7 jours </option>
+        <option value="Bimensuelle"> Deux fois par mois </option>
+        <option value="Mensuelle" > Tous les mois</option>
+        <option value="Ponctuelle"> Ponctuelle </option>
+   
+      
       </select>
     </div>
 

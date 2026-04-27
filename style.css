@@ -216,4 +216,6 @@ h1.app-title {
     font-size: 80px; 
     animation: flotter 3s ease-in-out infinite;
 }
-
+.modal.hidden {
+  display: none !important;
+}
