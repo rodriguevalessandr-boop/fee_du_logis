@@ -518,4 +518,13 @@ function planifierRappelQuotidien(heure) {
     } else {
         console.error("Le Service Worker n'est pas encore prêt à recevoir des messages.");
     }
+}// --- ACTIVATION DU MESSAGER (SERVICE WORKER) ---
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+    .then(registration => {
+        console.log("Le messager magique est prêt ! ✨");
+    })
+    .catch(err => {
+        console.error("Le sort de rappel a échoué :", err);
+    });
 }
