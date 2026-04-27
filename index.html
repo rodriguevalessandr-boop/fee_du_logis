@@ -9,13 +9,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Emilys+Candy&display=swap" rel="stylesheet">
 </head>
 <style>
   /* --- Appliquer la police douce à tous tes titres --- */
   h1, h2 {
     font-family: 'Berkshire Swash', cursive !important;
     font-weight: normal; /* Ces polices sont plus belles quand elles ne sont pas grasses */
+  }
+  body,h3,label, button, .task-card {
+  font-family: 'Emilys Candy', serif !important;
   }
 
   /* --- 1. La recette pour une flamme douce (Pulsation lente) --- */
@@ -35,7 +39,7 @@
 
   #streak-fire {
     display: inline-block;
-    animation: pulserDoucement 2s ease-in-out infinite; /* Animation lente (2s) et fluide */
+    animation: pulserDoucement 1.5s ease-in-out infinite; /* Animation lente (2s) et fluide */
     transform-origin: bottom center;
   }
 
