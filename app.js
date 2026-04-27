@@ -55,6 +55,38 @@ const charger = () => {
 };
 const aujourdhui = () => new Date().toISOString().split('T')[0];
 
+// Fonction manquante pour calculer la date suivante selon la fréquence
+function calculerProchaineDate(dateDepart, frequence) {
+    let d = new Date(dateDepart);
+    
+    switch (frequence) {
+        case 'Quotidienne':
+            d.setDate(d.getDate() + 1);
+            break;
+        case 'Tous les 2 jours':
+            d.setDate(d.getDate() + 2);
+            break;
+        case 'Tous les 3 jours':
+            d.setDate(d.getDate() + 3);
+            break;
+        case 'Hebdomadaire':
+            d.setDate(d.getDate() + 7);
+            break;
+        case 'Bimensuelle':
+            d.setDate(d.getDate() + 14);
+            break;
+        case 'Mensuelle':
+            d.setMonth(d.getMonth() + 1);
+            break;
+        case 'Ponctuelle':
+            // Pour les tâches ponctuelles, on les projette très loin pour qu'elles sortent de la liste
+            d.setFullYear(d.getFullYear() + 10); 
+            break;
+        default:
+            d.setDate(d.getDate() + 1);
+    }
+    return d.toISOString().split('T')[0];
+}
 // ==========================================
 // 3. SONS
 // ==========================================
@@ -130,41 +162,40 @@ function afficherTaches() {
   const listeFutur = document.getElementById('future-tasks-list');
   const dateAuj = aujourdhui();
 
-  // --- FILTRE MISSIONS DU JOUR ---
-  // On ne prend QUE ce qui est prévu pour aujourd'hui ou avant.
-  // MÊME SI la date change après avoir coché, le filtre doit l'ignorer tant qu'on est le même jour.
+  // 1. FILTRAGE MISSIONS DU JOUR
   let tJour = state.tasks.filter(t => {
     const faiteAuj = t.datesFaites?.includes(dateAuj);
-    // Elle reste en haut si elle était due aujourd'hui OU si on l'a faite aujourd'hui
-    return t.prochaineDate <= dateAuj || faiteAuj;
+    return (t.prochaineDate <= dateAuj) || (faiteAuj && (!t.datePrecedente || t.datePrecedente <= dateAuj));
   });
 
-  tJour.sort((a, b) => {
-    const aFaite = a.datesFaites?.includes(dateAuj) ? 1 : 0;
-    const bFaite = b.datesFaites?.includes(dateAuj) ? 1 : 0;
-    return aFaite - bFaite; // Non-cochées en premier
-  });
-
-  // --- FILTRE AVENIR ---
-  // On ne prend QUE ce qui est strictement supérieur à aujourd'hui
-  // MAIS on interdit à une tâche faite aujourd'hui de monter ici.
+  // 2. FILTRAGE AVENIR
   let tFutur = state.tasks.filter(t => {
     const faiteAuj = t.datesFaites?.includes(dateAuj);
-    return t.prochaineDate > dateAuj && !faiteAuj;
+    const estVraimentAvenir = t.prochaineDate > dateAuj || (faiteAuj && t.datePrecedente > dateAuj);
+    return estVraimentAvenir && !tJour.includes(t);
   });
 
-  tFutur.sort((a, b) => {
-    const aFaite = a.datesFaites?.includes(dateAuj) ? 1 : 0;
-    const bFaite = b.datesFaites?.includes(dateAuj) ? 1 : 0;
-    if (aFaite !== bFaite) return aFaite - bFaite;
-    return a.prochaineDate.localeCompare(b.prochaineDate);
-  });
+  // 3. FONCTION DE TRI UNIQUE (La même pour les deux listes)
+  const monSuperTri = (a, b) => {
+    const aF = a.datesFaites?.includes(dateAuj) ? 1 : 0;
+    const bF = b.datesFaites?.includes(dateAuj) ? 1 : 0;
+    
+    // Priorité 1 : État (Non-coché en haut)
+    if (aF !== bF) return aF - bF;
+    // Priorité 2 : Date (La plus ancienne/urgente en haut)
+    if (a.prochaineDate !== b.prochaineDate) return a.prochaineDate.localeCompare(b.prochaineDate);
+    // Priorité 3 : Nom (Ordre alphabétique si tout le reste est pareil)
+    return a.nom.localeCompare(b.nom);
+  };
 
-  // Affichage
+  // On applique le tri aux deux listes
+  tJour.sort(monSuperTri);
+  tFutur.sort(monSuperTri);
+
+  // 4. AFFICHAGE
   if (listeJour) listeJour.innerHTML = tJour.map(t => genererHtmlTache(t, true)).join('') || '<p>🌿 Rien aujourd\'hui.</p>';
   if (listeFutur) listeFutur.innerHTML = tFutur.map(t => genererHtmlTache(t, false)).join('') || '<p>Avenir serein...</p>';
 }
-
 function genererHtmlTache(tache, estAuj) {
   const faite = tache.datesFaites?.includes(aujourdhui());
   
@@ -205,58 +236,69 @@ function genererHtmlTache(tache, estAuj) {
 // 5. ACTIONS
 // ==========================================
 window.cocherTache = (id) => {
+  console.log("Tentative de cochage de la tâche :", id); // Pour vérifier dans la console
   const tache = state.tasks.find(t => t.id === id);
   const dateAuj = aujourdhui();
+  
+  if (!tache) return; // Sécurité si la tâche n'existe pas
   if (!tache.datesFaites) tache.datesFaites = [];
+  
   const dejaFaite = tache.datesFaites.includes(dateAuj);
   const creature = state.creatures.find(c => c.id === state.creatureActive);
 
-if (dejaFaite) {
-    tache.datesFaites = tache.datesFaites.filter(d => d !== dateAuj);
-    if (creature) creature.xp = Math.max(0, creature.xp - tache.xp);
-
-    // Restaurer la date précédente si elle existe et est dans le futur
-    if (tache.datePrecedente && tache.datePrecedente > dateAuj) {
-        tache.prochaineDate = tache.datePrecedente;
-    } else {
-        tache.prochaineDate = dateAuj;
-    }
-
-    const encoreDesTaches = state.tasks.some(t => t.datesFaites?.includes(dateAuj));
-    if (!encoreDesTaches) {
-        state.dayCount = Math.max(0, state.dayCount - 1);
-        state.lastValidatedDate = null;
-        state.diamonds = Math.max(0, state.diamonds - 10);
-    }
-    jouerSon('loss');
-}
- else {
+  if (!dejaFaite) {
+    // --- ACTIONS : VALIDER LA TÂCHE ---
+    jouerSon('win');
     tache.datesFaites.push(dateAuj);
-    if (creature) creature.xp += tache.xp;
-    changerMantra();
 
-    // Sauvegarder la date actuelle avant de calculer la suivante
-    tache.datePrecedente = tache.prochaineDate;
-
-    let d = new Date();
-    const freq = tache.frequence;
-    if (freq === 'Hebdomadaire') d.setDate(d.getDate() + 7);
-    else if (freq === 'Bimensuelle') d.setDate(d.getDate() + 14);
-    else if (freq === 'Tous les 3 jours') d.setDate(d.getDate() + 3);
-    else if (freq === 'Ponctuelle') d.setFullYear(d.getFullYear() + 10);
-    else d.setDate(d.getDate() + 1);
-    tache.prochaineDate = d.toISOString().split('T')[0];
-
+    // Attribution de l'XP (Vérification stricte)
+    if (creature) {
+        creature.xp = (creature.xp || 0) + (tache.xp || 10);
+        console.log("XP gagné ! Nouveau total :", creature.xp);
+    }
+    
+    // Bonus quotidien (diamants + flamme)
     if (state.lastValidatedDate !== dateAuj) {
-        state.dayCount++;
-        state.diamonds += 10;
+        state.dayCount = (state.dayCount || 0) + 1;
+        state.diamonds = (state.diamonds || 0) + 10;
         state.lastValidatedDate = dateAuj;
     }
-    jouerSon('win');
-}
 
+    // Gestion de la date
+    tache.datePrecedente = tache.prochaineDate; 
+    if (tache.prochaineDate <= dateAuj) {
+        tache.prochaineDate = calculerProchaineDate(dateAuj, tache.frequence);
+    }
+    
+    if (typeof changerMantra === 'function') changerMantra();
+
+  } else {
+    // --- ACTIONS : DÉCOCHER LA TÂCHE ---
+    jouerSon('loss');
+    tache.datesFaites = tache.datesFaites.filter(d => d !== dateAuj);
+    
+    // Retrait de l'XP
+    if (creature) {
+        creature.xp = Math.max(0, (creature.xp || 0) - (tache.xp || 10));
+    }
+
+    // Restauration de la date
+    if (tache.datePrecedente) {
+        tache.prochaineDate = tache.datePrecedente;
+    }
+
+    // Annulation du bonus si plus aucune tâche n'est faite aujourd'hui
+    const encore = state.tasks.some(t => t.datesFaites?.includes(dateAuj));
+    if (!encore) {
+        state.dayCount = Math.max(0, (state.dayCount || 0) - 1);
+        state.diamonds = Math.max(0, (state.diamonds || 0) - 10);
+        state.lastValidatedDate = null;
+    }
+  }
+
+  // SAUVEGARDE ET MISE À JOUR (Crucial pour le tri !)
   sauvegarder();
-  mettreAJourUI();
+  mettreAJourUI(); 
 };
 
 window.ouvrirPourModifier = (id) => {
