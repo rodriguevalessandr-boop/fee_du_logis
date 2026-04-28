@@ -48,6 +48,14 @@ body {
     font-size: 16px;
 }
 
+.app-main-title {
+    font-family: 'Berkshire Swash', cursive;
+    font-size: 3rem;
+    color: #4a3560;
+    text-align: center;
+    margin-top: 20px;
+}
+
 /* 2. L'Ovale Carré de la créature */
 .creature-container-box {
     /* 1. On passe à une taille plus généreuse */
@@ -73,11 +81,12 @@ body {
     position: relative; /* Sécurité pour le placement interne */
 }
 
-/* On s'assure que le cercle de la fée est bien au centre */
-.creature-circle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#creature-stage {
+    text-align: center;
+    font-family: 'Berkshire Swash', cursive;
+    font-size: 1.3rem;
+    color: #4a3560;
+    margin-top: 8px;
 }
 
 .xp-track-externe {
@@ -154,15 +163,15 @@ body {
 }
 
 .creature-circle {
-    width: 25vw;
-    height: 25vw;
+    width: 35vw;      /* augmente si trop petit */
+    height: 35vw;
     max-width: 200px;
     max-height: 200px;
-    background: #a8e6cf;
+    background: #d4c5f0; /* lilas doux par exemple */
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    border: 3px solid rgba(241, 245, 239, 0.822);
-    box-shadow: 0 0 30px rgba(142, 190, 173, 0.8), 0 0 60px rgba(196,168,232,0.4);
+    border: 3px solid rgba(255,255,255,0.8);
+    box-shadow: 0 0 30px rgba(142,190,173,0.8), 0 0 60px rgba(196,168,232,0.4);
 }
 
 .creature-emoji { font-size: 80px; /* Une belle grande fée ! */
