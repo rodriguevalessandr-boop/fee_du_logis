@@ -181,7 +181,7 @@ function genererHtmlTache(tache, estAuj) {
              style="width:25px; height:25px; margin-right:15px; cursor:pointer; flex-shrink:0;">
       
       <div style="display: flex; flex-direction: column; flex: 1; cursor: pointer;" onclick="ouvrirPourModifier(${tache.id})">
-        <div style="font-size: 1.3rem; font-weight: bold; color: #4a3560; ${faite ? 'text-decoration:line-through; opacity:0.5;' : ''}">
+        <div style="font-size: 1.3rem; color: #4a3560; ${faite ? 'text-decoration:line-through; opacity:0.5;' : ''}">
           ${tache.nom}
         </div>
         <div style="color: #a594b5; font-size: 1rem; margin-top: 4px;">
@@ -191,7 +191,7 @@ function genererHtmlTache(tache, estAuj) {
 
       <div style="display: flex; align-items: center; gap: 15px; flex-shrink:0; margin-left:10px;">
         
-        <span style="font-weight:bold; color:#7fb3d5; font-size: 1.2rem; background: #f0f9ff; padding: 5px 10px; border-radius: 10px;">
+        <span style=" color:#7fb3d5; font-size: 1.2rem; background: #f0f9ff; padding: 5px 10px; border-radius: 10px;">
           +${tache.xp} XP
         </span>
 
@@ -304,7 +304,7 @@ window.demanderSuppression = (id) => {
     zone.innerHTML = `
       <div style="display: flex; flex-direction: column; gap: 5px; align-items: center;">
         <button onclick="event.stopPropagation(); supprimerDefinitif(${id})"
-                style="color:white; background:#ff4757; border:none; border-radius:8px; padding:4px 8px; font-size:10px; font-weight:bold; cursor:pointer;">
+                style="color:white; background:#ff4757; border:none; border-radius:8px; padding:4px 8px; font-size:10px;  cursor:pointer;">
           Valider ?
         </button>
         <button onclick="event.stopPropagation(); mettreAJourUI()"
@@ -358,7 +358,7 @@ window.ouvrirBoutique = () => {
       <div style="background:#fdfaf5; padding:10px; border-radius:15px;
                   text-align:center; border:1px solid #eaddff; box-sizing:border-box;">
         <div style="font-size:30px;">${item.stades[4]}</div>
-        <div style="font-weight:bold; font-size:12px; margin:5px 0;">${item.nom}</div>
+        <div style=" font-size:12px; margin:5px 0;">${item.nom}</div>
         <button onclick="acheter('${item.id}', ${item.prix})"
           style="background:${estActive ? '#c4a8e8' : possedee ? '#aaa' : '#00c2a7'};
                  color:white; border:none; border-radius:10px;

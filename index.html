@@ -7,37 +7,29 @@
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Emilys+Candy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Emilys+Candy&display=swap" rel="stylesheet">
 </head>
 <style>
-  /* --- Appliquer la police douce à tous tes titres --- */
   h1, h2 {
     font-family: 'Berkshire Swash', cursive !important;
-    font-weight: normal; /* Ces polices sont plus belles quand elles ne sont pas grasses */
+    font-weight: normal;
   }
-  body,h3,label, button, .task-card {
-  font-family: 'Emilys Candy', serif !important;
+  body, h3, label, button, .task-card {
+    font-family: 'Emilys Candy', serif !important;
   }
-
-  /* --- 1. La recette pour une flamme douce (Pulsation lente) --- */
   @keyframes pulserDoucement {
     0% { transform: scale(1); opacity: 0.8; }
     50% { transform: scale(1.05); opacity: 1; }
     100% { transform: scale(1); opacity: 0.8; }
   }
-
-  /* --- 2. La recette pour une fée dansante (Mouvement fluide et lent) --- */
   @keyframes danserFee {
     0% { transform: translateY(0) rotate(0deg); }
     33% { transform: translateY(-8px) rotate(-8deg); }
     66% { transform: translateY(-3px) rotate(8deg); }
     100% { transform: translateY(0) rotate(0deg); }
   }
-
-  #streak-fire {
-    display: inline-block;
-    animation: pulserDoucement 1.5s ease-in-out infinite; /* Animation lente (2s) et fluide */
-    transform-origin: bottom center;
+  #shop-items * {
+    font-size: 18px !important;
   }
   #creature-container {
     background: #fffdf9;
@@ -61,18 +53,17 @@
     margin-bottom: 15px;
   }
 
-  /* --- 4. La classe pour faire danser n'importe quel emoji fée --- */
-    .fee-dansante {
+  #streak-fire {
     display: inline-block;
-    font-size: 1.8em; /* On l'agrandit encore un peu pour la rendre plus majestueuse */
-    margin-right: 15px;
-    animation: danserFee 5s ease-in-out infinite; /* Très lente (5s) et fluide */
-    transform-origin: center center;
+    animation: pulserDoucement 3s ease-in-out infinite;
+    transform-origin: bottom center;
   }
-</style>
-<style>
-  .modal.hidden {
-    display: none !important;
+  .fee-dansante {
+    display: inline-block;
+    font-size: 1.8em;
+    margin-right: 15px;
+    animation: danserFee 5s ease-in-out infinite;
+    transform-origin: center center;
   }
 </style>
 <body>
@@ -80,50 +71,50 @@
   <div class="app-container">
 
     <!-- HEADER -->
- <header class="app-header">
+    <header class="app-header">
 
-  <!-- Ligne 1 : Titre -->
 <h1 style="font-family: 'Berkshire Swash', cursive; font-size: 2.8rem; text-align: center; color: #4a3560; margin-top: 20px;">
     <span class="fairy-sparkle" style="font-size: 1.5rem; vertical-align: middle;">🧚</span> 
     Fée du Logis
-</h1>
-  <!-- Ligne 2 : Diamants seul à gauche -->
-  <div class="header-row-2">
-    <button class="diamonds-display" id="diamonds-btn">
-      💎 <span id="diamond-count">0</span>
-    </button>
-  </div>
+      </h1>
 
-  <!-- Ligne 3 : Jour + Réveil + Bouton + sur la même ligne -->
- <div class="header-row-3">
-  <div class="streak-pill">
-    <span id="streak-fire" style="display:none;">🔥</span>
-    Jour <span id="day-count">0</span>
-  </div>
-  <div style="display:flex; gap:8px; align-items:center;">
-    <button class="notif-btn" id="notif-btn">🕐</button>
-    <button class="add-task-btn" id="add-task-btn">+</button>
-  </div>
-</div>
+      <div class="header-row-2">
+        <button class="diamonds-display" id="diamonds-btn">
+          💎 <span id="diamond-count">0</span>
+        </button>
+      </div>
 
-</header>
+      <div class="header-row-3">
+        <div class="streak-pill">
+          <span id="streak-fire" style="display:none;">🔥</span>
+          Jour <span id="day-count">0</span>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <button class="notif-btn" id="notif-btn">🕐</button>
+          <button class="add-task-btn" id="add-task-btn">+</button>
+        </div>
+      </div>
+
+    </header>
 
     <!-- CRÉATURE -->
-<div class="creature-container-box">
-  <div class="creature-circle">
-    <div class="creature-emoji" id="creature-emoji">🧚</div>
-  </div>
-  <div id="creature-stage">Chargement...</div>
-</div>
+    <div class="creature-container-box">
+      <div class="creature-circle">
+        <div class="creature-emoji" id="creature-emoji">🧚</div>
+      </div>
+      <div id="creature-stage">Chargement...</div>
+    </div>
 
-<div class="xp-gauge-wrap">
-  <div class="xp-numbers" style="text-align:right;">
-    <span id="xp-current">0</span> / 500 XP
-  </div>
-  <div class="xp-track">
-    <div class="xp-fill" id="xp-fill"></div>
-  </div>
-</div>
+    <!-- JAUGE XP -->
+    <div class="xp-gauge-wrap">
+      <div class="xp-numbers" style="text-align:right;">
+        <span id="xp-current">0</span> / 500 XP
+      </div>
+      <div class="xp-track">
+        <div class="xp-fill" id="xp-fill"></div>
+      </div>
+    </div>
+
     <!-- MANTRA -->
     <div id="mantra-container" style="opacity:0">Prête pour un peu de magie ? ✨</div>
 
@@ -133,89 +124,84 @@
       <div id="tasks-list"></div>
     </section>
 
-   <!-- AVENIR -->
-<section class="tasks-section">
-  <h2 class="tasks-title">🔮 Avenir</h2>
-  <div id="future-tasks-list"></div>
-</section>
+    <!-- AVENIR -->
+    <section class="tasks-section">
+      <h2 class="tasks-title">🔮 Avenir</h2>
+      <div id="future-tasks-list"></div>
+    </section>
+
   </div>
 
   <!-- MODAL RÉVEIL -->
   <div class="modal-overlay hidden" id="notif-modal">
     <div class="modal">
       <h3 style="font-family:'Berkshire Swash'; text-align:center;">⏰ Rappel quotidien</h3>
-      <p style="text-align:center; color:#8a7060;">Choisir l'heure de ta notification :</p>
+      <p style="text-align:center; color:#8a6aac; font-size:18px;">
+   Choisir l'heure de ta notification :
+</p>
       <input type="time" id="notif-time"
              style="width:100%; padding:12px; border-radius:10px;
                     border:1px solid #eaddff; font-size:20px;
                     text-align:center; margin:15px 0; box-sizing:border-box;">
       <div style="display:flex; gap:10px;">
         <button id="btn-annuler-notif"
-                style="flex:1; padding:10px; border-radius:10px;
-                       border:none; background:#eee; cursor:pointer;">
+                 style="flex:1; padding:10px; border-radius:10px;
+               border:none; background:#e78e78;
+               color:white; cursor:pointer; font-size:18px;">
           Annuler
-        </button>
-        <button id="btn-sauver-notif"
-                style="flex:1; padding:10px; border-radius:10px;
-                       border:none; background:#c4a8e8;
-                       color:white; cursor:pointer; font-weight:bold;">
-          Enregistrer ✓
-        </button>
+ <button id="btn-sauver-notif"
+        style="flex:1; padding:10px; border-radius:10px;
+               border:none; background:#cea8e8;
+               color:white; cursor:pointer; font-size:18px;">
+  Enregistrer ✓
+</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL NOUVELLE TÂCHE -->
+ <!-- MODAL NOUVELLE TÂCHE -->
+<div class="modal-overlay hidden" id="task-modal">
+  <div class="modal">
 
-<div id="task-modal" class="modal hidden" style="position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;">
-  
-  <div class="modal-content" style="background: #fffdf9; border: 2px solid #eaddff; border-radius: 25px; padding: 25px; width: 90%; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative;">
-    
-    <div style="text-align: center; margin-bottom: 20px;">
-      <h2 style="font-family: 'Berkshire Swash', serif; color: #4a3560; margin: 0; font-size: 1.8rem;">
-        ✨ Planifier un Enchantement ✨
+<div style="text-align: center; margin-bottom: 20px;">
+      <h2 style="font-family: 'Berkshire Swash', serif; color: #4a3560; margin: 0; font-size: 1.6rem;">✨ Planifier un Enchantement ✨
         <span class="fairy-sparkle">🧚</span> 
- 
       </h2>
-      <div style="color: #a594b5; font-size: 0.9rem; font-style: italic;">Inscris ce geste dans ton Grimoire.</div>
+<div style="color: #a594b5; font-size: 1.1rem; font-style: italic;">Inscris ce geste dans ton Grimoire.</div>
     </div>
 
-<div style="margin-bottom: 20px;">
-  <label style="display: block; color: #6d5d8e; font-weight: bold; margin-bottom: 8px; font-size: 24px; font-family: 'Berkshire Swash', cursive;">
-    Nom de l'Incantation
-  </label>
-  <input type="text" id="task-nom" placeholder="Ex: Chasser les ombres..." 
-         style="width: 100%; padding: 15px; border-radius: 15px; border: 2px solid #eaddff; box-sizing: border-box; font-size: 24px; font-family: 'Emilys Candy', serif;">
-</div>
+      <div style="margin-bottom:15px;">
+        <label style="display:block; color:#6d5d8e; margin-bottom:5px;">
+          Nom de l'Incantation
+        </label>
+        <input type="text" id="task-nom" placeholder="Ex: Chasser les ombres..."
+               style="width:100%; padding:10px; border-radius:12px;
+                      border:1px solid #eaddff; box-sizing:border-box; font-size:16px;">
+      </div>
 
-<div style="margin-bottom: 20px;">
-  <label style="display: block; color: #6d5d8e; font-weight: bold; margin-bottom: 8px; font-size: 24px; font-family: 'Berkshire Swash', cursive;">
-    Royaume de la Maison
-  </label>
-  <select id="task-piece" style="width: 100%; padding: 15px; border-radius: 15px; border: 2px solid #eaddff; font-size: 24px; font-family: 'Emilys Candy', serif; background-color: white;">
-    <option value="🌿 Salon de Thé">🌿 Salon de Thé</option>
-    <option value="🍲 Cuisine Alchimique">🍲 Cuisine Alchimique</option>
-    <option value="🪞 Chambre aux Rêves">🪞 Chambre aux Rêves</option>
-    <option value="🛁 Source Pure">🛁 Source Pure</option>
-    <option value="📚 Bureau des Sorts">📚 Bureau des Sorts</option>
-    <option value="🏠 Sanctuaire Entier">🏠 Sanctuaire Entier</option>
-    <option value="🚪 Hall des Murmures">🚪 Hall des Murmures</option>
-  </select>
-</div>
+      <div style="margin-bottom:15px;">
+        <label style="display:block; color:#6d5d8e; margin-bottom:5px;">
+          Royaume de la Maison
+        </label>
+        <select id="task-piece"
+ style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:15px;">
+          <option value="🌿 Salon de Thé">🌿 Salon de Thé</option>
+          <option value="🍲 Cuisine Alchimique">🍲 Cuisine Alchimique</option>
+          <option value="🪞 Chambre aux Rêves">🪞 Chambre aux Rêves</option>
+          <option value="🛁 Source Pure">🛁 Source Pure</option>
+          <option value="📚 Bureau des Sorts">📚 Bureau des Sorts</option>
+          <option value="🏠 Sanctuaire Entier">🏠 Sanctuaire Entier</option>
+          <option value="🚪 Hall des Murmures">🚪 Hall des Murmures</option>
+        </select>
+      </div>
 
-<div style="display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 15px;">
-  
-  <div style="flex: 1; min-width: 140px;">
-  <label style="display: block; color: #6d5d8e; font-weight: bold; margin-bottom: 8px; font-size: 24px; font-family: 'Berkshire Swash', cursive;">Résonnance</label>
-  <select id="task-xp" style="width: 100%; padding: 15px; border-radius: 15px; border: 2px solid #eaddff; font-size: 24px; font-family: 'Emilys Candy', serif; background-color: white;"> 
-    <option value="10">✨ Petit Geste (10 XP)</option>
-    <option value="25">🌟 Bel Effort (25 XP)</option>
-    <option value="40">🔥 Grande Quête (40 XP)</option>
-  </select>
-</div>
-<div style="flex: 2; min-width: 180px;">
-  <label style="display: block; color: #6d5d8e; font-weight: bold; margin-bottom: 8px; font-size: 24px; font-family: 'Berkshire Swash', cursive;">Élan de Lancement</label>
- <select id="task-lancement" style="width: 100%; padding: 15px; border-radius: 15px; border: 2px solid #eaddff; font-size: 24px; font-family: 'Emilys Candy', serif; background-color: white;"> 
+<div style="display:flex; flex-direction:column; gap:12px; margin-bottom:15px;">
+
+
+<div>
+    <label style="display:block; color:#6d5d8e; margin-bottom:5px;">Lancement</label>
+    <select id="task-lancement"
+ style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:15px;"> 
 <option value="0">🍭 Aujourd'hui </option>
 <option value="+1">🫧Dès demain</option>
 <option value="+2">🪷Surlendemain</option>
@@ -223,14 +209,11 @@
 <option value="+14"> 💐Dans deux semaines</option>
 <option value=" +30"> 🌺Un mois </option>
 </select>
-</div>
-
-
-<div style="margin-bottom: 20px;">
-<label style="display: block; color: #6d5d8e; font-weight: bold; margin-bottom: 8px; font-size: 24px; font-family: 'Berkshire Swash', cursive;">
-Fréquence du Sortilège
-</label>
-<select id="task-frequence" style="width: 100%; padding: 15px; border-radius: 15px; border: 2px solid #eaddff; font-size: 18px; font-family: 'Emilys Candy', serif; background-color: white;"> 
+        </div>
+<div style="margin-bottom:20px;">
+<label style="display:block; color:#6d5d8e; margin-bottom:5px;">Fréquence du Sortilège </label>
+<select id="task-frequence" 
+style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:15px;"> 
   <option value="Quotidienne">Quotidienne</option>
   <option value=" 3 jours" >Tous les trois jours</option>
   <option value="Hebdomadaire">Dans 7 jours</option>
@@ -238,29 +221,48 @@ Fréquence du Sortilège
   <option value="Mensuelle">Tous les mois</option>
   <option value="Ponctuelle">Ponctuelle</option>     
   </select>
-  </div>
-  </div>
+      </div>
+          <div>
+    <label style="display:block; color:#6d5d8e; margin-bottom:5px;">Résonnance</label>
+<select id="task-xp"
+style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:15px;">
+            <option value="10">✨ Petit Geste (10 XP)</option>
+            <option value="25">🌟 Bel Effort (25 XP)</option>
+            <option value="40">🔥 Grande Quête (40 XP)</option>
+          </select>
+        </div>
+      </div>
 
-    <div style="display: flex; gap: 10px; margin-top: 20px;">
-      <button id="btn-annuler" style="flex:1; border-radius: 15px; border: 1px solid #ccc; background: #eee; padding: 10px; cursor: pointer;">✖ Dissiper</button>
-      <button id="btn-sauvegarder" style="flex:2; border-radius: 15px; border: none; background: #00c2a7; color: white; padding: 10px; font-weight: bold; cursor: pointer;">✨ Graver ✨</button>
+
+
+<div style="display: flex; gap: 10px; margin-top: 20px;">
+  <button id="btn-annuler" style="flex: 1; width: 0; border-radius: 15px; border: none; background: #dac2f0; color: #4a3560; padding: 12px; cursor: pointer; font-size: 18px; font-family: 'Emilys Candy', serif;">
+    💨 Bannir 💨
+  </button>
+  
+  <button id="btn-sauvegarder" style="flex: 1; width: 0; border-radius: 15px; border: none; background: #00c2a7; color: white; padding: 12px; cursor: pointer; font-size: 18px; font-family: 'Emilys Candy', serif;">
+    ✨ Sceller ✨
+  </button>
+</div>
+
     </div>
   </div>
-</div>
 
   <!-- MODAL BOUTIQUE -->
   <div class="modal-overlay hidden" id="shop-modal">
     <div class="modal">
-      <h3 style="font-family:'Berkshire Swash'; text-align:center;">✨Boutique ✨</h3>
-      <p style="text-align:center;">Tes diamants : <span id="shop-diamonds">0</span> 💎</p>
+      <h3 style="font-family:'Berkshire Swash'; text-align:center; font-size:24px;">
+        ✨ Boutique ✨
+      </h3>
+<p style="text-align:center; font-size: 20px; color: #142523; margin-bottom: 20px;">
+      Tes diamants : <span id="shop-diamonds" style="color: #4a3560;">0</span> 💎
+    </p>
       <div id="shop-items"
            style="display:grid; grid-template-columns:1fr 1fr;
                   gap:10px; margin-bottom:20px; max-height:60vh; overflow-y:auto;">
       </div>
       <button id="btn-fermer-boutique"
-              style="width:100%; padding:12px; border-radius:10px;
-                     border:none; background:#c4a8e8;
-                     color:white; font-weight:bold; cursor:pointer;">
+style="width:100%; padding:15px; border-radius:10px; border:none; background:#c4a8e8; color:white; cursor:pointer; font-size: 18px; font-family: 'Emilys Candy', serif;">
         ← Retour
       </button>
     </div>
