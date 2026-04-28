@@ -5,7 +5,7 @@ h1 {
     font-family: 'Berkshire Swash', cursive !important;
     font-weight: normal;
     /* On met le paquet sur la taille des titres */
-    font-size: 2.2rem !important; 
+    font-size: 1.8rem !important; 
     color: #4a3560;
     text-align: center;
     margin-bottom: 20px;
@@ -16,7 +16,7 @@ h2 {
     font-family: 'Berkshire Swash', cursive !important;
     font-weight: normal;
     /* On met le paquet sur la taille des titres */
-    font-size: 2rem !important; 
+    font-size: 1.4rem !important; 
     color: #4a3560;
     text-align: center;
     margin-bottom: 20px;
@@ -37,7 +37,7 @@ label {
 
 /* Taille pour le texte dans ton Squircle */
 h3 {
-    font-size: 1.6rem !important; 
+    font-size: 1.4rem !important; 
 }
 
 body {
@@ -45,12 +45,22 @@ body {
     margin: 0; padding: 0;
     color: #3d2f22;
     display: flex; flex-direction: column; align-items: center;
-    font-size: 16px;
+    font-size: 14px;
+}
+
+/* Espacement uniforme entre tous les blocs */
+.app-header,
+.creature-container-box,
+#creature-stage,
+.xp-gauge-wrap,
+#mantra-container,
+.tasks-section {
+    margin-bottom: 20px !important;
 }
 
 .app-main-title {
     font-family: 'Berkshire Swash', cursive;
-    font-size: 3rem;
+    font-size: 2.2rem;
     color: #4a3560;
     text-align: center;
     margin-top: 20px;
@@ -181,7 +191,7 @@ body {
 /* Jauge XP */
 .xp-gauge-wrap {
     width: 90%;
-    margin: 0 auto 0;
+    margin: 35px auto 25px;
 }
 
 .tasks-section {
@@ -212,7 +222,7 @@ body {
     border: 1px solid #f0e6ff; /* Bordure très fine */
     box-sizing: border-box;
     transition: all 0.3s ease;
-    font-size: 16px;
+    font-size: 14px;
 }
 .task-icon-flower {
     font-size: 1.2rem;

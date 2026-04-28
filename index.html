@@ -17,11 +17,11 @@
   body, h3, label, button, .task-card {
     font-family: 'Emilys Candy', serif !important;
   }
-  @keyframes pulserDoucement {
-    0% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(1); opacity: 0.8; }
-  }
+@keyframes pulserDoucement {
+    0%, 100% { transform: rotate(-5deg) scale(1); }
+    25% { transform: rotate(5deg) scale(1.1); }
+    75% { transform: rotate(-3deg) scale(0.95); }
+}
   @keyframes danserFee {
     0% { transform: translateY(0) rotate(0deg); }
     33% { transform: translateY(-8px) rotate(-8deg); }
@@ -55,7 +55,7 @@
 
   #streak-fire {
     display: inline-block;
-    animation: pulserDoucement 3s ease-in-out infinite;
+    animation: pulserDoucement 2s ease-in-out infinite;
     transform-origin: bottom center;
   }
   .fee-dansante {
@@ -74,7 +74,7 @@
     <header class="app-header">
 
 <div class="app-main-title">
-    <span class="fairy-sparkle">🧚</span> Fée du Logis
+   <span class="fairy-sparkle" style="font-size: 1.5rem; vertical-align: middle;">🧚</span> Fée du Logis
 </div>
 
       <div class="header-row-2">
@@ -115,7 +115,7 @@
     </div>
 
     <!-- MANTRA -->
-    <div id="mantra-container" style="opacity:0">Prête pour un peu de magie ? ✨</div>
+    <div id="mantra-container" style="opacity:0"> ✨Prête pour un peu de magie ? </div>
 
     <!-- MISSIONS DU JOUR -->
     <section class="tasks-section">
