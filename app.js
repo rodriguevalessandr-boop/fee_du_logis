@@ -234,7 +234,7 @@ function genererHtmlTache(tache, estAuj) {
              style="width:25px; height:25px; margin-right:15px; cursor:pointer; flex-shrink:0;">
       
       <div style="display: flex; flex-direction: column; flex: 1; cursor: pointer;" onclick="ouvrirPourModifier(${tache.id})">
-        <div style="font-size: 1.3rem; color: #4a3560; ${faite ? 'text-decoration:line-through; opacity:0.5;' : ''}">
+        <div style="font-size: 18px; font-family: 'Berkshire Swash', cursive ; serif ; color: #4a3560; ${faite ? 'text-decoration:line-through; opacity:0.5;' : ''}">
           ${tache.nom}
         </div>
         <div style="color: #a594b5; font-size: 1rem; margin-top: 4px;">

@@ -29,7 +29,7 @@ body, h3, label, button, .task-card {
 
 /* Taille spécifique pour les étiquettes de ton formulaire */
 label {
-    font-size: 16 px !important; /* Assez grand, mais plus petit que le h2 */
+    font-size: 16px; /* Assez grand, mais plus petit que le h2 */
     color: #6d5d8e;
     display: block;
     margin-bottom: 10px;
@@ -45,7 +45,7 @@ body {
     margin: 0; padding: 0;
     color: #3d2f22;
     display: flex; flex-direction: column; align-items: center;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 /* Espacement uniforme entre tous les blocs */
@@ -180,8 +180,8 @@ body {
 .creature-circle {
     width: 35vw;      /* augmente si trop petit */
     height: 35vw;
-    max-width: 200px;
-    max-height: 200px;
+    max-width: 100px;
+    max-height: 100px;
     background: #d4c5f0; /* lilas doux par exemple */
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
@@ -347,7 +347,7 @@ h1.app-title {
     background: rgba(255,255,255,0.7);
     border-radius: 30px;
     padding: 6px 14px;
-    font-family: 'Berkshire Swash', cursive;
+    font-family: 'Emilys Candy', cursive;
     font-size: 18px;
     color: #4a3560;
     display: flex;
