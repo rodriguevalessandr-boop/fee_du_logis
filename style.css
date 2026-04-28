@@ -54,8 +54,10 @@ body {
 #creature-stage,
 .xp-gauge-wrap,
 #mantra-container,
+
 .tasks-section {
-    margin-bottom: 20px !important;
+    width: 90%;
+    margin: 15px auto 12px;
 }
 
 .app-main-title {
@@ -64,6 +66,7 @@ body {
     color: #4a3560;
     text-align: center;
     margin-top: 20px;
+    margin-bottom: 5px;
 }
 
 /* 2. L'Ovale Carré de la créature */
@@ -204,10 +207,23 @@ body {
 
 /* Nouveau Mantra (Phrases de la fée) */
 #mantra-container {
-    width: 90%; margin: 6px auto; padding: 10px; font-style: italic;
-    text-align: center; color: #6d5d8e; background: #fff; 
-    border: 2px dashed #c4a8e8; border-radius: 20px; box-sizing: border-box;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    background: white;
+    border-radius: 20px;
+    padding: 12px 18px;
+    font-style: italic;
+    font-size: 16px;
+    text-align: center;
+    color: #6d5d8e;
+    box-shadow: 0 8px 20px rgba(100,70,160,0.15);
     transition: opacity 0.5s ease;
+    z-index: 500;
+    opacity: 0;
+    pointer-events: none;
 }
 
 
