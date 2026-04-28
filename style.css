@@ -45,7 +45,7 @@ body {
     margin: 0; padding: 0;
     color: #3d2f22;
     display: flex; flex-direction: column; align-items: center;
-    font-size: 16px;
+    font-size: 16px, !important; 
 }
 
 /* Espacement uniforme entre tous les blocs */
@@ -240,7 +240,7 @@ body {
     border: 1px solid #f0e6ff; /* Bordure très fine */
     box-sizing: border-box;
     transition: all 0.3s ease;
-    font-size: 14px;
+    font-size: 16px;
 }
 .task-icon-flower {
     font-size: 1.2rem;
