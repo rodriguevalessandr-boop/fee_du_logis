@@ -167,41 +167,44 @@ function afficherTaches() {
   tFutur.sort(monSuperTri);
 
   // 4. AFFICHAGE
-  if (listeJour) listeJour.innerHTML = tJour.map(t => genererHtmlTache(t, true)).join('') || '<p>🌿 Rien aujourd\'hui.</p>';
-  if (listeFutur) listeFutur.innerHTML = tFutur.map(t => genererHtmlTache(t, false)).join('') || '<p>Avenir serein...</p>';
+  if (listeJour) listeJour.innerHTML = tJour.map(t => genererHtmlTache(t, true)).join('') || '<p>🌿 Rien pour aujourd\'hui.</p>';
+  if (listeFutur) listeFutur.innerHTML = tFutur.map(t => genererHtmlTache(t, false)).join('') || '<p>🌿 Respire !</p>';
 }
 function genererHtmlTache(tache, estAuj) {
   const faite = tache.datesFaites?.includes(aujourdhui());
   
   return `
-    <div class="task-card ${faite ? 'completed' : ''}" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; background: white; border-radius: 20px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid #f0e6ff;">
+    <div class="task-card ${faite ? 'completed' : ''}" style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 20px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid #f0e6ff;">
       
-      <div style="display: flex; align-items: center; flex: 1; cursor: pointer;" onclick="ouvrirPourModifier(${tache.id})">
-        
-        <input type="checkbox" ${faite ? 'checked' : ''} 
-               onclick="event.stopPropagation(); cocherTache(${tache.id})" 
-               style="width:22px; height:22px; margin-right:12px; cursor:pointer; flex-shrink:0;">
-        
-        <span style="font-size: 1.2rem; margin-right: 10px; display: flex; align-items: center;">🌸</span>
-        
-        <div style="display: flex; flex-direction: column; justify-content: center;">
-          <div style="font-weight: 600; color: #4a3560; ${faite ? 'text-decoration:line-through; opacity:0.5;' : ''}">
-            ${tache.nom}
-          </div>
-          <small style="color: #a594b5; font-size: 0.8rem;">
-            ${tache.piece || 'Maison'} • ${estAuj ? "Aujourd'hui" : 'Le ' + tache.prochaineDate} • <span style="font-style: italic; color: #6d5d8e;">✏️ Modifier</span>
-          </small>
+      <input type="checkbox" ${faite ? 'checked' : ''} 
+             onclick="event.stopPropagation(); cocherTache(${tache.id})" 
+             style="width:25px; height:25px; margin-right:15px; cursor:pointer; flex-shrink:0;">
+      
+      <div style="display: flex; flex-direction: column; flex: 1; cursor: pointer;" onclick="ouvrirPourModifier(${tache.id})">
+        <div style="font-size: 1.3rem; font-weight: bold; color: #4a3560; ${faite ? 'text-decoration:line-through; opacity:0.5;' : ''}">
+          ${tache.nom}
+        </div>
+        <div style="color: #a594b5; font-size: 1rem; margin-top: 4px;">
+          ${tache.piece || 'Maison'} • ${tache.frequence || 'Ponctuelle'}
         </div>
       </div>
 
-      <div style="display: flex; align-items: center; gap: 12px; flex-shrink:0;">
-        <span style="font-weight:bold; color:#7fb3d5; font-size: 0.85rem;">+${tache.xp} XP</span>
-        <div id="delete-zone-${tache.id}" style="display: flex; align-items: center;">
-          <button onclick="event.stopPropagation(); demanderSuppression(${tache.id})" 
-                  style="background:none; border:none; font-size:18px; cursor:pointer; opacity:0.6; padding: 5px;">
-            🗑️
-          </button>
+      <div style="display: flex; align-items: center; gap: 15px; flex-shrink:0; margin-left:10px;">
+        
+        <span style="font-weight:bold; color:#7fb3d5; font-size: 1.2rem; background: #f0f9ff; padding: 5px 10px; border-radius: 10px;">
+          +${tache.xp} XP
+        </span>
+
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+          <span onclick="ouvrirPourModifier(${tache.id})" style="font-style: italic; color: #6d5d8e; font-size: 0.9rem; cursor:pointer;">✏️</span>
+          <div id="delete-zone-${tache.id}" style="display: flex; align-items: center;">
+            <button onclick="event.stopPropagation(); demanderSuppression(${tache.id})" 
+                    style="background:none; border:none; font-size:22px; cursor:pointer; opacity:0.6; padding:0;">
+              🗑️
+            </button>
+          </div>
         </div>
+
       </div>
     </div>`;
 }
@@ -298,10 +301,17 @@ window.ouvrirPourModifier = (id) => {
 window.demanderSuppression = (id) => {
   const zone = document.getElementById(`delete-zone-${id}`);
   if (zone) {
-    zone.innerHTML = `<button onclick="supprimerDefinitif(${id})"
-      style="color:white; background:#ff4757; border:none; border-radius:8px;
-             padding:5px 10px; font-size:11px; font-weight:bold; cursor:pointer;">
-      Valider ?</button>`;
+    zone.innerHTML = `
+      <div style="display: flex; flex-direction: column; gap: 5px; align-items: center;">
+        <button onclick="event.stopPropagation(); supprimerDefinitif(${id})"
+                style="color:white; background:#ff4757; border:none; border-radius:8px; padding:4px 8px; font-size:10px; font-weight:bold; cursor:pointer;">
+          Valider ?
+        </button>
+        <button onclick="event.stopPropagation(); mettreAJourUI()"
+                style="color:#666; background:#eee; border:none; border-radius:8px; padding:4px 8px; font-size:10px; cursor:pointer;">
+          Annuler ✖
+        </button>
+      </div>`;
   }
 };
 
