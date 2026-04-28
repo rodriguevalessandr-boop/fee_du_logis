@@ -11,11 +11,11 @@
 </head>
 <style>
   h1, h2 {
-    font-family: 'Berkshire Swash', cursive !important;
+    font-family: 'Berkshire Swash', cursive ;
     font-weight: normal;
   }
   body, h3, label, button, .task-card {
-    font-family: 'Emilys Candy', serif !important;
+    font-family: 'Emilys Candy', serif ;
   }
 @keyframes pulserDoucement {
     0%, 100% { transform: rotate(-5deg) scale(1); }
@@ -29,7 +29,7 @@
     100% { transform: translateY(0) rotate(0deg); }
   }
   #shop-items * {
-    font-size: 18px !important;
+    font-size: 18px ;
   }
   #creature-container {
     background: #fffdf9;
@@ -46,8 +46,8 @@
     transition: all 0.3s ease;
   }
   #creature-img {
-    width: 200px !important; /* Taille imposante */
-    height: 200px !important;
+    width: 200px ; /* Taille imposante */
+    height: 200px ;
     object-fit: contain;
     filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
     margin-bottom: 15px;
@@ -163,44 +163,37 @@
   <div class="modal">
 
 <div style="text-align: center; margin-bottom: 20px;">
-      <h2 style="font-family: 'Berkshire Swash', serif; color: #4a3560; margin: 0; font-size: 1.6rem;">✨ Planifier un Enchantement ✨
-        <span class="fairy-sparkle">🧚</span> 
-      </h2>
-<div style="color: #a594b5; font-size: 1.1rem; font-style: italic;">Inscris ce geste dans ton Grimoire.</div>
-    </div>
+<h1 style="font-family: 'Berkshire Swash', serif; color: #4a3560; margin: 0; font-size: 1.8rem;">✨Enchantement prévu✨
+<span class="fairy-sparkle">🧚</span> </h1>
+<div style="color: #a594b5; font-size: 14px; font-style: italic;">Inscris ce geste dans ton Grimoire.</div>
+</div>
 
-      <div style="margin-bottom:15px;">
-        <label style="display:block; color:#6d5d8e; margin-bottom:5px;">
-          Nom de l'Incantation
-        </label>
-        <input type="text" id="task-nom" placeholder="Ex: Chasser les ombres..."
-               style="width:100%; padding:10px; border-radius:12px;
-                      border:1px solid #eaddff; box-sizing:border-box; font-size:16px;">
-      </div>
+<div style="margin-bottom:15px;">
+<label style="display:block; color:#6d5d8e; margin-bottom:5px;"> Nom de l'Incantation</label>
 
-      <div style="margin-bottom:15px;">
-        <label style="display:block; color:#6d5d8e; margin-bottom:5px;">
-          Royaume de la Maison
-        </label>
-        <select id="task-piece"
- style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:15px;">
-          <option value="🌿 Salon de Thé">🌿 Salon de Thé</option>
-          <option value="🍲 Cuisine Alchimique">🍲 Cuisine Alchimique</option>
-          <option value="🪞 Chambre aux Rêves">🪞 Chambre aux Rêves</option>
-          <option value="🛁 Source Pure">🛁 Source Pure</option>
-          <option value="📚 Bureau des Sorts">📚 Bureau des Sorts</option>
-          <option value="🏠 Sanctuaire Entier">🏠 Sanctuaire Entier</option>
-          <option value="🚪 Hall des Murmures">🚪 Hall des Murmures</option>
-        </select>
-      </div>
+<input type="text" id="task-nom" placeholder="Ex: Chasser les ombres..."
+style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; box-sizing:border-box; font-size:14px;"></div>
+
+<div style="margin-bottom:15px;">
+<label style="display:block; color:#6d5d8e; margin-bottom:5px;"> Royaume de la Maison </label>
+<select id="task-piece" 
+style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:14px;">
+<option value="🌿 Salon de Thé">🌿 Salon de Thé</option>
+<option value="🍲 Cuisine Alchimique">🍲 Cuisine Alchimique</option>
+<option value="🪞 Lieu des Songes">🪞 Lieu des Songes</option>
+<option value="🛁 Source Pure">🛁 Source Pure</option>
+<option value="📚 Bureau des Sorts">📚 Bureau des Sorts</option>
+<option value="🏠 Sanctuaire Entier">🏠 Sanctuaire Entier</option>
+<option value="🚪 Hall des Murmures">🚪 Hall des Murmures</option>
+</select>
+</div>
 
 <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:15px;">
 
 
 <div>
-    <label style="display:block; color:#6d5d8e; margin-bottom:5px;">Lancement</label>
-    <select id="task-lancement"
- style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:15px;"> 
+<label style="display:block; color:#6d5d8e; margin-bottom:5px;">Lancement</label>
+<select id="task-lancement" style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:15px;"> 
 <option value="0">🍭 Aujourd'hui </option>
 <option value="+1">🫧Dès demain</option>
 <option value="+2">🪷Surlendemain</option>
@@ -208,29 +201,29 @@
 <option value="+14"> 💐Dans deux semaines</option>
 <option value=" +30"> 🌺Un mois </option>
 </select>
-        </div>
+</div>
+
 <div style="margin-bottom:20px;">
 <label style="display:block; color:#6d5d8e; margin-bottom:5px;">Fréquence du Sortilège </label>
-<select id="task-frequence" 
-style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:15px;"> 
-  <option value="Quotidienne">Quotidienne</option>
-  <option value=" 3 jours" >Tous les trois jours</option>
-  <option value="Hebdomadaire">Dans 7 jours</option>
-  <option value="Bimensuelle">Deux fois par mois</option>
-  <option value="Mensuelle">Tous les mois</option>
-  <option value="Ponctuelle">Ponctuelle</option>     
-  </select>
-      </div>
-          <div>
-    <label style="display:block; color:#6d5d8e; margin-bottom:5px;">Résonnance</label>
-<select id="task-xp"
-style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:15px;">
-            <option value="10">✨ Petit Geste (10 XP)</option>
-            <option value="25">🌟 Bel Effort (25 XP)</option>
-            <option value="40">🔥 Grande Quête (40 XP)</option>
-          </select>
-        </div>
-      </div>
+<select id="task-frequence" style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:15px;"> 
+<option value="Quotidienne">Quotidienne</option>
+<option value=" 3 jours" >Tous les trois jours</option>
+<option value="Hebdomadaire">Dans 7 jours</option>
+<option value="Bimensuelle">Deux fois par mois</option>
+<option value="Mensuelle">Tous les mois</option>
+<option value="Ponctuelle">Ponctuelle</option>     
+</select>
+</div>
+
+<div>
+<label style="display:block; color:#6d5d8e; margin-bottom:5px;">Résonnance</label>
+<select id="task-xp" style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:15px;">
+<option value="10">✨ Petit Geste (10 XP)</option>
+<option value="25">🌟 Bel Effort (25 XP)</option>
+<option value="40">🔥 Grande Quête (40 XP)</option>
+</select>
+</div>
+</div>
 
 
 

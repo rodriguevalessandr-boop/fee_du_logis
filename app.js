@@ -16,7 +16,7 @@ let state = {
 };
 
 const catalogue = [
-  { id: 'fleur',    nom: 'Fleur parfumée',       prix: 0,   stades: ['🪴','🌱','🌸','🌺','🌹'] },
+  { id: 'fleur',    nom: 'Fleur parfumée',       prix: 0,   stades: ['🌱','🪴','','🌸','🌺','🌹'] },
   { id: 'poule',    nom: 'Poule cui-cui',         prix: 50,  stades: ['🥚','🐣','🐤','🐔','🪽'] },
   { id: 'papillon', nom: 'Papillon libre',        prix: 80,  stades: ['🥚','🐛','🫘','🌀','🦋'] },
   { id: 'chaton',   nom: 'Chaton poilu',          prix: 100, stades: ['🐾','😸','🐈‍⬛','🐈','🐱'] },
@@ -131,18 +131,63 @@ function changerMantra() {
     setTimeout(() => { el.style.opacity = '0'; }, 4000);
 }
 
+function calculerJoursRestants(tache) {
+    if (!tache.prochaineDate) return 999;
+
+    const auj = new Date();
+    auj.setHours(0, 0, 0, 0); // On ignore l'heure pour ne compter que les jours pleins
+
+    const cible = new Date(tache.prochaineDate);
+    cible.setHours(0, 0, 0, 0);
+
+    const diffTemps = cible - auj;
+    const diffJours = Math.ceil(diffTemps / (1000 * 60 * 60 * 24));
+
+    return diffJours;
+}
 function afficherTaches() {
-  const listeJour = document.getElementById('tasks-list');
-  const listeFutur = document.getElementById('future-tasks-list');
-  const dateAuj = aujourdhui();
+    const listeJour = document.getElementById('tasks-list');
+    const listeFutur = document.getElementById('future-tasks-list');
+    const dateAuj = aujourdhui();
 
   // 1. FILTRAGE MISSIONS DU JOUR
+
+function trierLesTaches() {
+    const aujourdhui = new Date();
+    const tasksToday = [];
+    const tasksFuture = [];
+
+    state.tasks.forEach(tache => {
+        const derniereFois = new Date(tache.derniereDateCompletee);
+        const joursPasses = calculerDifferenceJours(derniereFois, aujourdhui);
+        const frequenceCible = obtenirJoursFrequence(tache.frequence);
+
+        // Si le délai est passé
+        if (joursPasses >= frequenceCible) {
+            tasksToday.push(tache);
+        } 
+        // Si c'est pour demain (veille de l'échéance)
+        else if (joursPasses === frequenceCible - 1) {
+            tasksFuture.push(tache);
+        }
+    });
+}
+
+function obtenirJoursFrequence(label) {
+    if (label === "Quotidienne") return 1;
+    if (label === " 3 jours") return 3;
+    if (label === "Hebdomadaire") return 7;
+    if (label === "Bimensuelle") return 15;
+    if (label === "Mensuelle") return 30;
+    return 999; // Pour les tâches ponctuelles
+}
   let tJour = state.tasks.filter(t => {
     const faiteAuj = t.datesFaites?.includes(dateAuj);
     return (t.prochaineDate <= dateAuj) || (faiteAuj && (!t.datePrecedente || t.datePrecedente <= dateAuj));
   });
 
-  // 2. FILTRAGE AVENIR
+ 
+ 
   let tFutur = state.tasks.filter(t => {
     const faiteAuj = t.datesFaites?.includes(dateAuj);
     const estVraimentAvenir = t.prochaineDate > dateAuj || (faiteAuj && t.datePrecedente > dateAuj);
@@ -167,8 +212,16 @@ function afficherTaches() {
   tFutur.sort(monSuperTri);
 
   // 4. AFFICHAGE
-  if (listeJour) listeJour.innerHTML = tJour.map(t => genererHtmlTache(t, true)).join('') || '<p>🌿 Rien pour aujourd\'hui.</p>';
-  if (listeFutur) listeFutur.innerHTML = tFutur.map(t => genererHtmlTache(t, false)).join('') || '<p>🌿 Respire !</p>';
+ // 4. AFFICHAGE
+  if (listeJour) {
+    listeJour.innerHTML = tJour.map(t => genererHtmlTache(t, true)).join('') || 
+    '<p style="text-align: center; font-size: 1.2rem; width: 100%; margin: 20px 0; color: #a594b5;">🌿 Rien pour aujourd\'hui !</p>';
+  }
+
+  if (listeFutur) {
+    listeFutur.innerHTML = tFutur.map(t => genererHtmlTache(t, false)).join('') || 
+    '<p style="text-align: center; font-size: 1.2rem; width: 100%; margin: 20px 0; color: #a594b5;">🌿 Libre !</p>';
+  }
 }
 function genererHtmlTache(tache, estAuj) {
   const faite = tache.datesFaites?.includes(aujourdhui());
