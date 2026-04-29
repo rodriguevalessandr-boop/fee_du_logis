@@ -234,29 +234,26 @@ function genererHtmlTache(tache, estAuj) {
              class="task-checkbox">
       
       <div class="task-info" onclick="ouvrirPourModifier(${tache.id})">
-        <div class="task-name" style="${faite ? 'text-decoration:line-through; opacity:0.5;' : ''}">
+        <div class="task-name">
           ${tache.nom}
         </div>
         <div class="task-piece"> ${tache.piece || 'Maison'}</div>
         <div class="task-frequence">⏳ ${tache.frequence || 'Ponctuelle'}</div>
       </div>
-<div style="display: flex; align-items: center; gap: 15px; flex-shrink:0; margin-left:10px;">
-        
-        <span style=" color: #7fb3d5; font-size: 1.2rem; background: #f0f9ff; padding: 5px 10px; border-radius: 10px;">
+
+      <div class="task-actions-group">
+        <span class="task-xp-badge">
           +${tache.xp} XP
         </span>
         <div class="task-btns">
           <span onclick="ouvrirPourModifier(${tache.id})" class="edit-icon">✏️</span>
-          
-          <div id="delete-zone-${tache.id}" style="display: flex; align-items: center;">
+          <div id="delete-zone-${tache.id}" class="delete-zone">
             <button onclick="event.stopPropagation(); demanderSuppression(${tache.id})" class="delete-btn">
               🗑️
             </button>
           </div>
-          
         </div>
       </div>
-
     </div>`;
 }
 // ==========================================
@@ -352,13 +349,13 @@ window.demanderSuppression = (id) => {
   const zone = document.getElementById(`delete-zone-${id}`);
   if (zone) {
     zone.innerHTML = `
-      <div style="display: flex; flex-direction: column; gap: 5px; align-items: center;">
+      <div class="confirm-delete-container">
         <button onclick="event.stopPropagation(); supprimerDefinitif(${id})"
-                style="color: white; background: #e8a0b4; border:none; border-radius:8px; padding:4px 8px; font-size:16px;  cursor:pointer;">
+                class="btn-confirm-del">
           Valider 
         </button>
         <button onclick="event.stopPropagation(); mettreAJourUI()"
-                style="color: #5e9aca; background: #eee; border:none; border-radius:8px; padding:4px 8px; font-size:16px; cursor:pointer;">
+                class="btn-cancel-del">
           Annuler 
         </button>
       </div>`;

@@ -105,11 +105,117 @@ body {
 .xp-gauge-wrap,
 #mantra-container,
 
+/* Le champ de l'heure */
+.notif-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #eaddff;
+    font-size: 20px;
+    text-align: center;
+    margin: 15px 0;
+    box-sizing: border-box;
+}
+
+/* Base commune pour les boutons magiques du rappel */
+.btn-magic {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.btn-full-width {
+    width: 100% !important;
+}
+
+/* Les couleurs spécifiques valider et annuler formulaire tâche */
+.btn-cancel { background: #5e9aca; }
+.btn-confirm { background: #e8a0b4; }
+
+/* Réutilisation de la classe de conteneur qu'on a créée tout à l'heure */
+.modal-buttons-container {
+    display: flex !important;
+    gap: 10px;
+}
+
+.xp-numbers {
+    text-align: right;
+    font-family: 'Emilys Candy', serif; /* Pour garder ta police magique */
+    font-size: 1.2rem;
+    color: #6d5d8e;
+    margin-bottom: 8px;
+}
+
 .tasks-section {
     width: 90%;
     margin: 30px auto 12px;
 }
 
+/* Le groupe qui contient l'XP et les boutons (poubelle/crayon) */
+.task-actions-group {
+    display: flex !important;
+    align-items: center;
+    gap: 15px;
+    flex-shrink: 0;
+    margin-left: 10px;
+}
+
+/* Le petit badge bleu des XP */
+.task-xp-badge {
+    color: #7fb3d5;
+    font-size: 1.2rem;
+    background: #f0f9ff;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+/* La zone de la poubelle */
+.delete-zone {
+    display: flex !important;
+    align-items: center;
+}
+
+/* Style pour barrer le texte si la tâche est faite */
+.task-card.completed .task-name {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+/* Le conteneur qui remplace le style="display: flex..." */
+.confirm-delete-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+    align-items: center !important;
+}
+
+/* Le bouton Valider (rose) */
+.btn-confirm-del {
+    color: white;
+    background: #e8a0b4;
+    border: none;
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Emilys Candy', serif;
+}
+
+/* Le bouton Annuler (gris/bleu) */
+.btn-cancel-del {
+    color: #5e9aca;
+    background: #eee;
+    border: none;
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Emilys Candy', serif;
+}
 .app-main-title {
     font-family: 'Berkshire Swash', cursive;
     font-size: 2.2rem;
@@ -250,6 +356,7 @@ body {
 .xp-track { height: 35px; background: #eee6f3; border-radius: 15px; border: 2px solid #dcd0e8; overflow: hidden; }
 .xp-fill { height: 100%; background: linear-gradient(90deg, #e8a0b4, #5e9aca); transition: width 0.5s; }
 
+
 /* Nouveau Mantra (Phrases de la fée) */
 #mantra-container {
     position: fixed;
@@ -343,13 +450,62 @@ body {
     transition: all 0.3s ease;
     outline: none;
 }
+/* --- Mise en page des Modals --- */
+.modal-header { text-align: center; margin-bottom: 20px; }
+.modal-subtitle { color: #a594b5; font-size: 16px; font-style: italic; }
 
+.form-group { margin-bottom: 15px; }
+.form-row-vertical { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
+
+.modal-label { 
+    display: block; 
+    color: #6d5d8e; 
+    margin-bottom: 5px; 
+    font-family: 'Berkshire Swash', cursive;
+}
+
+.modal-input {
+    width: 100%; 
+    padding: 10px; 
+    border-radius: 12px; 
+    border: 1px solid #eaddff; 
+    box-sizing: border-box; 
+    font-size: 16px;
+    font-family: 'Emilys Candy', serif;
+}
+
+/* --- Boutique --- */
+.shop-diamonds-text { text-align: center; font-size: 20px; color: #142523; margin-bottom: 20px; }
+.shop-grid {
+    display: grid !important; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px; 
+    margin-bottom: 20px; 
+    max-height: 60vh; 
+    overflow-y: auto;
+}
 /* Effet quand on clique dans un champ */
 .modal input[type="text"]:focus, 
 .modal select:focus {
     border-color: #c4a8e8 ;
     box-shadow: 0 0 8px rgba(196, 168, 232, 0.5);
     background-color: #ffffff;
+}
+
+/* Le titre du rappel */
+.modal-title-magic {
+    font-family: 'Berkshire Swash', cursive;
+    text-align: center;
+    color: #4a3560; /* Ajout d'une couleur cohérente */
+    margin-bottom: 10px;
+}
+
+/* Le petit texte d'introduction */
+.modal-text-intro {
+    text-align: center;
+    color: #8a6aac;
+    font-size: 18px;
+    margin-bottom: 15px;
 }
 
 /* Pour le texte d'exemple (placeholder) */
@@ -432,6 +588,11 @@ h1.app-title {
     font-size: 26px;
     border: none;
     box-shadow: 0 4px 10px rgba(0,194,167,0.3);
+}
+
+.fairy-icon {
+    font-size: 1.5rem;
+    vertical-align: middle;
 }
 
 #streak-fire {

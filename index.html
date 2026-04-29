@@ -18,7 +18,7 @@
     <header class="app-header">
 
 <div class="app-main-title">
-   <span class="fairy-sparkle" style="font-size: 1.5rem; vertical-align: middle;">🧚</span> Fée du Logis
+   <span class="fairy-sparkle">🧚</span> Fée du Logis
 </div>
 
       <div class="header-row-2">
@@ -28,10 +28,10 @@
       </div>
   
         <div class="streak-pill">
-          <span id="streak-fire" style="display:none;">🔥</span>
+    <span id="streak-fire" class="hidden">🔥</span>
           Jour <span id="day-count">0</span>
         </div>
-        
+
    <div class="header-btns-group">
     <button class="notif-btn" id="notif-btn">🕐</button>
     <button class="add-task-btn" id="add-task-btn">+</button>
@@ -50,7 +50,7 @@
 
     <!-- JAUGE XP -->
     <div class="xp-gauge-wrap">
-      <div class="xp-numbers" style="text-align:right;">
+      <div class="xp-numbers">
         <span id="xp-current">0</span> / 500 XP
       </div>
       <div class="xp-track">
@@ -76,28 +76,20 @@
   </div>
 
   <!-- MODAL RÉVEIL -->
-  <div class="modal-overlay hidden" id="notif-modal">
+ <div class="modal-overlay hidden" id="notif-modal">
     <div class="modal">
-      <h3 style="font-family:'Berkshire Swash'; text-align:center;">⏰ Rappel quotidien</h3>
-      <p style="text-align:center; color:#8a6aac; font-size:18px;">
-   Choisir l'heure de ta notification :
-</p>
-      <input type="time" id="notif-time"
-             style="width:100%; padding:12px; border-radius:10px;
-                    border:1px solid #eaddff; font-size:20px;
-                    text-align:center; margin:15px 0; box-sizing:border-box;">
-      <div style="display:flex; gap:10px;">
-        <button id="btn-annuler-notif"
-                 style="flex:1; padding:10px; border-radius:10px;
-               border:none; background:#5e9aca;
-               color:white; cursor:pointer; font-size:18px;">
-          💨 Annuler! 💨
- <button id="btn-sauver-notif"
-        style="flex:1; padding:10px; border-radius:10px;
-               border:none; background:#e8a0b4;
-               color:white; cursor:pointer; font-size:18px;">
- ✨ Valider ! ✨
-</button>
+      <h3 class="modal-title-magic">⏰ Rappel quotidien</h3>
+      <p class="modal-text-intro"></p>
+<input type="time" id="notif-time" class="notif-input">
+
+<div class="modal-buttons-container">
+  <button id="btn-annuler-notif" class="btn-magic btn-cancel">
+    💨 Annuler! 💨
+  </button>
+  <button id="btn-sauver-notif" class="btn-magic btn-confirm">
+    ✨ Valider ! ✨
+  </button>
+</div>
       </div>
     </div>
   </div>
@@ -105,39 +97,33 @@
  <!-- MODAL NOUVELLE TÂCHE -->
 <div class="modal-overlay hidden" id="task-modal">
   <div class="modal">
+    <div class="modal-header">
+      <h1 class="modal-title-magic">✨Enchantement prévu✨ <span class="fairy-sparkle">🧚</span></h1>
+      <div class="modal-subtitle">Inscris ce geste dans ton Grimoire.</div>
+    </div>
 
-<div style="text-align: center; margin-bottom: 20px;">
-<h1 style="font-family: 'Berkshire Swash', serif; color: #4a3560; margin: 0; font-size: 1.8rem;">✨Enchantement prévu✨
-<span class="fairy-sparkle">🧚</span> </h1>
-<div style="color: #a594b5; font-size: 16px; font-style: italic;">Inscris ce geste dans ton Grimoire.</div>
-</div>
+    <div class="form-group">
+      <label class="modal-label">Nom de l'Incantation</label>
+      <input type="text" id="task-nom" placeholder="Ex: Chasser les ombres..." class="modal-input">
+    </div>
 
-<div style="margin-bottom:15px;">
-<label style="display:block; color:#6d5d8e; margin-bottom:5px;"> Nom de l'Incantation</label>
+    <div class="form-group">
+      <label class="modal-label">Royaume de la Maison</label>
+      <select id="task-piece" class="modal-input">
+        <option value="🌿 Salon de Thé">🌿 Salon de Thé</option>
+        <option value="🍲 Cuisine Alchimique">🍲 Cuisine Alchimique</option>
+        <option value="🪞 Lieu des Songes">🪞 Lieu des Songes</option>
+        <option value="🛁 Source Pure">🛁 Source Pure</option>
+        <option value="📚 Bureau des Sorts">📚 Bureau des Sorts</option>
+        <option value="🏠 Sanctuaire Entier">🏠 Sanctuaire Entier</option>
+        <option value="🚪 Hall des Murmures">🚪 Hall des Murmures</option>
+      </select>
+    </div>
 
-<input type="text" id="task-nom" placeholder="Ex: Chasser les ombres..."
-style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; box-sizing:border-box; font-size:16px;"></div>
-
-<div style="margin-bottom:15px;">
-<label style="display:block; color:#6d5d8e; margin-bottom:5px;"> Royaume de la Maison </label>
-<select id="task-piece" 
-style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:16px;">
-<option value="🌿 Salon de Thé">🌿 Salon de Thé</option>
-<option value="🍲 Cuisine Alchimique">🍲 Cuisine Alchimique</option>
-<option value="🪞 Lieu des Songes">🪞 Lieu des Songes</option>
-<option value="🛁 Source Pure">🛁 Source Pure</option>
-<option value="📚 Bureau des Sorts">📚 Bureau des Sorts</option>
-<option value="🏠 Sanctuaire Entier">🏠 Sanctuaire Entier</option>
-<option value="🚪 Hall des Murmures">🚪 Hall des Murmures</option>
-</select>
-</div>
-
-<div style="display:flex; flex-direction:column; gap:12px; margin-bottom:15px;">
-
-
-<div>
-<label style="display:block; color:#6d5d8e; margin-bottom:5px;">Lancement</label>
-<select id="task-lancement" style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:16px;"> 
+<div class="form-row-vertical">
+      <div class="form-group">
+        <label class="modal-label">Lancement</label>
+        <select id="task-lancement" class="modal-input">
 <option value="0">🍭 Aujourd'hui </option>
 <option value="+1">🫧Dès demain</option>
 <option value="+2">🪷Surlendemain</option>
@@ -147,9 +133,9 @@ style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; f
 </select>
 </div>
 
-<div style="margin-bottom:20px;">
-<label style="display:block; color:#6d5d8e; margin-bottom:5px;">Fréquence du Sortilège </label>
-<select id="task-frequence" style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:16px;"> 
+<div class="form-group">
+        <label class="modal-label">Fréquence du Sortilège</label>
+        <select id="task-frequence" class="modal-input">
 <option value="Quotidienne">Quotidienne</option>
 <option value=" 3 jours" >Tous les trois jours</option>
 <option value="Hebdomadaire">Dans 7 jours</option>
@@ -159,50 +145,36 @@ style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; f
 </select>
 </div>
 
-<div style="margin-bottom:20px;">
-<label style="display:block; color:#6d5d8e; margin-bottom:5px;">Résonnance</label>
-<select id="task-xp" style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:16px;">
-<option value="10">✨ Petit Geste (10 XP)</option>
-<option value="25">🌟 Bel Effort (25 XP)</option>
-<option value="40">🔥 Grande Quête (40 XP)</option>
-</select>
-</div>
-</div>
+<div class="form-group">
+        <label class="modal-label">Résonnance</label>
+        <select id="task-xp" class="modal-input">
+          <option value="10">✨ Petit Geste (10 XP)</option>
+          <option value="25">🌟 Bel Effort (25 XP)</option>
+          <option value="40">🔥 Grande Quête (40 XP)</option>
+        </select>
+      </div>
+    </div>
 
 
 
-<div style="display: flex; gap: 10px; margin-top: 20px;">
-  <button id="btn-annuler" style="flex: 1; width: 0; border-radius: 15px; border: none;  background: #5e9aca; color: #bfe2ff; padding: 12px; cursor: pointer; font-size: 18px; font-family: 'Emilys Candy', serif;">
-  💨 Annuler! 💨
-  </button>
-  
-  <button id="btn-sauvegarder" style="flex: 1; width: 0; border-radius: 15px; border: none;background: #e8a0b4; color: #ffe1ea; padding: 12px; cursor: pointer; font-size: 18px; font-family: 'Emilys Candy', serif;">
-  ✨ Valider ! ✨
-  </button>
-</div>
-
+<div class="modal-buttons-container">
+      <button id="btn-annuler" class="btn-magic btn-cancel">💨 Annuler! 💨</button>
+      <button id="btn-sauvegarder" class="btn-magic btn-confirm">✨ Valider ! ✨</button>
     </div>
   </div>
+</div>
 
   <!-- MODAL BOUTIQUE -->
-  <div class="modal-overlay hidden" id="shop-modal">
-    <div class="modal">
-      <h3 style="font-family:'Berkshire Swash'; text-align:center; font-size:24px;">
-        ✨ Boutique ✨
-      </h3>
-<p style="text-align:center; font-size: 20px; color: #142523; margin-bottom: 20px;">
-      Tes diamants : <span id="shop-diamonds" style="color: #4a3560;">0</span> 💎
-    </p>
-      <div id="shop-items"
-           style="display:grid; grid-template-columns:1fr 1fr; font-size: 20px; font-family: 'Emilys Candy', serif;
-                  gap:10px; margin-bottom:20px; max-height:60vh; overflow-y:auto;">
-      </div>
-      <button id="btn-fermer-boutique"
-style="width:100%; padding:15px; border-radius:10px; border:none; background:#e8a0b4; color:white; cursor:pointer; font-size: 18px; font-family: 'Emilys Candy', serif;">
-        ← Retour
-      </button>
-    </div>
+<div class="modal-overlay hidden" id="shop-modal">
+  <div class="modal">
+    <h3 class="modal-title-magic">✨ Boutique ✨</h3>
+    <p class="shop-diamonds-text">Tes diamants : <span id="shop-diamonds">0</span> 💎</p>
+    <div id="shop-items" class="shop-grid"></div>
+<button id="btn-fermer-boutique" class="btn-magic btn-confirm btn-full-width">
+  ← Retour
+</button>
   </div>
+</div>
 
   <script src="app.js"></script>
 </body>
