@@ -71,14 +71,14 @@ body {
 
 /* 2. L'Ovale Carré de la créature */
 .creature-container-box {
-    /* 1. On passe à une taille plus généreuse */
-    width: 340px;
-    height: 280px;
+
+    width: 240px;
+    height: 220px;
     max-width: 95vw;
     font-size: 1.6rem !important;
     
     /* 2. On ajuste l'arrondi proportionnellement */
-    border-radius: 80px; 
+    border-radius: 60px; 
     
     /* 3. On réduit les marges pour éviter que ça touche la jauge ou le haut */
     margin: 10px auto; 
@@ -178,11 +178,11 @@ body {
 }
 
 .creature-circle {
-    width: 35vw;      /* augmente si trop petit */
-    height: 35vw;
-    max-width: 100px;
-    max-height: 100px;
-    background: #d4c5f0; /* lilas doux par exemple */
+    width: 45vw;
+    height: 45vw;
+    max-width: 160px;
+    max-height: 160px;
+    background: #e8f5f0; 
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     border: 3px solid rgba(255,255,255,0.8);
