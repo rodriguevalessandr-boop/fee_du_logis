@@ -9,63 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Emilys+Candy&display=swap" rel="stylesheet">
 </head>
-<style>
-  h1, h2 {
-    font-family: 'Berkshire Swash', cursive ;
-    font-weight: normal;
-  }
-  body, h3, label, button, .task-card {
-    font-family: 'Emilys Candy', serif ;
-  }
-@keyframes pulserDoucement {
-    0%, 100% { transform: rotate(-5deg) scale(1); }
-    25% { transform: rotate(5deg) scale(1.1); }
-    75% { transform: rotate(-3deg) scale(0.95); }
-}
-  @keyframes danserFee {
-    0% { transform: translateY(0) rotate(0deg); }
-    33% { transform: translateY(-8px) rotate(-8deg); }
-    66% { transform: translateY(-3px) rotate(8deg); }
-    100% { transform: translateY(0) rotate(0deg); }
-  }
-  #shop-items * {
-    font-size: 18px ;
-  }
-  #creature-container {
-    background: #fffdf9;
-    border: 3px solid #eaddff;
-    /* Voici l'astuce pour l'ovale carré (super-ellipse) */
-    border-radius: 60px; 
-    padding: 30px;
-    margin: 20px auto;
-    width: fit-content;
-    box-shadow: 0 8px 20px rgba(234, 221, 255, 0.6);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: all 0.3s ease;
-  }
-  #creature-img {
-    width: 220px ; /* Taille imposante */
-    height: 220px ;
-    object-fit: contain;
-    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
-    margin-bottom: 15px;
-  }
 
-  #streak-fire {
-    display: inline-block;
-    animation: pulserDoucement 2s ease-in-out infinite;
-    transform-origin: bottom center;
-  }
-  .fee-dansante {
-    display: inline-block;
-    font-size: 1.8em;
-    margin-right: 15px;
-    animation: danserFee 5s ease-in-out infinite;
-    transform-origin: center center;
-  }
-</style>
 <body>
 
   <div class="app-container">
@@ -147,12 +91,12 @@
                  style="flex:1; padding:10px; border-radius:10px;
                border:none; background:#5e9aca;
                color:white; cursor:pointer; font-size:18px;">
-          💨 Non ! 💨
+          💨 Annuler! 💨
  <button id="btn-sauver-notif"
         style="flex:1; padding:10px; border-radius:10px;
                border:none; background:#e8a0b4;
                color:white; cursor:pointer; font-size:18px;">
- ✨ Oui ! ✨
+ ✨ Valider ! ✨
 </button>
       </div>
     </div>
@@ -165,19 +109,19 @@
 <div style="text-align: center; margin-bottom: 20px;">
 <h1 style="font-family: 'Berkshire Swash', serif; color: #4a3560; margin: 0; font-size: 1.8rem;">✨Enchantement prévu✨
 <span class="fairy-sparkle">🧚</span> </h1>
-<div style="color: #a594b5; font-size: 14px; font-style: italic;">Inscris ce geste dans ton Grimoire.</div>
+<div style="color: #a594b5; font-size: 16px; font-style: italic;">Inscris ce geste dans ton Grimoire.</div>
 </div>
 
 <div style="margin-bottom:15px;">
 <label style="display:block; color:#6d5d8e; margin-bottom:5px;"> Nom de l'Incantation</label>
 
 <input type="text" id="task-nom" placeholder="Ex: Chasser les ombres..."
-style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; box-sizing:border-box; font-size:14px;"></div>
+style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; box-sizing:border-box; font-size:16px;"></div>
 
 <div style="margin-bottom:15px;">
 <label style="display:block; color:#6d5d8e; margin-bottom:5px;"> Royaume de la Maison </label>
 <select id="task-piece" 
-style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:14px;">
+style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:16px;">
 <option value="🌿 Salon de Thé">🌿 Salon de Thé</option>
 <option value="🍲 Cuisine Alchimique">🍲 Cuisine Alchimique</option>
 <option value="🪞 Lieu des Songes">🪞 Lieu des Songes</option>
@@ -193,7 +137,7 @@ style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; f
 
 <div>
 <label style="display:block; color:#6d5d8e; margin-bottom:5px;">Lancement</label>
-<select id="task-lancement" style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:15px;"> 
+<select id="task-lancement" style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:16px;"> 
 <option value="0">🍭 Aujourd'hui </option>
 <option value="+1">🫧Dès demain</option>
 <option value="+2">🪷Surlendemain</option>
@@ -205,7 +149,7 @@ style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; f
 
 <div style="margin-bottom:20px;">
 <label style="display:block; color:#6d5d8e; margin-bottom:5px;">Fréquence du Sortilège </label>
-<select id="task-frequence" style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:15px;"> 
+<select id="task-frequence" style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:16px;"> 
 <option value="Quotidienne">Quotidienne</option>
 <option value=" 3 jours" >Tous les trois jours</option>
 <option value="Hebdomadaire">Dans 7 jours</option>
@@ -215,9 +159,9 @@ style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; f
 </select>
 </div>
 
-<div>
+<div style="margin-bottom:20px;">
 <label style="display:block; color:#6d5d8e; margin-bottom:5px;">Résonnance</label>
-<select id="task-xp" style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:15px;">
+<select id="task-xp" style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; font-size:16px;">
 <option value="10">✨ Petit Geste (10 XP)</option>
 <option value="25">🌟 Bel Effort (25 XP)</option>
 <option value="40">🔥 Grande Quête (40 XP)</option>
@@ -229,11 +173,11 @@ style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; f
 
 <div style="display: flex; gap: 10px; margin-top: 20px;">
   <button id="btn-annuler" style="flex: 1; width: 0; border-radius: 15px; border: none;  background: #5e9aca; color: #bfe2ff; padding: 12px; cursor: pointer; font-size: 18px; font-family: 'Emilys Candy', serif;">
-  💨 Non ! 💨
+  💨 Annuler! 💨
   </button>
   
   <button id="btn-sauvegarder" style="flex: 1; width: 0; border-radius: 15px; border: none;background: #e8a0b4; color: #ffe1ea; padding: 12px; cursor: pointer; font-size: 18px; font-family: 'Emilys Candy', serif;">
-  ✨ Oui ! ✨
+  ✨ Valider ! ✨
   </button>
 </div>
 
@@ -254,7 +198,7 @@ style="width:100%; padding:10px; border-radius:12px; border:1px solid #eaddff; f
                   gap:10px; margin-bottom:20px; max-height:60vh; overflow-y:auto;">
       </div>
       <button id="btn-fermer-boutique"
-style="width:100%; padding:15px; border-radius:10px; border:none; background:#c4a8e8; color:white; cursor:pointer; font-size: 18px; font-family: 'Emilys Candy', serif;">
+style="width:100%; padding:15px; border-radius:10px; border:none; background:#e8a0b4; color:white; cursor:pointer; font-size: 18px; font-family: 'Emilys Candy', serif;">
         ← Retour
       </button>
     </div>

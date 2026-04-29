@@ -244,7 +244,7 @@ function genererHtmlTache(tache, estAuj) {
 
       <div style="display: flex; align-items: center; gap: 15px; flex-shrink:0; margin-left:10px;">
         
-        <span style=" color:#7fb3d5; font-size: 1.2rem; background: #f0f9ff; padding: 5px 10px; border-radius: 10px;">
+        <span style=" color: #7fb3d5; font-size: 1.2rem; background: #f0f9ff; padding: 5px 10px; border-radius: 10px;">
           +${tache.xp} XP
         </span>
 
@@ -357,12 +357,12 @@ window.demanderSuppression = (id) => {
     zone.innerHTML = `
       <div style="display: flex; flex-direction: column; gap: 5px; align-items: center;">
         <button onclick="event.stopPropagation(); supprimerDefinitif(${id})"
-                style="color:white; background:#ff4757; border:none; border-radius:8px; padding:4px 8px; font-size:10px;  cursor:pointer;">
-          Valider ?
+                style="color: white; background: #e8a0b4; border:none; border-radius:8px; padding:4px 8px; font-size:16px;  cursor:pointer;">
+          Valider 
         </button>
         <button onclick="event.stopPropagation(); mettreAJourUI()"
-                style="color:#666; background:#eee; border:none; border-radius:8px; padding:4px 8px; font-size:10px; cursor:pointer;">
-          Annuler ✖
+                style="color: #5e9aca; background: #eee; border:none; border-radius:8px; padding:4px 8px; font-size:16px; cursor:pointer;">
+          Annuler 
         </button>
       </div>`;
   }
@@ -408,19 +408,16 @@ window.ouvrirBoutique = () => {
     const possedee = state.creatures.find(c => c.id === item.id);
     const estActive = state.creatureActive === item.id;
     return `
-      <div style="background:#fdfaf5; padding:10px; border-radius:15px;
-                  text-align:center; border:1px solid #eaddff; box-sizing:border-box;">
-        <div style="font-size:30px;">${item.stades[4]}</div>
-        <div style=" font-size:12px; margin:5px 0;">${item.nom}</div>
-        <button onclick="acheter('${item.id}', ${item.prix})"
-          style="background:${estActive ? '#c4a8e8' : possedee ? '#aaa' : '#00c2a7'};
-                 color:white; border:none; border-radius:10px;
-                 padding:8px; cursor:pointer; width:100%; font-size:12px;">
-          ${estActive ? '✓ Active' : possedee ? 'Choisir' : '💎 ' + item.prix}
-        </button>
-      </div>`;
-  }).join('');
-  document.getElementById('shop-modal').classList.remove('hidden');
+<div style="background: #fdfaf5; padding:10px; border-radius:15px; text-align:center; border:1px solid #eaddff; box-sizing:border-box;">
+<div style="font-size:30px;">${item.stades[4]}</div>
+<div style=" font-size:16px; margin:5px 0;">${item.nom}</div>
+<button onclick="acheter('${item.id}', ${item.prix})" style="background:${estActive ? '#e8a0b4' : possedee ? '#aaa' : '#5e9aca'}; 
+color:white; border:none; border-radius:10px; padding:8px; cursor:pointer; width:100%; font-size:16px;">
+ ${estActive ? '✓ Active' : possedee ? 'Choisir' : '💎 ' + item.prix}
+</button>
+</div>`;
+}).join('');
+document.getElementById('shop-modal').classList.remove('hidden');
 };
 
 window.acheter = (id, prix) => {
