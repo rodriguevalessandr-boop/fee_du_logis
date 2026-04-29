@@ -71,19 +71,17 @@ body {
 
 /* 2. L'Ovale Carré de la créature */
 .creature-container-box {
-
-    width: 240px;
+    width: 240px; /* Taille actuelle */
     height: 220px;
     max-width: 95vw;
     font-size: 1.6rem !important;
+    border-radius: 60px;
     
-    /* 2. On ajuste l'arrondi proportionnellement */
-    border-radius: 60px; 
+    /* MODIFICATION ICI : */
+    /* Le premier chiffre (20px) est pour le HAUT et le BAS */
+    /* 'auto' s'occupe de centrer par rapport aux côtés */
+    margin: 20px auto; 
     
-    /* 3. On réduit les marges pour éviter que ça touche la jauge ou le haut */
-    margin: 10px auto; 
-    
-    /* 4. Le reste reste identique pour garder le style */
     background: #ffffff;
     border: 3px solid #eaddff;
     box-shadow: 0 8px 20px rgba(109, 93, 142, 0.15);
@@ -91,7 +89,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative; /* Sécurité pour le placement interne */
+    position: relative;
 }
 
 #creature-stage {
