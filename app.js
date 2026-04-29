@@ -227,41 +227,38 @@ function genererHtmlTache(tache, estAuj) {
   const faite = tache.datesFaites?.includes(aujourdhui());
   
   return `
-    <div class="task-card ${faite ? 'completed' : ''}" style="display: flex; align-items: center; padding: 15px; background: white; border-radius: 20px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid #f0e6ff;">
+    <div class="task-card ${faite ? 'completed' : ''}">
       
       <input type="checkbox" ${faite ? 'checked' : ''} 
              onclick="event.stopPropagation(); cocherTache(${tache.id})" 
-             style="width:25px; height:25px; margin-right:15px; cursor:pointer; flex-shrink:0;">
+             class="task-checkbox">
       
-      <div style="display: flex; flex-direction: column; flex: 1; cursor: pointer;" onclick="ouvrirPourModifier(${tache.id})">
-        <div style="font-size: 18px; font-family: 'Berkshire Swash', cursive ; serif ; color: #4a3560; ${faite ? 'text-decoration:line-through; opacity:0.5;' : ''}">
+      <div class="task-info" onclick="ouvrirPourModifier(${tache.id})">
+        <div class="task-name" style="${faite ? 'text-decoration:line-through; opacity:0.5;' : ''}">
           ${tache.nom}
         </div>
-        <div style="color: #a594b5; font-size: 1rem; margin-top: 4px;">
-          ${tache.piece || 'Maison'} • ${tache.frequence || 'Ponctuelle'}
-        </div>
+        <div class="task-piece"> ${tache.piece || 'Maison'}</div>
+        <div class="task-frequence">⏳ ${tache.frequence || 'Ponctuelle'}</div>
       </div>
-
-      <div style="display: flex; align-items: center; gap: 15px; flex-shrink:0; margin-left:10px;">
+<div style="display: flex; align-items: center; gap: 15px; flex-shrink:0; margin-left:10px;">
         
         <span style=" color: #7fb3d5; font-size: 1.2rem; background: #f0f9ff; padding: 5px 10px; border-radius: 10px;">
           +${tache.xp} XP
         </span>
-
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
-          <span onclick="ouvrirPourModifier(${tache.id})" style="font-style: italic; color: #6d5d8e; font-size: 0.9rem; cursor:pointer;">✏️</span>
+        <div class="task-btns">
+          <span onclick="ouvrirPourModifier(${tache.id})" class="edit-icon">✏️</span>
+          
           <div id="delete-zone-${tache.id}" style="display: flex; align-items: center;">
-            <button onclick="event.stopPropagation(); demanderSuppression(${tache.id})" 
-                    style="background:none; border:none; font-size:22px; cursor:pointer; opacity:0.6; padding:0;">
+            <button onclick="event.stopPropagation(); demanderSuppression(${tache.id})" class="delete-btn">
               🗑️
             </button>
           </div>
+          
         </div>
-
       </div>
+
     </div>`;
 }
-
 // ==========================================
 // 5. ACTIONS
 // ==========================================

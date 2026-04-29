@@ -29,7 +29,7 @@ body, h3, label, button, .task-card {
 
 /* Taille spécifique pour les étiquettes de ton formulaire */
 label {
-    font-size: 16px; /* Assez grand, mais plus petit que le h2 */
+    font-size: 16px; 
     color: #6d5d8e;
     display: block;
     margin-bottom: 10px;
@@ -47,13 +47,8 @@ body {
     display: flex; flex-direction: column; align-items: center;
     font-size: 16px, ; 
 }
- h1, h2 {
-    font-family: 'Berkshire Swash', cursive ;
-    font-weight: normal;
-  }
-  body, h3, label, button, .task-card {
-    font-family: 'Emilys Candy', serif ;
-  }
+
+
 @keyframes pulserDoucement {
     0%, 100% { transform: rotate(-5deg) scale(1); }
     25% { transform: rotate(5deg) scale(1.1); }
@@ -112,7 +107,7 @@ body {
 
 .tasks-section {
     width: 90%;
-    margin: 15px auto 12px;
+    margin: 30px auto 12px;
 }
 
 .app-main-title {
@@ -252,10 +247,6 @@ body {
     margin: 10px auto 10px;
 }
 
-.tasks-section {
-    width: 90%;
-    margin: 0 auto 12px;
-}
 .xp-track { height: 35px; background: #eee6f3; border-radius: 15px; border: 2px solid #dcd0e8; overflow: hidden; }
 .xp-fill { height: 100%; background: linear-gradient(90deg, #e8a0b4, #5e9aca); transition: width 0.5s; }
 
@@ -290,17 +281,13 @@ body {
     display: flex;
     align-items: center;
     /* Voici le trait de couleur sur le côté */
-    border-left: 8px solid #c4a8e8 ; 
+    border-left: 10px solid #c4a8e8 ; 
     /* Une ombre portée pour donner du volume */
-    box-shadow: 0 6px 15px rgba(109, 93, 142, 0.1) ;
+    box-shadow: 0 6px 12px rgba(109, 93, 142, 0.1) ;
     transition: all 0.3s ease;
+    border-top: 1px solid #f3efff;
 }
 
-/* Effet au clic ou survol */
-.task-card:active {
-    transform: scale(0.98);
-    background-color: #fcfaff ;
-}
 
 .task-icon-flower {
     font-size: 1.2rem;
@@ -334,7 +321,6 @@ body {
 /* Modals */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
 .modal { background: white; padding: 25px; border-radius: 30px; width: 90%; max-width: 400px; box-sizing: border-box; }
-/* Style des étiquettes (Nom de l'Incantation, etc.) */
 .modal label {
 
     color: #573d72 ; /* Un violet plus doux */
@@ -345,7 +331,6 @@ body {
     margin-bottom: 8px;
 }
 
-/* Style des champs de saisie et listes */
 .modal input[type="text"], 
 .modal select {
     font-family: 'Emilys Candy', serif ;
@@ -392,6 +377,8 @@ h1.app-title {
     justify-content: flex-start;
     padding: 0 5px;
 }
+
+
 .diamonds-display {
     background: rgba(255,255,255,0.7);
     border: none;
@@ -420,6 +407,11 @@ h1.app-title {
     width: 100%;
     padding: 0 5px;
     justify-content: space-between;
+}
+.header-btns-group {
+    display: flex ;
+    gap: 8px ;
+    align-items: center ;
 }
 
 .notif-btn {
@@ -499,3 +491,4 @@ h1.app-title {
     50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
     100% { opacity: 0; transform: scale(0.8) rotate(360deg); }
 }
+div[style*="display: flex"] { border: 2px solid red !important; }
