@@ -275,6 +275,7 @@ display: flex;
     height: auto; /* Le bandeau s'adapte à son contenu */
     background: linear-gradient(180deg, #c4a8e8 0%, #eaddff 100%);
     border-radius: 0 0 30px 30px;
+    margin: 0;
 }
 
 
