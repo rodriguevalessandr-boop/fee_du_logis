@@ -269,15 +269,15 @@ label {
 
 .app-header {
     width: 100%;
-    background: linear-gradient(180deg, #c4a8e8 0%, #eaddff 100%);
-    padding: 10px 15px 22px; 
+    background: linear-gradient(180deg, #c4a8e8 0%, #eaddff 100%); 
     border-radius: 0 0 35px 35px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
     margin: 0;
+    padding: 10px 15px;
+    gap: 8px;
 }
 
 
@@ -556,51 +556,93 @@ margin-bottom: 20px; }
     gap: 5px;
 }
 .header-row-3 {
+display: flex;
+    align-items: center;
+    justify-content: space-between; /* Écarte les groupes aux extrémités */
+    width: 100%;
+    gap: 8px;
+}
+
+.header-eco-group {
     display: flex;
     align-items: center;
-    width: 100%;
-    padding: 0 5px;
-    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 30px;
+    padding: 8px 18px; /* Même padding que tes boutons d'action */
+    gap: 0;
 }
+
+/* Groupe DROITE : Actions (Série + Boutons) */
+.header-action-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* On affine les bulles blanches */
+
+/* --- 1. LES CONTENEURS (Les bulles blanches) --- */
+.header-eco-group, 
+.streak-pill, 
 .header-btns-group {
-  display: flex;
-  gap: 0;
-  align-items: center;
-  background: rgba(255,255,255,0.7);
-  border-radius: 30px;
-  padding: 8px 18px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 30px;
+    padding: 5px 15px;
+    display: flex;
+    align-items: center;
+    gap: 0; /* On gère l'espace via les boutons internes */
+    height: 55px; /* Hauteur fixe pour tout le monde pour l'alignement */
+    border: none;
+    box-sizing: border-box;
 }
 
-.notif-btn, .add-task-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px 10px;
+/* --- 2. LES BOUTONS (Interactifs et Verticaux) --- */
+.diamonds-display, 
+.shop-btn, 
+.notif-btn, 
+.add-task-btn {
+    display: flex;
+    flex-direction: column; /* Icône en haut, Texte en bas */
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 10px;
+    transition: transform 0.2s ease;
 }
 
+/* Effet au clic pour la sensation de "bouton" */
+.diamonds-display:active, 
+.shop-btn:active, 
+.notif-btn:active, 
+.add-task-btn:active {
+    transform: scale(0.95);
+}
+
+/* --- 3. LES ÉCRITS (Précieux et Légers) --- */
 .btn-label {
-  font-family: 'Emilys Candy', serif;
-  color: #6d5d8e;
+    font-weight: 400 !important;
+    color: #6d5d8e;
+    line-height: 1;
+    margin-top: 3px;
 }
 
+/* --- 4. LES DÉTAILS DE SÉPARATION --- */
 .btns-divider {
-  width: 1px;
-  height: 32px;
-  background: rgba(109, 93, 142, 0.2);
-  margin: 0 4px;
-}
-.fairy-icon {
-    font-size: 1.5rem;
-    vertical-align: middle;
+    width: 1px;
+    height: 30px;
+    background: rgba(109, 93, 142, 0.2);
+    margin: 0 5px;
 }
 
+/* La flamme de la série (animation légère) */
 #streak-fire {
+    display: inline-block;
     animation: flamme 0.8s ease-in-out infinite;
+    font-size: 1.2rem;
 }
+
 
 @keyframes fremir {
     0%, 100% { transform: rotate(-5deg); }
@@ -629,6 +671,9 @@ margin-bottom: 20px; }
     display: inline-block;
     position: relative;
     animation: flight 3s infinite ease-in-out;
+    font-size: 0.75rem; 
+    vertical-align: middle;
+    margin-right: 8px;
 }
 
 .fairy-sparkle::after {
@@ -636,9 +681,9 @@ margin-bottom: 20px; }
     color: #ffd700; /* Or pur */
     text-shadow: 0 0 5px #fff;
     position: absolute;
-    top: -5px;
-    right: -10px;
-    font-size: 0.8rem;
+    top: -2px;
+    right: -5px;
+    font-size: 0.4rem;
     animation: sparkle-dust 1s infinite alternate;
     opacity: 0;
 }

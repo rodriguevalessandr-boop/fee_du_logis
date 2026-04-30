@@ -20,36 +20,52 @@
   <div class="app-container">
 
     <!-- HEADER -->
-    <header class="app-header">
+<header class="app-header">
+  <!-- Titre réduit -->
+  <div class="app-main-title" style="font-size: 1.8rem; margin: 0;">
+    <span class="fairy-sparkle">🧚</span> Fée du Logis
+  </div>
 
-<div class="app-main-title">
-   <span class="fairy-sparkle">🧚</span> Fée du Logis
+  <!-- La ligne magique avec tes 5 éléments -->
+  <div class="header-row-3">
+    
+    <!-- GAUCHE : L'argent et le shopping -->
+<div class="header-eco-group">
+  <!-- Le bouton Bestiaire (Diamants) -->
+  <button class="diamonds-display" id="diamonds-btn">
+    <span>💎</span>
+    <span class="btn-label">Bestiaire <span id="diamond-count">0</span></span>
+  </button>
+
+  <div class="btns-divider"></div> <!-- Petite séparation élégante -->
+
+  <!-- Le bouton Boutique -->
+  <button class="shop-btn" id="open-shop-btn">
+    <span>✨</span>
+    <span class="btn-label">Boutique</span>
+  </button>
 </div>
-
-      <div class="header-row-2">
-        <button class="diamonds-display" id="diamonds-btn">
-          💎 <span id="diamond-count">0</span>
-        </button>
+    <!-- DROITE : La série et les outils -->
+    <div class="header-action-group">
+      <div class="streak-pill">
+        <span id="streak-fire" class="hidden">🔥</span> Jour <span id="day-count">0</span>
       </div>
-  
-        <div class="streak-pill">
-    <span id="streak-fire" class="hidden">🔥</span>
-          Jour <span id="day-count">0</span>
-        </div>
+      
+<div class="header-btns-group">
+      <button class="notif-btn" id="notif-btn">
+        <span>🕐</span>
+        <span class="btn-label">Rappel</span>
+      </button>
+        <div class="btns-divider"></div>
+<button class="add-task-btn" id="add-task-btn">
+        <span>+</span>
+        <span class="btn-label">Ajouter</span>
+      </button>
+      </div>
+    </div>
 
- <div class="header-btns-group">
-  <button class="notif-btn" id="notif-btn">
-    🕐
-    <span class="btn-label">Rappel</span>
-  </button>
-  <div class="btns-divider"></div>
-  <button class="add-task-btn" id="add-task-btn">
-    +
-    <span class="btn-label">Ajouter</span>
-  </button>
-</div>
-
-    </header>
+  </div>
+</header>
 
     <!-- CRÉATURE -->
 <!-- CARTE UNIFIÉE DE LA CRÉATURE -->
