@@ -273,6 +273,10 @@ window.cocherTache = (id) => {
   if (!dejaFaite) {
     // --- ACTIONS : VALIDER LA TÂCHE ---
     jouerSon('win');
+
+    if (window.event) { 
+        animerXP(window.event.clientX, window.event.clientY); 
+    }
     tache.datesFaites.push(dateAuj);
 ajouterXP(tache.xp || 10);
     // Attribution de l'XP (Vérification stricte)
@@ -552,6 +556,31 @@ function renderTasks() {
         // Si c'est dans 2, 3 ou 10 jours : le code ne fait rien, 
         // donc la tâche n'apparaît pas ! Magie !
     });
+}
+
+function animerXP(departX, departY) {
+    // 1. Créer la petite étoile
+    const etoile = document.createElement('div');
+    etoile.className = 'xp-particle';
+    etoile.innerHTML = '✨';
+    etoile.style.left = departX + 'px';
+    etoile.style.top = departY + 'px';
+    document.body.appendChild(etoile);
+
+    // 2. Trouver où est la jauge XP (en haut)
+    const jauge = document.querySelector('.xp-container') || document.querySelector('.streak-pill');
+    const rect = jauge.getBoundingClientRect();
+
+    // 3. Faire voler l'étoile après un micro-délai
+    setTimeout(() => {
+        etoile.style.left = (rect.left + rect.width / 2) + 'px';
+        etoile.style.top = (rect.top + rect.height / 2) + 'px';
+        etoile.style.opacity = '0';
+        etoile.style.transform = 'scale(2)';
+    }, 50);
+
+    // 4. Nettoyer le code après l'animation
+    setTimeout(() => { etoile.remove(); }, 800);
 }
 
 function ajouterXP(montant) {

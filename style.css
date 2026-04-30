@@ -4,7 +4,7 @@
 /* Titre appli */
 .app-main-title {
     font-family: 'UnifrakturMaguntia', serif; 
-    font-size: 5rem; 
+    font-size: 3rem; 
     color: #4a3560;
     text-align: center;
     margin-top: 25px;
@@ -709,4 +709,40 @@ display: flex;
     0% { opacity: 0; transform: scale(0.5) rotate(0deg); }
     50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
     100% { opacity: 0; transform: scale(0.8) rotate(360deg); }
+}
+
+.xp-particle {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none; /* Pour ne pas gêner le clic pendant qu'elle vole */
+    font-size: 1.2rem;
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Mouvement fluide */
+}
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Deux colonnes sur mobile */
+    gap: 15px;
+    padding: 10px;
+}
+
+.shop-item {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #eaddff;
+}
+
+.buy-btn {
+    background: #c4a8e8;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 5px 15px;
+    font-family: 'Emilys Candy', serif;
+    font-weight: 400 !important;
+    cursor: pointer;
+    margin-top: 10px;
 }

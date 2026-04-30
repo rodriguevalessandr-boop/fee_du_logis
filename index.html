@@ -64,6 +64,8 @@
   </div>
 </header>
 
+
+
     <!-- CRÉATURE -->
 <!-- CARTE UNIFIÉE DE LA CRÉATURE -->
 <section class="creature-card">
@@ -201,7 +203,26 @@
 </button>
   </div>
 </div>
-
+<!-- Tout en bas du fichier HTML -->
+<div id="xp-shop-modal" class="modal hidden">
+  <div class="modal-content">
+    <div class="shop-header">
+      <h3 style="margin:0;">✨ Boutique de Prestige</h3>
+      <div class="xp-balance">Solde : <span id="current-xp-total">0</span> XP</div>
+    </div>
+    
+    <div class="shop-grid">
+      <!-- Les items seront ici -->
+      <div class="shop-item">
+        <div class="item-icon">🎨</div>
+        <div class="item-name">Thème Pastel</div>
+        <button class="buy-btn">50 XP</button>
+      </div>
+    </div>
+    
+    <button id="close-shop" class="close-btn">Retour au Logis</button>
+  </div>
+</div>
   <script src="app.js"></script>
 </body>
 </html>
