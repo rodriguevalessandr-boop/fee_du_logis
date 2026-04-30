@@ -512,6 +512,8 @@ function calculerProchaineDate(baseDate, frequence) {
     let d = new Date(baseDate);
     if (frequence === 'Quotidienne') {
         d.setDate(d.getDate() + 1);
+    } else if (frequence === '3 jours') {
+        d.setDate(d.getDate() + 3);
     } else if (frequence === 'Hebdomadaire') {
         d.setDate(d.getDate() + 7);
     } else if (frequence === 'Bimensuelle') {
@@ -519,11 +521,39 @@ function calculerProchaineDate(baseDate, frequence) {
     } else if (frequence === 'Mensuelle') {
         d.setMonth(d.getMonth() + 1);
     } else {
-        // Pour les tâches ponctuelles, on la décale de 100 ans pour qu'elle disparaisse du "Aujourd'hui"
-        d.setFullYear(d.getFullYear() + 100);
+        return null; // Pour "Ponctuelle", on renvoie null (on la supprimera)
     }
     return d.toISOString().split('T')[0];
 }
+
+function renderTasks() {
+    const todayStr = new Date().toISOString().split('T')[0];
+    
+    const demain = new Date();
+    demain.setDate(demain.getDate() + 1);
+    const tomorrowStr = demain.toISOString().split('T')[0];
+
+    const tasksList = document.getElementById('tasks-list');
+    const futureList = document.getElementById('future-tasks-list');
+
+    tasksList.innerHTML = '';
+    futureList.innerHTML = '';
+
+    tasks.forEach(t => {
+        // LOGIQUE DE FILTRE :
+        if (t.date <= todayStr) {
+            // Uniquement si la date est passée ou aujourd'hui
+            tasksList.appendChild(createTaskCard(t));
+        } 
+        else if (t.date === tomorrowStr) {
+            // Uniquement si c'est pile demain
+            futureList.appendChild(createTaskCard(t));
+        }
+        // Si c'est dans 2, 3 ou 10 jours : le code ne fait rien, 
+        // donc la tâche n'apparaît pas ! Magie !
+    });
+}
+
 function ajouterXP(montant) {
     console.log("Animation de la barre d'XP : +", montant);
     const xpFill = document.getElementById('xp-fill');

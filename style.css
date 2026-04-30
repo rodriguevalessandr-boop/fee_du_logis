@@ -1,51 +1,62 @@
 @import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap');
-/* 1. Les Polices */
-/* --- TITRES MAGIQUES --- */
-h1 {
-    font-family: 'Berkshire Swash', cursive ;
-    font-weight: normal;
-    /* On met le paquet sur la taille des titres */
-    font-size: 1.8rem ; 
+@import url('https://fonts.googleapis.com/css2?family=Emilys+Candy&family=UnifrakturMaguntia&display=swap');
+
+/* Titre appli */
+.app-main-title {
+    font-family: 'UnifrakturMaguntia', serif; 
+    font-size: 3rem; 
     color: #4a3560;
     text-align: center;
-    margin-bottom: 20px;
-    line-height: 1.2;
-}
-
-h2 {
-    font-family: 'Berkshire Swash', cursive ;
-    font-weight: normal;
-    /* On met le paquet sur la taille des titres */
-    font-size: 1.4rem ; 
-    color: #4a3560;
-    text-align: center;
-    margin-bottom: 20px;
-    line-height: 1.2;
-}
-/* --- TEXTE DE L'APPLI --- */
-body, h3, label, button, .task-card {
-    font-family: 'Emilys Candy', serif ;
-}
-
-/* Taille spécifique pour les étiquettes de ton formulaire */
-label {
-    font-size: 16px; 
-    color: #6d5d8e;
-    display: block;
+    margin-top: 25px;
     margin-bottom: 10px;
+    text-shadow: 2px 2px 12px rgba(196, 168, 232, 0.4);
 }
 
-/* Taille pour le texte dans ton Squircle */
-h3 {
-    font-size: 1.4rem ; 
+/*Titres importants */
+.tasks-title, .modal-title-magic {
+    font-family: 'Berkshire Swash', cursive;
+    font-size: 1.8rem;
+    color: #4a3560;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: normal;
+}
+
+/* TITRES DE RUBRIQUES & STATUTS (Moyen) */
+#creature-stage, .modal-label {
+    font-family: 'Berkshire Swash', cursive;
+    font-size: 1.3rem; 
+    color: #4a3560;
+    text-align: center;
+    margin-bottom: 12px;
+    font-weight: normal;
+}
+
+/* Corps de texte et compagnie*/
+body, .btn-magic, .notif-input, .modal-input, .diamonds-display, .streak-pill, .xp-header, #mantra-container {
+    font-family: 'Emilys Candy', serif;
+    font-size: 1rem;
+    color: #3d2f22;
+    font-weight: normal;
+}
+
+/* 2. LES PETITS DÉTAILS (On ajuste juste la taille et la couleur pour ceux-là) */
+.task-xp-badge,.xp-text, .btn-label, .modal-subtitle {
+    font-family: 'Emilys Candy', serif; 
+    font-size: 0.9rem;  
+    color: #6d5d8e;   
 }
 
 body {
     background-color: #fdfaf5;
     margin: 0; padding: 0;
-    color: #3d2f22;
     display: flex; flex-direction: column; align-items: center;
-    font-size: 16px, ; 
+}
+
+label {
+    color: #6d5d8e;
+    display: block;
+    margin-bottom: 10px;
 }
 
 
@@ -60,9 +71,7 @@ body {
     66% { transform: translateY(-3px) rotate(8deg); }
     100% { transform: translateY(0) rotate(0deg); }
   }
-  #shop-items * {
-    font-size: 18px ;
-  }
+
   #creature-container {
     background: #fffdf9;
     border: 3px solid #eaddff;
@@ -99,11 +108,7 @@ body {
     transform-origin: center center;
   }
 /* Espacement uniforme entre tous les blocs */
-.app-header,
-.creature-container-box,
-#creature-stage,
-.xp-gauge-wrap,
-#mantra-container,
+.app-header,.creature-container-box,#creature-stage,.xp-container, #mantra-container,
 
 /* Le champ de l'heure */
 .notif-input {
@@ -111,7 +116,6 @@ body {
     padding: 12px;
     border-radius: 10px;
     border: 1px solid #eaddff;
-    font-size: 20px;
     text-align: center;
     margin: 15px 0;
     box-sizing: border-box;
@@ -125,7 +129,6 @@ body {
     border: none;
     color: white;
     cursor: pointer;
-    font-size: 18px;
 }
 
 .btn-full-width {
@@ -142,10 +145,9 @@ body {
     gap: 10px;
 }
 
-.xp-numbers {
+.xp-header {
     text-align: right;
     font-family: 'Emilys Candy', serif; /* Pour garder ta police magique */
-    font-size: 1.2rem;
     color: #6d5d8e;
     margin-bottom: 8px;
 }
@@ -167,7 +169,6 @@ body {
 /* Le petit badge bleu des XP */
 .task-xp-badge {
     color: #7fb3d5;
-    font-size: 1.2rem;
     background: #f0f9ff;
     padding: 5px 10px;
     border-radius: 10px;
@@ -194,58 +195,28 @@ body {
 }
 
 /* Le bouton Valider (rose) */
-.btn-confirm-del {
-    color: white;
-    background: #e8a0b4;
-    border: none;
-    border-radius: 8px;
-    padding: 4px 8px;
-    font-size: 16px;
-    cursor: pointer;
+.btn-confirm-del, .btn-cancel-del {
     font-family: 'Emilys Candy', serif;
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
-/* Le bouton Annuler (gris/bleu) */
-.btn-cancel-del {
-    color: #5e9aca;
-    background: #eee;
-    border: none;
-    border-radius: 8px;
-    padding: 4px 8px;
-    font-size: 16px;
-    cursor: pointer;
-    font-family: 'Emilys Candy', serif;
-}
-.app-main-title {
-    font-family: 'Berkshire Swash', cursive;
-    font-size: 2.2rem;
-    color: #4a3560;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 5px;
-}
 
 /* 2. L'Ovale Carré de la créature */
-.creature-container-box {
-    width: 240px; /* Taille actuelle */
-    height: 220px;
-    max-width: 95vw;
-    font-size: 1.6rem ;
-    border-radius: 60px;
-    
-    /* MODIFICATION ICI : */
-    /* Le premier chiffre (20px) est pour le HAUT et le BAS */
-    /* 'auto' s'occupe de centrer par rapport aux côtés */
-    margin: 20px auto; 
-    
-    background: #ffffff;
-    border: 3px solid #eaddff;
-    box-shadow: 0 8px 20px rgba(109, 93, 142, 0.15);
+.creature-card {
+    background: white;
+    border-radius: 24px;
+    padding: 25px 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 350px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    position: relative;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 #creature-stage {
@@ -257,29 +228,9 @@ body {
     margin-bottom: 0;
 }
 
-.xp-track-externe {
-    width: 250px;
-    background: #eee;
-    border-radius: 20px;
-    height: 20px;
-    overflow: hidden;
-    border: 2px solid #f0e6ff;
-    margin: 10px auto;
-}
-
 
 .visuel-geant {
     font-size: 100px ;
-}
-
-.xp-bar-container {
-    width: 100%;
-    background: #eee;
-    border-radius: 20px;
-    height: 18px;
-    overflow: hidden;
-    border: 1px solid #eaddff;
-    margin-top: 15px;
 }
 
 #xp-fill {
@@ -290,7 +241,6 @@ body {
 }
 .xp-text {
     font-family: 'Emilys Candy', serif;
-    font-size: 1.2rem;
     color: #6d5d8e;
     margin-bottom: 8px;
 }
@@ -301,12 +251,13 @@ body {
     50% { transform: translateY(-15px); }
 }
 
-.tasks-title {
-    text-align: center;
-    color: #4a3560;
-    margin-bottom: 20px;
+
+.app-container { 
+    width: 100%; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
 }
-.app-container { width: 100%; display: flex; flex-direction: column; align-items: center; }
 
 
 .app-header {
@@ -322,40 +273,60 @@ body {
     margin: 0;
 }
 
-/* Largeur ajustée pour la créature */
-.creature-container-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin: 10px auto 5px;
-}
 
 .creature-circle {
-    width: 45vw;
-    height: 45vw;
-    max-width: 160px;
-    max-height: 160px;
-    background: #e8f5f0; 
+    background: radial-gradient(circle, #f3e5f5 40%, #e1bee7 100%);
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    border: 3px solid rgba(255,255,255,0.8);
-    box-shadow: 0 0 30px rgba(142,190,173,0.8), 0 0 60px rgba(196,168,232,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
 }
 
-.creature-emoji { font-size: 80px; /* Une belle grande fée ! */
-    margin-bottom: 5px; animation: levitation 3s ease-in-out infinite; }
+.creature-emoji {
+    font-size: 3.5rem;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+}
+
+.creature-stage-text {
+    font-family: 'Berkshire Swash', cursive;
+    font-size: 1.2rem;
+    color: #4a3560;
+}
+
+
 @keyframes levitation { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
 /* Jauge XP */
-.xp-gauge-wrap {
+.xp-container {
     width: 90%;
     margin: 10px auto 10px;
 }
 
-.xp-track { height: 35px; background: #eee6f3; border-radius: 15px; border: 2px solid #dcd0e8; overflow: hidden; }
-.xp-fill { height: 100%; background: linear-gradient(90deg, #e8a0b4, #5e9aca); transition: width 0.5s; }
+.xp-header {
+    font-family: 'Emilys Candy', serif;
+    font-size: 0.9rem;
+    color: #a594b5;
+    text-align: right;
+    margin-bottom: 6px;
+}
 
+.xp-track {
+    background: #f0f0f0;
+    height: 12px;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.xp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #c4a8e8, #8b7cc8);
+    width: 0%;
+    transition: width 0.5s ease-out;
+}
 
 /* Nouveau Mantra (Phrases de la fée) */
 #mantra-container {
@@ -368,7 +339,6 @@ body {
     border-radius: 20px;
     padding: 12px 18px;
     font-style: italic;
-    font-size: 16px;
     text-align: center;
     color: #6d5d8e;
     box-shadow: 0 8px 20px rgba(100,70,160,0.15);
@@ -414,7 +384,7 @@ body {
 .task-info div {
     font-size: 1rem;
     color: #4a3560;
-    font-weight: 600;
+    font-weight: normal;
 }
 
 .task-info small {
@@ -422,17 +392,36 @@ body {
     font-size: 0.8rem;
 }
 
-.task-card.completed { opacity: 0.5; text-decoration: line-through; }
+.task-card.completed { 
+    opacity: 0.5; 
+    text-decoration: line-through; 
+}
 
 
 /* Modals */
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-.modal { background: white; padding: 25px; border-radius: 30px; width: 90%; max-width: 400px; box-sizing: border-box; }
+.modal-overlay { 
+    position: fixed; 
+    inset: 0; 
+    background: rgba(0,0,0,0.5); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 1000; 
+}
+
+.modal { 
+    background: white; 
+    padding: 25px; 
+    border-radius: 30px; 
+    width: 90%; 
+    max-width: 400px; 
+    box-sizing: border-box; 
+}
+
 .modal label {
 
     color: #573d72 ; /* Un violet plus doux */
     margin-top: 10px;
-    font-size: 1.3rem ; /* On l'agrandit bien */
     font-family: 'Berkshire Swash', cursive ;
     display: block;
     margin-bottom: 8px;
@@ -451,11 +440,19 @@ body {
     outline: none;
 }
 /* --- Mise en page des Modals --- */
-.modal-header { text-align: center; margin-bottom: 20px; }
-.modal-subtitle { color: #a594b5; font-size: 16px; font-style: italic; }
+.modal-header { 
+    text-align: center; 
+    margin-bottom: 20px; }
+
+.modal-subtitle { 
+    color: #a594b5; 
+    font-style: italic; }
 
 .form-group { margin-bottom: 15px; }
-.form-row-vertical { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
+.form-row-vertical { display: flex; 
+    flex-direction: column; 
+    gap: 12px;
+    margin-bottom: 15px; }
 
 .modal-label { 
     display: block; 
@@ -470,12 +467,15 @@ body {
     border-radius: 12px; 
     border: 1px solid #eaddff; 
     box-sizing: border-box; 
-    font-size: 16px;
     font-family: 'Emilys Candy', serif;
 }
 
 /* --- Boutique --- */
-.shop-diamonds-text { text-align: center; font-size: 20px; color: #142523; margin-bottom: 20px; }
+.shop-diamonds-text { 
+text-align: center; 
+color: #142523; 
+margin-bottom: 20px; }
+
 .shop-grid {
     display: grid !important; 
     grid-template-columns: 1fr 1fr; 
@@ -504,7 +504,6 @@ body {
 .modal-text-intro {
     text-align: center;
     color: #8a6aac;
-    font-size: 18px;
     margin-bottom: 15px;
 }
 
@@ -515,14 +514,6 @@ body {
     font-size: 1rem;
 }
 .hidden { display: none ; }
-/* Titre principal en haut (La pilule blanche) */
-h1.app-title {
-    font-family: 'Berkshire Swash', cursive;
-    font-size: 2rem;
-    color: #4a3560;
-    margin: 0;
-    text-align: center;
-}
 
 
 .header-row-2 {
@@ -541,7 +532,6 @@ h1.app-title {
     border-radius: 30px;
     padding: 6px 14px;
     font-family: 'Berkshire Swash', cursive;
-    font-size: 18px;
     color: #4a3560;
     cursor: pointer;
 }
@@ -551,7 +541,6 @@ h1.app-title {
     border-radius: 30px;
     padding: 6px 14px;
     font-family: 'Emilys Candy', cursive;
-    font-size: 18px;
     color: #4a3560;
     display: flex;
     align-items: center;
@@ -565,31 +554,36 @@ h1.app-title {
     justify-content: space-between;
 }
 .header-btns-group {
-    display: flex ;
-    gap: 8px ;
-    align-items: center ;
+  display: flex;
+  gap: 0;
+  align-items: center;
+  background: rgba(255,255,255,0.7);
+  border-radius: 30px;
+  padding: 8px 18px;
 }
 
-.notif-btn {
-    width: 42px; height: 42px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.7);
-    border: none;
-    font-size: 22px;
-    cursor: pointer;
+.notif-btn, .add-task-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 10px;
 }
 
-/* Le bouton d'ajout */
-.add-task-btn {
-    width: 42px; height: 42px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.7); /* Ton vert d'eau actuel */
-    color: rgb(92, 102, 129);
-    font-size: 26px;
-    border: none;
-    box-shadow: 0 4px 10px rgba(0,194,167,0.3);
+.btn-label {
+  font-family: 'Emilys Candy', serif;
+  color: #6d5d8e;
 }
 
+.btns-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(109, 93, 142, 0.2);
+  margin: 0 4px;
+}
 .fairy-icon {
     font-size: 1.5rem;
     vertical-align: middle;
@@ -652,4 +646,3 @@ h1.app-title {
     50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
     100% { opacity: 0; transform: scale(0.8) rotate(360deg); }
 }
-div[style*="display: flex"] { border: 2px solid red !important; }

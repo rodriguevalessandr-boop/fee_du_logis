@@ -6,8 +6,13 @@
     <title>Fée du Logis</title>
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Emilys+Candy&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -32,44 +37,52 @@
           Jour <span id="day-count">0</span>
         </div>
 
-   <div class="header-btns-group">
-    <button class="notif-btn" id="notif-btn">🕐</button>
-    <button class="add-task-btn" id="add-task-btn">+</button>
-  </div>
+ <div class="header-btns-group">
+  <button class="notif-btn" id="notif-btn">
+    🕐
+    <span class="btn-label">Rappel</span>
+  </button>
+  <div class="btns-divider"></div>
+  <button class="add-task-btn" id="add-task-btn">
+    +
+    <span class="btn-label">Ajouter</span>
+  </button>
 </div>
 
     </header>
 
     <!-- CRÉATURE -->
-   <div class="creature-container-box">
+<!-- CARTE UNIFIÉE DE LA CRÉATURE -->
+<section class="creature-card">
   <div class="creature-circle">
     <div class="creature-emoji" id="creature-emoji">🧚</div>
   </div>
-</div>
-<div id="creature-stage">Chargement...</div>
+  
+  <div id="creature-stage" class="creature-stage-text">Stade 1. Petite Fée</div>
 
-    <!-- JAUGE XP -->
-    <div class="xp-gauge-wrap">
-      <div class="xp-numbers">
-        <span id="xp-current">0</span> / 500 XP
-      </div>
-      <div class="xp-track">
-        <div class="xp-fill" id="xp-fill"></div>
-      </div>
+  <!-- JAUGE XP INTÉGRÉE -->
+  <div class="xp-container">
+    <div class="xp-header">
+      <span id="xp-current">0</span> / 500 XP
     </div>
+    <div class="xp-track">
+      <div class="xp-fill" id="xp-fill"></div>
+    </div>
+  </div>
+</section>
 
-    <!-- MANTRA -->
-  <div id="mantra-container">✨ Prête pour un peu de magie ? </div>
+<!-- MANTRA (Légèrement en dessous) -->
+<div id="mantra-container">✨ Prête pour un peu de magie ?</div>
 
     <!-- MISSIONS DU JOUR -->
     <section class="tasks-section">
-      <h2 class="tasks-title">🗝️ Missions du jour</h2>
+      <div class="tasks-title">🗝️ Missions du jour</div>
       <div id="tasks-list"></div>
     </section>
 
     <!-- AVENIR -->
     <section class="tasks-section">
-      <h2 class="tasks-title">🔮 Avenir</h2>
+      <div class="tasks-title">🔮 Avenir</div>
       <div id="future-tasks-list"></div>
     </section>
 
@@ -78,7 +91,7 @@
   <!-- MODAL RÉVEIL -->
  <div class="modal-overlay hidden" id="notif-modal">
     <div class="modal">
-      <h3 class="modal-title-magic">⏰ Rappel quotidien</h3>
+      <div class="modal-title-magic">⏰ Rappel quotidien</div>
       <p class="modal-text-intro"></p>
 <input type="time" id="notif-time" class="notif-input">
 
@@ -98,7 +111,7 @@
 <div class="modal-overlay hidden" id="task-modal">
   <div class="modal">
     <div class="modal-header">
-      <h1 class="modal-title-magic">✨Enchantement prévu✨ <span class="fairy-sparkle">🧚</span></h1>
+      <div class="modal-title-magic">✨Enchantement prévu✨ <span class="fairy-sparkle">🧚</span></div>
       <div class="modal-subtitle">Inscris ce geste dans ton Grimoire.</div>
     </div>
 
@@ -167,7 +180,7 @@
   <!-- MODAL BOUTIQUE -->
 <div class="modal-overlay hidden" id="shop-modal">
   <div class="modal">
-    <h3 class="modal-title-magic">✨ Boutique ✨</h3>
+    <div class="modal-title-magic">✨ Boutique ✨</div>
     <p class="shop-diamonds-text">Tes diamants : <span id="shop-diamonds">0</span> 💎</p>
     <div id="shop-items" class="shop-grid"></div>
 <button id="btn-fermer-boutique" class="btn-magic btn-confirm btn-full-width">
