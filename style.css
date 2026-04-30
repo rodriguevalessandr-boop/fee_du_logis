@@ -4,7 +4,7 @@
 /* Titre appli */
 .app-main-title {
     font-family: 'UnifrakturMaguntia', serif; 
-    font-size: 3rem; 
+    font-size: 5rem; 
     color: #4a3560;
     text-align: center;
     margin-top: 25px;
@@ -268,16 +268,13 @@ label {
 
 
 .app-header {
-    width: 100%;
-    background: linear-gradient(180deg, #c4a8e8 0%, #eaddff 100%); 
-    border-radius: 0 0 35px 35px;
-    box-sizing: border-box;
-    display: flex;
+display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: 0;
-    padding: 10px 15px;
-    gap: 8px;
+    gap: 12px; /* Espace entre les lignes */
+    padding: 15px;
+    height: auto; /* Le bandeau s'adapte à son contenu */
+    background: linear-gradient(180deg, #c4a8e8 0%, #eaddff 100%);
+    border-radius: 0 0 30px 30px;
 }
 
 
@@ -525,13 +522,30 @@ margin-bottom: 20px; }
 .hidden { display: none ; }
 
 
+.header-row-1 {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+/* La ligne 2 partage l'espace entre Eco et Série */
 .header-row-2 {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+}
+
+/* La ligne 3 prend toute la largeur pour être bien lisible */
+.header-row-3 {
+    display: flex;
+    justify-content: center;
     width: 100%;
-    justify-content: flex-start;
-    padding: 0 5px;
+}
+.full-width {
+    width: 100%;
+    justify-content: space-around; /* Équilibre les boutons Rappel et Ajouter */
 }
 
 
@@ -582,18 +596,13 @@ display: flex;
 /* On affine les bulles blanches */
 
 /* --- 1. LES CONTENEURS (Les bulles blanches) --- */
-.header-eco-group, 
-.streak-pill, 
-.header-btns-group {
+.header-eco-group, .streak-pill, .header-btns-group {
     background: rgba(255, 255, 255, 0.7);
-    border-radius: 30px;
-    padding: 5px 15px;
+    border-radius: 25px;
+    padding: 8px 12px;
     display: flex;
     align-items: center;
-    gap: 0; /* On gère l'espace via les boutons internes */
-    height: 55px; /* Hauteur fixe pour tout le monde pour l'alignement */
-    border: none;
-    box-sizing: border-box;
+    height: 60px; /* Un peu plus haut pour le confort des écrits */
 }
 
 /* --- 2. LES BOUTONS (Interactifs et Verticaux) --- */
