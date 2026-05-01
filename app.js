@@ -531,33 +531,12 @@ function calculerProchaineDate(baseDate, frequence) {
 }
 
 function renderTasks() {
-    const todayStr = new Date().toISOString().split('T')[0];
-    
-    const demain = new Date();
-    demain.setDate(demain.getDate() + 1);
-    const tomorrowStr = demain.toISOString().split('T')[0];
-
-    const tasksList = document.getElementById('tasks-list');
-    const futureList = document.getElementById('future-tasks-list');
-
-    tasksList.innerHTML = '';
-    futureList.innerHTML = '';
-
-    tasks.forEach(t => {
-        // LOGIQUE DE FILTRE :
-        if (t.date <= todayStr) {
-            // Uniquement si la date est passée ou aujourd'hui
-            tasksList.appendChild(createTaskCard(t));
-        } 
-        else if (t.date === tomorrowStr) {
-            // Uniquement si c'est pile demain
-            futureList.appendChild(createTaskCard(t));
-        }
-        // Si c'est dans 2, 3 ou 10 jours : le code ne fait rien, 
-        // donc la tâche n'apparaît pas ! Magie !
-    });
+    // On appelle la fonction de mise à jour globale qui gère déjà le tri
+    // Cela évite l'erreur "tasks is not defined"
+    if (typeof mettreAJourUI === 'function') {
+        mettreAJourUI();
+    }
 }
-
 function animerXP(departX, departY) {
     // 1. Créer la petite étoile
     const etoile = document.createElement('div');
