@@ -13,7 +13,7 @@ self.addEventListener('message', (event) => {
         if (delai > 0) {
             notifTimer = setTimeout(() => {
                 self.registration.showNotification('Fée du Logis 🧚', {
-                    body: "C'est l'heure de tes corvées magiques ! ✨",
+                    body: "Petite fée du Logis en approche ! ✨",
                     icon: 'logo512.jpg', // Assure-toi d'avoir une icône ou retire cette ligne
                     vibrate: [200, 100, 200],
                     badge: 'logo512.jpg'
