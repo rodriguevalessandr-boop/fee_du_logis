@@ -19,6 +19,12 @@
     font-weight: normal;
 }
 
+#streak-fire {
+    display: inline-block;
+    animation: pulserDoucement 2s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
 /* TITRES DE RUBRIQUES & STATUTS (Moyen) */
 #creature-stage, .modal-label {
     font-family: 'Berkshire Swash', cursive;
