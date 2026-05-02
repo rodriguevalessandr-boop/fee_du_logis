@@ -71,8 +71,6 @@ label {
 
   #creature-container {
     background: #fffdf9;
-    border: 3px solid #eaddff;
-    /* Voici l'astuce pour l'ovale carré (super-ellipse) */
     border-radius: 60px; 
     padding: 30px;
     margin: 20px auto;
