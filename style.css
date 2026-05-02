@@ -325,6 +325,7 @@ display: flex;
     border-radius: 10px;
     overflow: hidden;
     width: 100%;
+    border: none;
 }
 
 .xp-fill {

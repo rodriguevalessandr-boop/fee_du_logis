@@ -484,50 +484,80 @@ function fermerModal() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  charger();
-  mettreAJourUI();
-  // Planifier la notif au démarrage avec l'heure sauvegardée
-if (state.heureNotif) {
-    Notification.requestPermission().then(perm => {
-        if (perm === 'granted') planifierNotification(state.heureNotif);
-    });
-}
+    charger();
+    mettreAJourUI();
 
-  document.getElementById('add-task-btn').onclick = () => {
-    document.getElementById('task-nom').value = '';
-    document.getElementById('btn-sauvegarder').onclick = ajouterNouvelleTache;
-    document.getElementById('task-modal').classList.remove('hidden');
-  };
+    // 1. Planification au démarrage
+    if (state.heureNotif) {
+        Notification.requestPermission().then(perm => {
+            // Utilise bien le nom de la fonction qui est en bas de ton script
+            if (perm === 'granted') planifierRappelQuotidien(state.heureNotif); 
+        });
+    }
 
-  document.getElementById('btn-annuler').onclick = fermerModal;
-  document.getElementById('diamonds-btn').onclick = window.ouvrirBoutique;
-  document.getElementById('btn-fermer-boutique').onclick = fermerModal;
+    // 2. Gestion des tâches
+    document.getElementById('add-task-btn').onclick = () => {
+        document.getElementById('task-nom').value = '';
+        document.getElementById('btn-sauvegarder').onclick = ajouterNouvelleTache;
+        document.getElementById('task-modal').classList.remove('hidden');
+    };
 
-  // Service worker
- if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-    .then(() => console.log("L'esprit de la fée (Service Worker) est prêt !"))
-    .catch(err => console.error("Le sort a échoué :", err));
-}
-  // Réveil
-document.getElementById('notif-btn').onclick = () => {
-    const input = document.getElementById('notif-time');
-    input.value = state.heureNotif || '08:00';
-    document.getElementById('notif-modal').classList.remove('hidden');
-};
+    // 3. Gestion du Réveil (L'ouverture du menu)
+    document.getElementById('notif-btn').onclick = () => {
+        const input = document.getElementById('notif-time');
+        input.value = state.heureNotif || '08:00';
+        document.getElementById('notif-modal').classList.remove('hidden');
+    };
 
-document.getElementById('btn-annuler-notif').onclick = () => {
-    document.getElementById('notif-modal').classList.add('hidden');
-};
+    // 4. LE BOUTON VALIDER (Celui qui bloquait)
+    document.getElementById('btn-sauver-notif').onclick = () => {
+        const heure = document.getElementById('notif-time').value;
+        if (heure) {
+            state.heureNotif = heure; // Sauvegarde l'heure dans l'état
+            sauvegarder(); // Enregistre dans le stockage local
+            planifierRappelQuotidien(heure); // Lance le sortilège ![cite: 6]
+            fermerModal(); // Ferme enfin le menu
+            alert(`Sortilège de rappel réglé sur ${heure} ! ✨`);
+        }
+    };
 
+    // 5. Fermetures et autres boutons
+    document.getElementById('btn-annuler').onclick = fermerModal;
+    document.getElementById('btn-annuler-notif').onclick = fermerModal;
+    document.getElementById('diamonds-btn').onclick = window.ouvrirBoutique;
+    document.getElementById('btn-fermer-boutique').onclick = fermerModal;
+
+    // 6. Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+            .then(() => console.log("L'esprit de la fée est prêt !"))
+            .catch(err => console.error("Le sort a échoué :", err));
+    }
+});
+
+document.getElementById('btn-annuler-notif').onclick = fermerModal;
+
+// C'est ici que la magie opère
 document.getElementById('btn-sauver-notif').onclick = () => {
     const heure = document.getElementById('notif-time').value;
     if (heure) {
-        window.changerHeureNotif(heure);
-        document.getElementById('notif-modal').classList.add('hidden');
+        state.heureNotif = heure; 
+        sauvegarder(); 
+        
+        // On demande la permission si ce n'est pas déjà fait
+        Notification.requestPermission().then(perm => {
+            if (perm === 'granted') {
+                // Utilise le nom de fonction qui est défini en bas de ton script
+                planifierRappelQuotidien(heure); 
+                fermerModal();
+                alert(`Sortilège de rappel réglé sur ${heure} ! ✨`);
+            } else {
+                alert("La fée a besoin de ta permission pour t'envoyer des notifications !");
+            }
+        });
     }
 };
-});
+
 function calculerProchaineDate(baseDate, frequence) {
     let d = new Date(baseDate);
     if (frequence === 'Quotidienne') {
