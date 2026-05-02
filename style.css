@@ -109,7 +109,7 @@ label {
     transform-origin: center center;
   }
 /* Espacement uniforme entre tous les blocs */
-.app-header,.creature-container-box,#creature-stage,.xp-container, #mantra-container,
+.app-header,.creature-container-box,#creature-stage,.xp-container, #mantra-container
 
 /* Le champ de l'heure */
 .notif-input {
