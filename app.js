@@ -451,13 +451,29 @@ function planifierNotification(heure) {
     });
 }
 
-window.changerHeureNotif = (heure) => {
-    state.heureNotif = heure;
-    sauvegarder();
-    Notification.requestPermission().then(perm => {
-        if (perm === 'granted') planifierNotification(heure);
-    });
-};
+let notifTimer = null;
+
+// Écoute les messages venant de l'application (app.js)
+self.addEventListener('message', (event) => {
+    if (event.data && event.data.type === 'PLANIFIER_NOTIF') {
+        // Si une alarme était déjà prévue, on l'annule
+        if (notifTimer) clearTimeout(notifTimer);
+
+        const delai = event.data.timestamp - Date.now();
+
+        if (delai > 0) {
+            notifTimer = setTimeout(() => {
+                self.registration.showNotification('Fée du Logis 🧚', {
+                    body: "C'est l'heure de tes corvées magiques ! ✨",
+                    icon: 'logo512.jpg', // Vérifie que ce fichier existe
+                    vibrate: [200, 100, 200],
+                    badge: 'logo512.jpg'
+                });
+            }, delai);
+            console.log("Notification programmée dans " + Math.round(delai/1000) + " secondes.");
+        }
+    }
+});
 // ==========================================
 // 7. MODALS & INIT
 // ==========================================
@@ -591,32 +607,26 @@ window.sauvegarderNotif = () => {
     alert(`Sortilège de rappel réglé sur ${heure} ! ✨`);
 };
 function planifierRappelQuotidien(heure) {
-    const [h, m] = heure.split(':');
-    let maintenant = new Date();
-    let cible = new Date();
+    if (!heure) return;
+    
+    const [h, m] = heure.split(':').map(Number);
+    const maintenant = new Date();
+    const cible = new Date();
     cible.setHours(h, m, 0, 0);
 
+    // Si l'heure est déjà passée aujourd'hui, on prévoit pour demain
     if (cible <= maintenant) {
         cible.setDate(cible.getDate() + 1);
     }
 
-    // On envoie l'ordre au Service Worker
-    if (navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.postMessage({
-            type: 'PLANIFIER_NOTIF',
-            timestamp: cible.getTime()
-        });
-        console.log("Sortilège de rappel envoyé au Service Worker pour :", cible.toLocaleString());
-    } else {
-        console.error("Le Service Worker n'est pas encore prêt à recevoir des messages.");
-    }
-}// --- ACTIVATION DU MESSAGER (SERVICE WORKER) ---
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-    .then(registration => {
-        console.log("Le messager magique est prêt ! ✨");
-    })
-    .catch(err => {
-        console.error("Le sort de rappel a échoué :", err);
+    // On attend que le Service Worker soit prêt avant d'envoyer le message
+    navigator.serviceWorker.ready.then(reg => {
+        if (reg.active) {
+            reg.active.postMessage({
+                type: 'PLANIFIER_NOTIF',
+                timestamp: cible.getTime()
+            });
+            console.log("Sortilège de rappel envoyé pour :", cible.toLocaleString());
+        }
     });
 }

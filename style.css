@@ -1,10 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Emilys+Candy&family=UnifrakturMaguntia&display=swap');
-
 /* Titre appli */
 .app-main-title {
-    font-family: 'UnifrakturMaguntia', serif; 
-    font-size: 3rem; 
+    font-family: 'Metamorphous', cursive;
+    font-size: 2rem; 
     color: #4a3560;
     text-align: center;
     margin-top: 25px;
@@ -15,7 +12,7 @@
 /*Titres importants */
 .tasks-title, .modal-title-magic {
     font-family: 'Berkshire Swash', cursive;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: #4a3560;
     text-align: center;
     margin-bottom: 20px;
@@ -681,7 +678,7 @@ display: flex;
     display: inline-block;
     position: relative;
     animation: flight 3s infinite ease-in-out;
-    font-size: 0.75rem; 
+    font-size: 1rem; 
     vertical-align: middle;
     margin-right: 8px;
 }
