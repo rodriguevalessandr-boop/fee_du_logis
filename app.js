@@ -509,17 +509,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('notif-modal').classList.remove('hidden');
     };
 
-    // 4. LE BOUTON VALIDER (Celui qui bloquait)
-    document.getElementById('btn-sauver-notif').onclick = () => {
-        const heure = document.getElementById('notif-time').value;
-        if (heure) {
-            state.heureNotif = heure; // Sauvegarde l'heure dans l'état
-            sauvegarder(); // Enregistre dans le stockage local
-            planifierRappelQuotidien(heure); // Lance le sortilège ![cite: 6]
-            fermerModal(); // Ferme enfin le menu
-            alert(`Sortilège de rappel réglé sur ${heure} ! ✨`);
-        }
-    };
 
     // 5. Fermetures et autres boutons
     document.getElementById('btn-annuler').onclick = fermerModal;
@@ -538,21 +527,19 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('btn-annuler-notif').onclick = fermerModal;
 
 // C'est ici que la magie opère
+// À mettre une seule fois dans ton DOMContentLoaded
 document.getElementById('btn-sauver-notif').onclick = () => {
     const heure = document.getElementById('notif-time').value;
     if (heure) {
         state.heureNotif = heure; 
         sauvegarder(); 
-        
-        // On demande la permission si ce n'est pas déjà fait
         Notification.requestPermission().then(perm => {
             if (perm === 'granted') {
-                // Utilise le nom de fonction qui est défini en bas de ton script
                 planifierRappelQuotidien(heure); 
                 fermerModal();
                 alert(`Sortilège de rappel réglé sur ${heure} ! ✨`);
             } else {
-                alert("La fée a besoin de ta permission pour t'envoyer des notifications !");
+                alert("La fée a besoin de ta permission !");
             }
         });
     }
