@@ -1,32 +1,33 @@
 self.addEventListener('install', e => self.skipWaiting());
 self.addEventListener('activate', e => self.clients.claim());
 
-let notifTimer = null;
-
 self.addEventListener('message', (event) => {
     if (event.data && event.data.type === 'PLANIFIER_NOTIF') {
-        // On annule le précédent rappel s'il y en avait un
-        if (notifTimer) clearTimeout(notifTimer);
-
         const delai = event.data.timestamp - Date.now();
 
         if (delai > 0) {
-            notifTimer = setTimeout(() => {
-                self.registration.showNotification('Fée du Logis 🧚', {
-                    body: "Petite fée du Logis en approche ! ✨",
-                    icon: 'logo512.jpg', // Assure-toi d'avoir une icône ou retire cette ligne
-                    vibrate: [200, 100, 200],
-                    badge: 'logo512.jpg'
-                });
-                
-                // Optionnel : reprogrammer automatiquement pour le lendemain
-                // postMessage({type: 'REPLANIFIER_DEMAIN'}); 
-            }, delai);
+            console.log(`Rappel programmé dans ${Math.round(delai/1000/60)} minutes.`);
+            
+            // Le secret : event.waitUntil force le SW à rester "vivant"
+            event.waitUntil(
+                new Promise((resolve) => {
+                    setTimeout(() => {
+                        self.registration.showNotification('Fée du Logis 🧚', {
+                            body: "C'est l'heure de s'occuper du sanctuaire ! ✨",
+                            icon: 'logo512.jpg',
+                            vibrate: [200, 100, 200],
+                            badge: 'logo512.jpg',
+                            tag: 'rappel-quotidien',
+                            renotify: true
+                        });
+                        resolve();
+                    }, delai);
+                })
+            );
         }
     }
 });
 
-// Gérer le clic sur la notification pour ouvrir l'app
 self.addEventListener('notificationclick', e => {
     e.notification.close();
     e.waitUntil(
