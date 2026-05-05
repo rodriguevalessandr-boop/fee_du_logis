@@ -83,12 +83,24 @@
     <!-- MISSIONS DU JOUR -->
     <section class="tasks-section">
       <div class="tasks-title">🗝️ Missions du jour</div>
+        <button onclick="toggleMasquer('tasks-list', this)" 
+          style="display:block; margin:0 auto 10px; background:none; 
+                 border:1px solid #c4a8e8; border-radius:20px; 
+                 padding:4px 14px; color:#6d5d8e; cursor:pointer; font-size:13px;">
+    👁️ Masquer les faites
+  </button>
       <div id="tasks-list"></div>
     </section>
 
     <!-- AVENIR -->
     <section class="tasks-section">
       <div class="tasks-title">🔮 Avenir</div>
+        <button onclick="toggleSection('future-tasks-list', this)"
+          style="display:block; margin:0 auto 10px; background:none;
+                 border:1px solid #c4a8e8; border-radius:20px;
+                 padding:4px 14px; color:#6d5d8e; cursor:pointer; font-size:13px;">
+    👁️ Masquer l'Avenir
+  </button>
       <div id="future-tasks-list"></div>
     </section>
 

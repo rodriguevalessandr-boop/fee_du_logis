@@ -48,8 +48,18 @@ const charger = () => {
   const data = localStorage.getItem('fee_du_logis_v3');
   if (data) {
     state = JSON.parse(data);
+    
+    // --- ICI : VÉRIFICATION DE LA SÉRIE (STREAK) ---
+    const hier = new Date();
+    hier.setDate(hier.getDate() - 1);
+    const dateHier = hier.toISOString().split('T')[0];
+
+    // Si la dernière validation est plus vieille qu'hier, on perd la série
+    if (state.lastValidatedDate && state.lastValidatedDate < dateHier) {
+        state.dayCount = 0; 
+    }
+
     if (!state.tasks) state.tasks = [];
-    if (!state.creatures) state.creatures = [{ id: 'fleur', xp: 0 }];
     if (!state.creatureActive) state.creatureActive = 'fleur';
     if (!state.heureNotif) state.heureNotif = '08:00';
     if (state.lastValidatedDate === undefined) state.lastValidatedDate = null;
@@ -109,7 +119,7 @@ function mettreAJourUI() {
 
   if (creatureEtat && creatureCatalogue) {
     const stadeIdx = Math.min(4, Math.floor(creatureEtat.xp / 500));
-    const xpDansStade = creatureEtat.xp % 500;
+   const xpDansStade = stadeIdx === 4 ? 500 : creatureEtat.xp % 500;
     document.getElementById('creature-emoji').textContent = creatureCatalogue.stades[stadeIdx];
     document.getElementById('creature-stage').textContent = `Stade ${stadeIdx + 1}. ${creatureCatalogue.nom}`;
     const barre = document.getElementById('xp-fill');
@@ -188,12 +198,13 @@ function genererHtmlTache(tache, estAuj) {
       </div>
       <div class="task-actions-group">
         <span class="task-xp-badge">+${tache.xp} XP</span>
-        <div class="task-btns">
-          <span onclick="ouvrirPourModifier(${tache.id})" class="edit-icon">✏️</span>
-          <div id="delete-zone-${tache.id}" class="delete-zone">
-            <button onclick="event.stopPropagation(); demanderSuppression(${tache.id})" class="delete-btn">🗑️</button>
-          </div>
-        </div>
+    <div class="task-btns">
+  ${!faite ? `<span onclick="event.stopPropagation(); reporterTache(${tache.id})" style="cursor:pointer" title="Reporter à demain">📅</span>` : ''}
+  <span onclick="ouvrirPourModifier(${tache.id})" class="edit-icon">✏️</span>
+  <div id="delete-zone-${tache.id}" class="delete-zone">
+    <button onclick="event.stopPropagation(); demanderSuppression(${tache.id})" class="delete-btn">🗑️</button>
+  </div>
+</div>
       </div>
     </div>`;
 }
@@ -272,6 +283,34 @@ window.cocherTache = (id) => {
 
   sauvegarder();
   mettreAJourUI();
+};
+
+window.reporterTache = (id) => {
+    const tache = state.tasks.find(t => t.id === id);
+    if (!tache) return;
+    const demain = new Date();
+    demain.setDate(demain.getDate() + 1);
+    tache.prochaineDate = demain.toISOString().split('T')[0];
+    sauvegarder();
+    mettreAJourUI();
+};
+
+// Masquer/afficher les tâches cochées
+window.toggleMasquer = (listId, btn) => {
+    const liste = document.getElementById(listId);
+    const cartes = liste.querySelectorAll('.task-card.completed');
+    const masquees = btn.dataset.masque === 'oui';
+    cartes.forEach(c => c.style.display = masquees ? '' : 'none');
+    btn.dataset.masque = masquees ? 'non' : 'oui';
+    btn.textContent = masquees ? '👁️ Masquer les faites' : '👁️ Afficher les faites';
+};
+
+// Masquer/afficher toute la section Avenir
+window.toggleSection = (listId, btn) => {
+    const liste = document.getElementById(listId);
+    const masquee = liste.style.display === 'none';
+    liste.style.display = masquee ? '' : 'none';
+    btn.textContent = masquee ? '👁️ Masquer l\'Avenir' : '👁️ Afficher l\'Avenir';
 };
 
 window.ouvrirPourModifier = (id) => {
