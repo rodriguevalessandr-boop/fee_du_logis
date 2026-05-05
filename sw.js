@@ -5,24 +5,23 @@ let notifTimer = null;
 
 self.addEventListener('message', (event) => {
     if (event.data && event.data.type === 'PLANIFIER_NOTIF') {
+        // On annule le précédent rappel s'il y en avait un
+        if (notifTimer) clearTimeout(notifTimer);
+
         const delai = event.data.timestamp - Date.now();
 
         if (delai > 0) {
-            // waitUntil dit au navigateur : "Ne me tue pas tout de suite, j'ai un truc à faire"
-            event.waitUntil(
-                new Promise((resolve) => {
-                    setTimeout(() => {
-                        self.registration.showNotification('Fée du Logis 🧚', {
-                            body: "Petite fée du Logis en approche ! ✨",
-                            icon: 'logo512.jpg',
-                            vibrate: [200, 100, 200],
-                            badge: 'logo512.jpg',
-                            tag: 'rappel-quotidien' // Évite les doublons
-                        });
-                        resolve();
-                    }, delai);
-                })
-            );
+            notifTimer = setTimeout(() => {
+                self.registration.showNotification('Fée du Logis 🧚', {
+                    body: "Petite fée du Logis en approche ! ✨",
+                    icon: 'logo512.jpg', // Assure-toi d'avoir une icône ou retire cette ligne
+                    vibrate: [200, 100, 200],
+                    badge: 'logo512.jpg'
+                });
+                
+                // Optionnel : reprogrammer automatiquement pour le lendemain
+                // postMessage({type: 'REPLANIFIER_DEMAIN'}); 
+            }, delai);
         }
     }
 });
