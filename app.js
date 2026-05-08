@@ -69,14 +69,14 @@ const charger = () => {
 const aujourdhui = () => new Date().toISOString().split('T')[0];
 
 function calculerProchaineDate(baseDate, frequence) {
-  let d = new Date(baseDate);
-  if (frequence === 'Quotidienne')    d.setDate(d.getDate() + 1);
-  else if (frequence === 'Tous les 3 jours') d.setDate(d.getDate() + 3);
-  else if (frequence === 'Hebdomadaire')     d.setDate(d.getDate() + 7);
-  else if (frequence === 'Bimensuelle')      d.setDate(d.getDate() + 14);
-  else if (frequence === 'Mensuelle')        d.setMonth(d.getMonth() + 1);
-  else return null;
-  return d.toISOString().split('T')[0];
+    let d = new Date(baseDate);
+    if (frequence === 'Quotidienne')        d.setDate(d.getDate() + 1);
+    else if (frequence === 'Tous les 3 jours') d.setDate(d.getDate() + 3);
+    else if (frequence === 'Hebdomadaire')  d.setDate(d.getDate() + 7);
+    else if (frequence === 'Bimensuelle')   d.setDate(d.getDate() + 14);
+    else if (frequence === 'Mensuelle')     d.setMonth(d.getMonth() + 1);
+    else if (frequence === 'Ponctuelle')    return 'terminee';
+    return d.toISOString().split('T')[0];
 }
 
 // ==========================================
@@ -288,8 +288,24 @@ window.cocherTache = (id) => {
 window.reporterTache = (id) => {
     const tache = state.tasks.find(t => t.id === id);
     if (!tache) return;
-    const demain = new Date();
-    demain.setDate(demain.getDate() + 1);
+const demain = new Date();
+demain.setDate(demain.getDate() + 1);
+const demainStr = demain.toISOString().split('T')[0];
+
+// Missions du jour : dues aujourd'hui ou avant, OU cochées aujourd'hui
+let tJour = state.tasks.filter(t => {
+    const dueAujourdhui = t.prochaineDate && t.prochaineDate <= dateAuj;
+    const cocheeAujourdhui = t.datesFaites?.includes(dateAuj);
+    return dueAujourdhui || cocheeAujourdhui;
+});
+
+// Avenir : dues après aujourd'hui, pas cochées aujourd'hui
+// La veille apparaît aussi dans Avenir (prochaineDate === demain)
+let tFutur = state.tasks.filter(t => {
+    const dansFutur = t.prochaineDate && t.prochaineDate > dateAuj;
+    const cocheeAujourdhui = t.datesFaites?.includes(dateAuj);
+    return dansFutur && !cocheeAujourdhui;
+});
     tache.prochaineDate = demain.toISOString().split('T')[0];
     sauvegarder();
     mettreAJourUI();
