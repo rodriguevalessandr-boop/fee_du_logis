@@ -10,9 +10,9 @@
 }
 
 /*Titres importants */
-.tasks-title {
+.tasks-title, .modal-title-magic {
     font-family: 'Berkshire Swash', cursive;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     color: #4a3560;
     text-align: center;
     margin-bottom: 20px;
@@ -26,7 +26,7 @@
 }
 
 /* TITRES DE RUBRIQUES & STATUTS (Moyen) */
-#creature-stage, .modal-label, .modal-title-magic {
+ .modal-label {
     font-family: 'Berkshire Swash', cursive;
     font-size: 1.3rem; 
     color: #4a3560;
@@ -35,13 +35,19 @@
     font-weight: normal;
 }
 
-
+#creature-stage {
+    font-family: 'Emilys Candy', cursive;
+    font-size: 1.6rem; /* On l'agrandit bien */
+    color: #5e4b8d;
+    text-align: center;
+    margin-bottom: 12px;
+}
 
 
 /* Corps de texte et compagnie*/
-body, .btn-magic, .notif-input, .modal-input, .diamonds-display, .streak-pill, .xp-header, #mantra-container {
-    font-family: 'Emilys Candy', serif;
-    font-size: 1rem;
+body, .btn-magic, .modal-label, .modal-input, .diamonds-display, #mantra-container {
+    font-family: 'Emilys Candy', cursive;
+    font-size: 1.1rem;
     color: #3d2f22;
     font-weight: normal;
 }
