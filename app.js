@@ -223,22 +223,17 @@ window.cocherTache = (id) => {
   if (!dejaFaite) {
     // --- ACTIONS : VALIDER LA TÂCHE ---
     jouerSon('win');
-    // Si tu as une fonction animerXP, elle s'active ici
     if (window.event && typeof animerXP === 'function') {
         animerXP(window.event.clientX, window.event.clientY); 
     }
 
     tache.datesFaites.push(dateAuj);
-
-    // 1. Gain individuel par tâche (Nouveau !)
     state.diamonds = (state.diamonds || 0) + 1; 
 
-    // 2. XP de la créature
     if (creature) {
         creature.xp = (creature.xp || 0) + (tache.xp || 10);
     }
 
-    // 3. Bonus de série quotidienne (10 + bonus)
     if (state.lastValidatedDate !== dateAuj) {
         state.dayCount = (state.dayCount || 0) + 1;
         const bonusSerie = Math.min(state.dayCount, 20); 
@@ -246,10 +241,19 @@ window.cocherTache = (id) => {
         state.lastValidatedDate = dateAuj;
     }
 
-    // Gestion des dates
+    // --- GESTION DES DATES (MODIFIÉ ICI) ---
     tache.datePrecedente = tache.prochaineDate; 
-    if (tache.prochaineDate <= dateAuj) {
-        tache.prochaineDate = calculerProchaineDate(dateAuj, tache.frequence);
+    const nouvelleDate = calculerProchaineDate(dateAuj, tache.frequence);
+
+    if (nouvelleDate === 'terminee') {
+        // Tâche ponctuelle : on la supprime après un petit délai pour voir l'animation
+        setTimeout(() => {
+            state.tasks = state.tasks.filter(t => t.id !== tache.id);
+            sauvegarder();
+            mettreAJourUI();
+        }, 1500);
+    } else if (nouvelleDate) {
+        tache.prochaineDate = nouvelleDate;
     }
     
     if (typeof changerMantra === 'function') changerMantra();
@@ -258,16 +262,12 @@ window.cocherTache = (id) => {
     // --- ACTIONS : DÉCOCHER LA TÂCHE ---
     jouerSon('loss');
     tache.datesFaites = tache.datesFaites.filter(d => d !== dateAuj);
-    
-    // 1. On retire le diamant de la tâche
     state.diamonds = Math.max(0, state.diamonds - 1);
 
-    // 2. Retrait de l'XP
     if (creature) {
         creature.xp = Math.max(0, (creature.xp || 0) - (tache.xp || 10));
     }
 
-    // 3. Annulation du bonus quotidien complet (si c'était la seule tâche faite)
     const encore = state.tasks.some(t => t.datesFaites?.includes(dateAuj));
     if (!encore) {
         const bonusSerie = Math.min(state.dayCount, 20);
@@ -301,10 +301,23 @@ let tJour = state.tasks.filter(t => {
 
 // Avenir : dues après aujourd'hui, pas cochées aujourd'hui
 // La veille apparaît aussi dans Avenir (prochaineDate === demain)
+// Tâches futures : on les affiche dans "Avenir" si on est à la veille de l'échéance (ou après)
+// mais qu'elles ne sont pas encore dues aujourd'hui.
 let tFutur = state.tasks.filter(t => {
-    const dansFutur = t.prochaineDate && t.prochaineDate > dateAuj;
-    const cocheeAujourdhui = t.datesFaites?.includes(dateAuj);
-    return dansFutur && !cocheeAujourdhui;
+    const dateAuj = aujourdhui();
+    
+    // Calcul de la date d'hier par rapport à l'échéance
+    let veilleEcheance = new Date(t.prochaineDate);
+    veilleEcheance.setDate(veilleEcheance.getDate() - 1);
+    const veilleStr = veilleEcheance.toISOString().split('T')[0];
+
+    const estCocheeAujourdhui = t.datesFaites?.includes(dateAuj);
+    
+    // On affiche dans Avenir si :
+    // 1. On est au moins la veille de la tâche
+    // 2. Elle n'est pas encore "due" (elle est prévue pour strictement après aujourd'hui)
+    // 3. Elle n'a pas été cochée aujourd'hui
+    return dateAuj >= veilleStr && t.prochaineDate > dateAuj && !estCocheeAujourdhui;
 });
     tache.prochaineDate = demain.toISOString().split('T')[0];
     sauvegarder();
