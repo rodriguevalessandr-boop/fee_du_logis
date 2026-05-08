@@ -12,19 +12,19 @@ let state = {
 };
 
 const catalogue = [
-  { id: 'fleur',    nom: 'Fleur parfumée',       prix: 0,   stades: ['🌱','🪴','🌿','🌸','🌹'] },
-  { id: 'poule',    nom: 'Poule cui-cui',         prix: 50,  stades: ['🥚','🐣','🐤','🐔','🪽'] },
-  { id: 'papillon', nom: 'Papillon libre',        prix: 80,  stades: ['🥚','🐛','🫘','🌀','🦋'] },
-  { id: 'chaton',   nom: 'Chaton poilu',          prix: 100, stades: ['🐾','😸','🐈‍⬛','🐈','🐱'] },
-  { id: 'lune',     nom: 'Lune solaire',          prix: 200, stades: ['🌚','🌑','🌛','🌝','🌞'] },
-  { id: 'etoiles',  nom: 'Étoiles brillantes',    prix: 150, stades: ['⚡','✨','🌟','⭐','💫'] },
-  { id: 'coeurs',   nom: "Cœurs d'amour",         prix: 180, stades: ['🧡','💛','💚','🩷','❤️'] },
-  { id: 'sirene',   nom: "Sirène d'argent",       prix: 250, stades: ['🐟','🐳','🧝‍♀️','👸','🧜‍♀️'] },
-  { id: 'reine',    nom: 'Reine Queen B',         prix: 220, stades: ['👗','🥻','👠','👑','💍'] },
-  { id: 'licorne',  nom: 'Licorne Rose',          prix: 280, stades: ['🥚','🎠','🪅','🌈','🦄'] },
-  { id: 'vampire',  nom: 'Vampire de sang',       prix: 300, stades: ['🩸','🦇','🌙','👁️','🧛‍♀️'] },
-  { id: 'dragon',   nom: 'Dragonnet',             prix: 350, stades: ['🦕','🦎','🐍','🐲','🐉'] },
-  { id: 'phenix',   nom: 'Phénix de ses cendres', prix: 500, stades: ['🪺','🐦','🔥','⭐','🐦‍🔥'] },
+  { id: 'fleur',    nom: 'Fleur à pétales',       prix: 0,   stades: ['🌱','🪴','🌿','🌸','🌹'], nomsStades: ['Petite graine', 'Jolie pousse', 'Plante germée', 'Bourgeon timide', 'Fleur à pétales'] },
+  { id: 'poule',    nom: 'Poule cui-cui',         prix: 50,  stades: ['🥚','🐣','🐤','🐔','🪽'], nomsStades: ['Petit œuf', 'Éclosion surprise', 'Poussin duveteux', 'Poule rousse', 'Majestueuse Cocotte'] },
+  { id: 'papillon', nom: 'Papillon libre',        prix: 80,  stades: ['🥚','🐛','🫘','🌀','🦋'], nomsStades: ['Petit œuf', 'Chenille Rampante', 'Chrysalide cocoonesque', 'Chrysalide ailée', 'Papillon irisé'] },
+  { id: 'chaton',   nom: 'Chaton poilu',          prix: 100, stades: ['🐾','😸','🐈‍⬛','🐈','🐱'], nomsStades: ['Boule de poils', 'Chaton poilu', 'Chaton sur pattes', 'Chaton coquin', 'Chaton devenu Chat'] },
+  { id: 'lune',     nom: 'Lune solaire',          prix: 200, stades: ['🌚','🌑','🌛','🌝','🌞'], nomsStades: ['Nouvelle Lune', 'Lune Noire', 'Premier Quartier', 'Pleine Lune', 'Lune de Lumière'] },
+  { id: 'etoiles',  nom: 'Étoiles brillantes',    prix: 150, stades: ['⚡','✨','🌟','⭐','💫'], nomsStades: ['Étincelle', 'Éclat céleste', 'Étoile filante', 'Astre brillant', 'Constellation infinie'] },
+  { id: 'coeurs',   nom: "Cœurs d'amour",         prix: 180, stades: ['🧡','💛','💚','🩷','❤️'], nomsStades: ['Petit élan', 'Affection douce', 'Amitié sincère', 'Cœur vibrant', 'Grand Amour'] },
+  { id: 'sirene',   nom: "Sirène d'argent",       prix: 250, stades: ['🐟','🐳','🧝‍♀️','👸','🧜‍♀️'], nomsStades: ['Petit poisson', 'Grand saut', 'Esprit des eaux', 'Princesse des mers', 'Reine des Océans'] },
+  { id: 'reine',    nom: 'Reine Queen B',         prix: 220, stades: ['👗','🥻','👠','👑','💍'], nomsStades: ['Tenue de jour', 'Robe de bal', 'Défilé chic', 'Sacre royal', 'Impératrice du style'] },
+  { id: 'licorne',  nom: 'Licorne Rose',          prix: 280, stades: ['🥚','🎠','🪅','🌈','🦄'], nomsStades: ['Œuf étincelant', 'Petit poney', 'Esprit de fête', 'Pont arc-en-ciel', 'Licorne Divine'] },
+  { id: 'vampire',  nom: 'Vampire de sang',       prix: 300, stades: ['🩸','🦇','🌙','👁️','🧛‍♀️'], nomsStades: ['Goutte de vie', 'Petit chauve-souris', 'Ombre nocturne', 'Regard mystique', 'Comtesse Immortelle'] },
+  { id: 'dragon',   nom: 'Dragonnet',             prix: 350, stades: ['🦕','🦎','🐍','🐲','🐉'], nomsStades: ['Petit lézard', 'Écailles dures', 'Serpent de feu', 'Jeune Dragon', 'Grand Protecteur'] },
+  { id: 'phenix',   nom: 'Phénix de ses cendres', prix: 500, stades: ['🪺','🐦','🔥','⭐','🐦‍🔥'], nomsStades: ['Nid de cendres', 'Oisillon gris', 'Première flamme', 'Éclat solaire', 'Phénix Éternel'] }
 ];
 
 const phrasesPositives = [
@@ -117,15 +117,30 @@ function mettreAJourUI() {
   const creatureEtat = state.creatures.find(c => c.id === state.creatureActive);
   const creatureCatalogue = catalogue.find(c => c.id === state.creatureActive);
 
-  if (creatureEtat && creatureCatalogue) {
+ // ... à l'intérieur de mettreAJourUI() ...
+
+if (creatureEtat && creatureCatalogue) {
+    // Calcul de l'index du stade (0 à 4)
     const stadeIdx = Math.min(4, Math.floor(creatureEtat.xp / 500));
-   const xpDansStade = stadeIdx === 4 ? 500 : creatureEtat.xp % 500;
+    const xpDansStade = stadeIdx === 4 ? 500 : creatureEtat.xp % 500;
+    
+    // Récupération du nom personnalisé du stade
+    // Si nomsStades existe, on prend le nom correspondant, sinon on met le nom par défaut
+    const nomEvolution = creatureCatalogue.nomsStades 
+        ? creatureCatalogue.nomsStades[stadeIdx] 
+        : creatureCatalogue.nom;
+
+    // Affichage du titre : "Stade X. Nom Personnalisé"
+    const titreComplet = `Stade ${stadeIdx + 1}. ${nomEvolution}`;
+
+    // Mise à jour du HTML
     document.getElementById('creature-emoji').textContent = creatureCatalogue.stades[stadeIdx];
-    document.getElementById('creature-stage').textContent = `Stade ${stadeIdx + 1}. ${creatureCatalogue.nom}`;
+    document.getElementById('creature-stage').textContent = titreComplet;
+    
     const barre = document.getElementById('xp-fill');
     if (barre) barre.style.width = (xpDansStade / 500 * 100) + '%';
     document.getElementById('xp-current').textContent = xpDansStade;
-  }
+}
 
   const feu = document.getElementById('streak-fire');
   if (feu) {
@@ -144,39 +159,60 @@ function changerMantra() {
 }
 
 function afficherTaches() {
-  const listeJour = document.getElementById('tasks-list');
-  const listeFutur = document.getElementById('future-tasks-list');
-  const dateAuj = aujourdhui();
+    const listeJour = document.getElementById('tasks-list');
+    const listeFutur = document.getElementById('future-tasks-list');
+    const bravoContainer = document.getElementById('bravo-container');
+    const dateAuj = aujourdhui();
 
-  // Tâches du jour : dues aujourd'hui OU cochées aujourd'hui
-  let tJour = state.tasks.filter(t => {
-    const dueAujourdhui = t.prochaineDate && t.prochaineDate <= dateAuj;
-    const cocheeAujourdhui = t.datesFaites?.includes(dateAuj);
-    return dueAujourdhui || cocheeAujourdhui;
-  });
+    if (!listeJour) return;
 
-  // Tâches futures : dans le futur ET pas cochées aujourd'hui
-  let tFutur = state.tasks.filter(t => {
-    const dansFutur = t.prochaineDate && t.prochaineDate > dateAuj;
-    const cocheeAujourdhui = t.datesFaites?.includes(dateAuj);
-    return dansFutur && !cocheeAujourdhui;
-  });
+    // 1. Filtre des tâches
+    let tJour = state.tasks.filter(t => {
+        const due = t.prochaineDate && t.prochaineDate <= dateAuj;
+        const faite = t.datesFaites?.includes(dateAuj);
+        return due || faite;
+    });
 
-  // Tri : non-cochées en haut
-  const tri = (a, b) => {
-    const aF = a.datesFaites?.includes(dateAuj) ? 1 : 0;
-    const bF = b.datesFaites?.includes(dateAuj) ? 1 : 0;
-    if (aF !== bF) return aF - bF;
-    return (a.prochaineDate || '').localeCompare(b.prochaineDate || '');
-  };
+    let tFutur = state.tasks.filter(t => {
+        let veille = new Date(t.prochaineDate);
+        veille.setDate(veille.getDate() - 1);
+        const veilleStr = veille.toISOString().split('T')[0];
+        return dateAuj >= veilleStr && t.prochaineDate > dateAuj && !t.datesFaites?.includes(dateAuj);
+    });
 
-  tJour.sort(tri);
-  tFutur.sort(tri);
+    // 2. Tri
+    const tri = (a, b) => {
+        const aF = a.datesFaites?.includes(dateAuj) ? 1 : 0;
+        const bF = b.datesFaites?.includes(dateAuj) ? 1 : 0;
+        return aF - bF || (a.prochaineDate || '').localeCompare(b.prochaineDate || '');
+    };
+    tJour.sort(tri);
+    tFutur.sort(tri);
 
-  if (listeJour) {
-    listeJour.innerHTML = tJour.map(t => genererHtmlTache(t, true)).join('') ||
-      '<p style="text-align:center; color:#a594b5; margin:20px 0;">🌿 Rien pour aujourd\'hui !</p>';
-  }
+    // 3. Gestion du message "GG"
+    if (bravoContainer) {
+        const toutesFaites = tJour.length > 0 && tJour.every(t => t.datesFaites?.includes(dateAuj));
+        if (toutesFaites) {
+            bravoContainer.innerHTML = `
+                <div class="victoire-message" style="text-align:center; background:#f0e6ff; padding:15px; border-radius:15px; margin-bottom:15px; border:2px dashed #d1b3ff; animation: popIn 0.5s ease-out;">
+                    <div style="font-size:25px;">✨⭐✨</div>
+                    <h3 style="font-family:'Emilys Candy', cursive; color:#8e44ad; margin:5px 0;">GG ! Félicitations !</h3>
+                    <p style="color:#6c5ce7; font-size:14px; margin:0;">Le sanctuaire est étincelant. 🧚</p>
+                </div>`;
+        } else {
+            bravoContainer.innerHTML = ""; // On vide si tout n'est pas fait
+        }
+    }
+
+    // 4. Rendu des listes (Le retour à la méthode classique qui marche)
+    listeJour.innerHTML = tJour.map(t => genererHtmlTache(t, true)).join('') || 
+                          '<p style="text-align:center; color:#a594b5; margin:20px 0;">🌿 Rien pour aujourd\'hui !</p>';
+
+    if (listeFutur) {
+        listeFutur.innerHTML = tFutur.map(t => genererHtmlTache(t, false)).join('') || 
+                               '<p style="text-align:center; color:#a594b5; margin:20px 0;">🌿 Pas de tâches en approche.</p>';
+    }
+
 
   if (listeFutur) {
     listeFutur.innerHTML = tFutur.map(t => genererHtmlTache(t, false)).join('') ||

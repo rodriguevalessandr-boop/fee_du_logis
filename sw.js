@@ -1,3 +1,5 @@
+// sw.js (Version améliorée)
+
 self.addEventListener('install', e => self.skipWaiting());
 self.addEventListener('activate', e => self.clients.claim());
 
@@ -8,34 +10,25 @@ self.addEventListener('message', (event) => {
         if (delai > 0) {
             console.log(`Rappel programmé dans ${Math.round(delai/1000/60)} minutes.`);
             
-            // Le secret : event.waitUntil force le SW à rester "vivant"
-            event.waitUntil(
-                new Promise((resolve) => {
-                    setTimeout(() => {
-                        self.registration.showNotification('Fée du Logis 🧚', {
-                            body: "C'est l'heure de s'occuper du sanctuaire ! ✨",
-                            icon: 'logo512.jpg',
-                            vibrate: [200, 100, 200],
-                            badge: 'logo512.jpg',
-                            tag: 'rappel-quotidien',
-                            renotify: true
-                        });
-                        resolve();
-                    }, delai);
-                })
-            );
+            // On utilise une promesse pour s'assurer que le navigateur voit l'activité
+            const notificationPromise = new Promise((resolve) => {
+                setTimeout(() => {
+                    self.registration.showNotification('Fée du Logis 🧚', {
+                        body: "C'est l'heure de s'occuper du sanctuaire ! ✨",
+                        icon: 'logo512.jpg',
+                        vibrate: [200, 100, 200],
+                        badge: 'logo512.jpg',
+                        tag: 'rappel-quotidien',
+                        renotify: true,
+                        // Ajout d'actions pour rendre la notif interactive
+                        actions: [
+                            { action: 'ouvrir', title: 'Voir mes tâches' }
+                        ]
+                    }).then(resolve);
+                }, delai);
+            });
+
+            event.waitUntil(notificationPromise);
         }
     }
-});
-
-self.addEventListener('notificationclick', e => {
-    e.notification.close();
-    e.waitUntil(
-        clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clientList => {
-            for (const client of clientList) {
-                if ('focus' in client) return client.focus();
-            }
-            return clients.openWindow('/');
-        })
-    );
 });
