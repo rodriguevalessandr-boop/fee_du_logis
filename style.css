@@ -5,7 +5,7 @@
     color: #4a3560;
     text-align: center;
     margin-top: 25px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-shadow: 2px 2px 12px rgba(196, 168, 232, 0.4);
 }
 
@@ -19,11 +19,6 @@
     font-weight: normal;
 }
 
-#streak-fire {
-    display: inline-block;
-    animation: pulserDoucement 2s ease-in-out infinite;
-    transform-origin: bottom center;
-}
 
 /* TITRES DE RUBRIQUES & STATUTS (Moyen) */
  .modal-label {
@@ -55,7 +50,7 @@ body, .btn-magic, .modal-label, .modal-input, .diamonds-display, #mantra-contain
 /* 2. LES PETITS DÉTAILS (On ajuste juste la taille et la couleur pour ceux-là) */
 .task-xp-badge,.xp-text, .btn-label, .modal-subtitle {
     font-family: 'Emilys Candy', serif; 
-    font-size: 0.9rem;  
+    font-size: 1rem;  
     color: #6d5d8e;   
 }
 
@@ -118,7 +113,6 @@ label {
     transform-origin: center center;
   }
 /* Espacement uniforme entre tous les blocs */
-.app-header,.creature-container-box,#creature-stage,.xp-container, #mantra-container
 
 /* Le champ de l'heure */
 .notif-input {
@@ -155,16 +149,11 @@ label {
     gap: 10px;
 }
 
-.xp-header {
-    text-align: right;
-    font-family: 'Emilys Candy', serif; /* Pour garder ta police magique */
-    color: #6d5d8e;
-    margin-bottom: 8px;
-}
 
 .tasks-section {
     width: 90%;
     margin: 30px auto 12px;
+    margin-bottom: 20px
 }
 
 /* Le groupe qui contient l'XP et les boutons (poubelle/crayon) */
@@ -213,6 +202,17 @@ label {
     cursor: pointer;
 }
 
+.btn-masquer {
+    display: block;
+    margin: 0 auto 10px;
+    background: none;
+    border: 1px solid #c4a8e8;
+    border-radius: 20px;
+    padding: 4px 14px;
+    color: #6d5d8e;
+    cursor: pointer;
+    font-size: 13px;
+}
 
 /* 2. L'Ovale Carré de la créature */
 .creature-card {
@@ -220,7 +220,7 @@ label {
     border-radius: 24px;
     padding: 20px;
     margin-top: 20px;
-    margin-bottom: 15px ;
+    margin-bottom: 20px ;
     width: 90%;
     max-width: 500px;
     display: flex;
@@ -266,6 +266,7 @@ label {
 @keyframes levitation {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-15px); }
+0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); }
 }
 
 
@@ -278,14 +279,13 @@ label {
 
 
 .app-header {
-display: flex;
+    display: flex;
     flex-direction: column;
-    gap: 12px; /* Espace entre les lignes */
-    padding: 15px;
-    height: auto; /* Le bandeau s'adapte à son contenu */
+    width: 100%;
+    padding: 15px 0; /* On garde du padding en haut/bas, mais 0 sur les côtés */
     background: linear-gradient(180deg, #c4a8e8 0%, #eaddff 100%);
     border-radius: 0 0 30px 30px;
-    margin: 0;
+    align-items: center;
 }
 
 
@@ -312,12 +312,11 @@ display: flex;
 }
 
 
-@keyframes levitation { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
 /* Jauge XP */
 .xp-container {
     width: 90%;
     margin: 10px auto 10px;
+    margin-bottom: 20px;
 }
 
 .xp-header {
@@ -325,16 +324,36 @@ display: flex;
     font-size: 0.9rem;
     color: #a594b5;
     text-align: right;
-    margin-bottom: 6px;
+
+    text-align: right;
+    font-family: 'Emilys Candy', serif; /* Pour garder ta police magique */
+    color: #6d5d8e;
+    margin-bottom: 8px;
+}
+
+.diamonds-display,
+.streak-pill,
+.notif-btn,
+.add-task-btn {
+    flex: 1;        /* ← chacun prend une part égale de l'espace */
+    min-width: 0;   /* ← remplace le min-width: 120px */
+    height: 44px;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 15px;
+    box-sizing: border-box;
 }
 
 .xp-track {
     background: #f0f0f0;
-    height: 12px;
-    border-radius: 10px;
+    height: 30px;
+    border-radius: 15px;
     overflow: hidden;
     width: 100%;
-    border: none;
+    border: 3px solid #dcd0e8;
 }
 
 .xp-fill {
@@ -348,6 +367,7 @@ display: flex;
 #mantra-container {
     position: fixed;
     bottom: 20px;
+    margin-bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     width: 85%;
@@ -534,69 +554,30 @@ margin-bottom: 20px; }
 .hidden { display: none ; }
 
 
-.header-row-1 {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 5px;
-}
-
-/* La ligne 2 partage l'espace entre Eco et Série */
-.header-row-2 {
-    display: flex;
-    justify-content: space-between;
+.header-row-buttons {
+    display: flex !important;
+    flex-direction: row !important;
     align-items: center;
-    gap: 8px;
+    justify-content: space-around;
+    
+    background: rgba(255, 255, 255, 0.9); /* Fond blanc comme sur ta photo */
+    border-radius: 20px;
+    padding: 8px 5px;
+    
+    /* Pour prendre tout l'espace du bandeau violet */
+    width: 92%; 
+    margin: 10px auto;
+    box-sizing: border-box;
 }
 
-/* La ligne 3 prend toute la largeur pour être bien lisible */
-.header-row-3 {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
 .full-width {
     width: 100%;
     justify-content: space-around; /* Équilibre les boutons Rappel et Ajouter */
 }
 
 
-.diamonds-display {
-    background: rgba(255,255,255,0.7);
-    border: none;
-    border-radius: 30px;
-    padding: 6px 14px;
-    font-family: 'Berkshire Swash', cursive;
-    color: #4a3560;
-    cursor: pointer;
-}
 
-.streak-pill {
-    background: rgba(255,255,255,0.7);
-    border-radius: 30px;
-    padding: 6px 14px;
-    font-family: 'Emilys Candy', cursive;
-    color: #4a3560;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-.header-row-3 {
-display: flex;
-    align-items: center;
-    justify-content: space-between; /* Écarte les groupes aux extrémités */
-    width: 100%;
-    gap: 8px;
-}
 
-.header-eco-group {
-    display: flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 30px;
-    padding: 8px 18px; /* Même padding que tes boutons d'action */
-    gap: 0;
-}
 
 /* Groupe DROITE : Actions (Série + Boutons) */
 .header-action-group {
@@ -618,21 +599,20 @@ display: flex;
 }
 
 /* --- 2. LES BOUTONS (Interactifs et Verticaux) --- */
-.diamonds-display, 
-.shop-btn, 
-.notif-btn, 
+.diamonds-display,
+.streak-pill,
+.notif-btn,
 .add-task-btn {
+flex: 1;
+    background: none !important;
+    border: none !important;
     display: flex;
-    flex-direction: column; /* Icône en haut, Texte en bas */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: none;
-    border: none;
     cursor: pointer;
-    padding: 4px 10px;
-    transition: transform 0.2s ease;
+    min-width: 0;
 }
-
 /* Effet au clic pour la sensation de "bouton" */
 .diamonds-display:active, 
 .shop-btn:active, 
@@ -643,26 +623,22 @@ display: flex;
 
 /* --- 3. LES ÉCRITS (Précieux et Légers) --- */
 .btn-label {
-    font-weight: 400 !important;
-    color: #6d5d8e;
-    line-height: 1;
+    font-size: 0.75rem !important;
+    font-family: 'Emilys Candy', cursive;
+    color: #4a3560;
     margin-top: 3px;
+    white-space: nowrap;
 }
 
 /* --- 4. LES DÉTAILS DE SÉPARATION --- */
 .btns-divider {
     width: 1px;
-    height: 30px;
-    background: rgba(109, 93, 142, 0.2);
-    margin: 0 5px;
+    height: 35px; /* Hauteur du trait */
+    background: #e0e0e0; /* Gris clair discret */
+    flex-shrink: 0;
 }
 
-/* La flamme de la série (animation légère) */
-#streak-fire {
-    display: inline-block;
-    animation: flamme 0.8s ease-in-out infinite;
-    font-size: 1.2rem;
-}
+
 
 
 @keyframes fremir {

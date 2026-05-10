@@ -2,6 +2,7 @@
 // 1. ÉTAT & CATALOGUE
 // ==========================================
 let state = {
+   meilleurScore: 0,
   diamonds: 0,
   dayCount: 0,
   lastValidatedDate: null,
@@ -273,6 +274,9 @@ window.cocherTache = (id) => {
     if (state.lastValidatedDate !== dateAuj) {
         state.dayCount = (state.dayCount || 0) + 1;
         const bonusSerie = Math.min(state.dayCount, 20); 
+    if (state.dayCount > state.meilleurScore) {
+    state.meilleurScore = state.dayCount;
+}
         state.diamonds += (10 + bonusSerie); 
         state.lastValidatedDate = dateAuj;
     }
@@ -319,6 +323,36 @@ window.cocherTache = (id) => {
 
   sauvegarder();
   mettreAJourUI();
+};
+
+window.afficherRecord = () => {
+    const record = state.meilleurScore || 0;
+    const actuel = state.dayCount || 0;
+    
+    // Petit popup temporaire
+    const popup = document.createElement('div');
+    popup.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border: 2px solid #c4a8e8;
+        border-radius: 20px;
+        padding: 20px 30px;
+        text-align: center;
+        z-index: 9999;
+        box-shadow: 0 8px 30px rgba(100,70,160,0.2);
+        font-family: 'Berkshire Swash', cursive;
+        color: #4a3560;
+    `;
+    popup.innerHTML = `
+        <div style="font-size:2rem; margin-bottom:8px;">🏆</div>
+        <div style="font-size:1.2rem; margin-bottom:6px;">Record : ${record} jours</div>
+        <div style="font-size:0.9rem; color:#a594b5;">Série actuelle : ${actuel} jours</div>
+    `;
+    document.body.appendChild(popup);
+    setTimeout(() => popup.remove(), 3000);
 };
 
 window.reporterTache = (id) => {
@@ -505,6 +539,7 @@ function fermerModal() {
 
 document.addEventListener('DOMContentLoaded', () => {
   charger();
+  if (!state.meilleurScore) state.meilleurScore = 0;
   mettreAJourUI();
 
   if (state.heureNotif) {

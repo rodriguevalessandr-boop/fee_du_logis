@@ -17,41 +17,40 @@
 
     <!-- HEADER -->
 <header class="app-header">
-  <!-- LIGNE 1 : Le Titre (Immuable) -->
+  <!-- Titre -->
   <div class="header-row-1">
     <div class="app-main-title">
       <span class="fairy-sparkle">🧚</span> Fée du Logis
     </div>
   </div>
 
-  <!-- LIGNE 2 : L'Économie et la Série (Le statut) -->
-  <div class="header-row-2">
-    <div class="header-eco-group">
-      <button class="diamonds-display" id="diamonds-btn">
-        <span>💎</span>
-        <span class="btn-label">Boutique <span id="diamond-count">0</span></span>
-      </button>
-      <div class="btns-divider"></div>
+  <!-- La ligne magique unique -->
+<div class="header-row-buttons">
+    <button class="diamonds-display" id="diamonds-btn">
+      <span>💎</span>
+      <span class="btn-label">Boutique <span id="diamond-count">37</span></span>
+    </button>
 
-    <div class="streak-pill">
-    <span id="streak-fire" style="display:none;">🔥</span>
-      <span class="btn-label">Jour <span id="day-count">0</span></span>
-    </div>
-  </div>
+    <div class="btns-divider"></div>
 
-  <!-- LIGNE 3 : Les Actions (Les outils) -->
-  <div class="header-row-3">
-    <div class="header-btns-group full-width">
-      <button class="notif-btn" id="notif-btn">
-        <span>🕐</span>
-        <span class="btn-label">Rappel</span>
-      </button>
-      <div class="btns-divider"></div>
-      <button class="add-task-btn" id="add-task-btn">
-        <span>+</span>
-        <span class="btn-label">Ajouter</span>
-      </button>
+    <div class="streak-pill" id="streak-pill" onclick="afficherRecord()">
+      <span>🔥</span>
+      <span class="btn-label">Jour <span id="day-count">11</span></span>
     </div>
+
+    <div class="btns-divider"></div>
+
+    <button class="notif-btn" id="notif-btn">
+      <span>🕐</span>
+      <span class="btn-label">Rappel</span>
+    </button>
+
+    <div class="btns-divider"></div>
+
+    <button class="add-task-btn" id="add-task-btn">
+      <span>🪄</span>
+      <span class="btn-label">Ajouter</span>
+    </button>
   </div>
 </header>
 
@@ -78,34 +77,26 @@
 </section>
 
 <!-- MANTRA (Légèrement en dessous) -->
+<!-- MANTRA -->
 <div id="mantra-container">✨ Prête pour un peu de magie ?</div>
 
-    <!-- MISSIONS DU JOUR -->
-    <section class="tasks-section">
-      <div class="tasks-title">🗝️ Missions du jour</div>
-        <button onclick="toggleMasquer('tasks-list', this)" 
-          style="display:block; margin:0 auto 10px; background:none; 
-                 border:1px solid #c4a8e8; border-radius:20px; 
-                 padding:4px 14px; color:#6d5d8e; cursor:pointer; font-size:13px;">
+<!-- MISSIONS DU JOUR -->
+<section class="tasks-section">
+  <div class="tasks-title">🗝️ Missions du jour</div>
+  <button onclick="toggleMasquer('tasks-list', this)" class="btn-masquer">
     👁️ Masquer les faites
   </button>
-  <div id="bravo-container"></div>
-      <div id="tasks-list"></div>
-    </section>
+  <div id="tasks-list"></div>
+</section>
 
-    <!-- AVENIR -->
-    <section class="tasks-section">
-      <div class="tasks-title">🔮 Avenir</div>
-        <button onclick="toggleSection('future-tasks-list', this)"
-          style="display:block; margin:0 auto 10px; background:none;
-                 border:1px solid #c4a8e8; border-radius:20px;
-                 padding:4px 14px; color:#6d5d8e; cursor:pointer; font-size:13px;">
+<!-- AVENIR -->
+<section class="tasks-section">
+  <div class="tasks-title">🔮 Avenir</div>
+  <button onclick="toggleSection('future-tasks-list', this)" class="btn-masquer">
     👁️ Masquer l'Avenir
   </button>
-      <div id="future-tasks-list"></div>
-    </section>
-
-  </div>
+  <div id="future-tasks-list"></div>
+</section>
 
   <!-- MODAL RÉVEIL -->
  <div class="modal-overlay hidden" id="notif-modal">
