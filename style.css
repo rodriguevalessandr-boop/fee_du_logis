@@ -5,7 +5,7 @@
     color: #4a3560;
     text-align: center;
     margin-top: 25px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     text-shadow: 2px 2px 12px rgba(196, 168, 232, 0.4);
 }
 
@@ -36,6 +36,7 @@
     color: #5e4b8d;
     text-align: center;
     margin-bottom: 12px;
+     margin-top: 25px;
 }
 
 
@@ -49,10 +50,20 @@ body, .btn-magic, .modal-label, .modal-input, .diamonds-display, #mantra-contain
 
 /* 2. LES PETITS DÉTAILS (On ajuste juste la taille et la couleur pour ceux-là) */
 .task-xp-badge,.xp-text, .btn-label, .modal-subtitle {
-    font-family: 'Emilys Candy', serif; 
+    font-family: 'Emilys Candy', cursive; 
     font-size: 1rem;  
     color: #6d5d8e;   
+        text-transform: none;
+    line-height: 1.2;
 }
+.btn-label {
+    font-size: 1rem;
+    font-family: 'Emilys Candy', cursive;
+    color: #4a3560;
+    margin-top: 3px;
+    white-space: nowrap;
+}
+
 
 body {
     background-color: #fdfaf5;
@@ -195,7 +206,7 @@ label {
 
 /* Le bouton Valider (rose) */
 .btn-confirm-del, .btn-cancel-del {
-    font-family: 'Emilys Candy', serif;
+    font-family: 'Emilys Candy', cursive;
     font-size: 0.9rem;
     padding: 6px 12px;
     border-radius: 8px;
@@ -257,7 +268,7 @@ label {
     transition: width 0.5s;
 }
 .xp-text {
-    font-family: 'Emilys Candy', serif;
+    font-family: 'Emilys Candy', cursive;
     color: #6d5d8e;
     margin-bottom: 8px;
 }
@@ -282,10 +293,11 @@ label {
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 15px 0; /* On garde du padding en haut/bas, mais 0 sur les côtés */
+    padding: 15px 0 0 0; /* 0 padding en bas pour que la barre touche le bord */
     background: linear-gradient(180deg, #c4a8e8 0%, #eaddff 100%);
     border-radius: 0 0 30px 30px;
     align-items: center;
+    overflow: hidden; /* Coupe ce qui dépasse pour épouser l'arrondi du header */
 }
 
 
@@ -320,13 +332,13 @@ label {
 }
 
 .xp-header {
-    font-family: 'Emilys Candy', serif;
+    font-family: 'Emilys Candy', cursive;
     font-size: 0.9rem;
     color: #a594b5;
     text-align: right;
 
     text-align: right;
-    font-family: 'Emilys Candy', serif; /* Pour garder ta police magique */
+    font-family: 'Emilys Candy', cursive; /* Pour garder ta police magique */
     color: #6d5d8e;
     margin-bottom: 8px;
 }
@@ -467,7 +479,7 @@ label {
 
 .modal input[type="text"], 
 .modal select {
-    font-family: 'Emilys Candy', serif ;
+    font-family: 'Emilys Candy', cursive ;
     padding: 12px ;
     border-radius: 15px ;
     font-size: 1.1rem ;
@@ -505,7 +517,7 @@ label {
     border-radius: 12px; 
     border: 1px solid #eaddff; 
     box-sizing: border-box; 
-    font-family: 'Emilys Candy', serif;
+    font-family: 'Emilys Candy', cursive;
 }
 
 /* --- Boutique --- */
@@ -556,18 +568,18 @@ margin-bottom: 20px; }
 
 .header-row-buttons {
     display: flex !important;
-    flex-direction: row !important;
     align-items: center;
     justify-content: space-around;
+    background: rgba(255, 255, 255, 0.9);
     
-    background: rgba(255, 255, 255, 0.9); /* Fond blanc comme sur ta photo */
-    border-radius: 20px;
-    padding: 8px 5px;
+    /* On arrondit seulement le haut pour l'effet capsule, pas le bas */
+    border-radius: 25px 25px 0 0; 
     
-    /* Pour prendre tout l'espace du bandeau violet */
-    width: 92%; 
-    margin: 10px auto;
+    padding: 10px 5px;
+    width: 100%; 
+    margin: 15px 0 0 0; /* Le margin-top crée l'espace avec le titre */
     box-sizing: border-box;
+    border-top: 1px solid rgba(255,255,255,0.5);
 }
 
 .full-width {
@@ -589,14 +601,6 @@ margin-bottom: 20px; }
 /* On affine les bulles blanches */
 
 /* --- 1. LES CONTENEURS (Les bulles blanches) --- */
-.header-eco-group, .streak-pill, .header-btns-group {
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 25px;
-    padding: 8px 12px;
-    display: flex;
-    align-items: center;
-    height: 60px; /* Un peu plus haut pour le confort des écrits */
-}
 
 /* --- 2. LES BOUTONS (Interactifs et Verticaux) --- */
 .diamonds-display,
@@ -621,16 +625,7 @@ flex: 1;
     transform: scale(0.95);
 }
 
-/* --- 3. LES ÉCRITS (Précieux et Légers) --- */
-.btn-label {
-    font-size: 0.75rem !important;
-    font-family: 'Emilys Candy', cursive;
-    color: #4a3560;
-    margin-top: 3px;
-    white-space: nowrap;
-}
 
-/* --- 4. LES DÉTAILS DE SÉPARATION --- */
 .btns-divider {
     width: 1px;
     height: 35px; /* Hauteur du trait */
@@ -728,7 +723,7 @@ flex: 1;
     border: none;
     border-radius: 15px;
     padding: 5px 15px;
-    font-family: 'Emilys Candy', serif;
+    font-family: 'Emilys Candy', cursive;
     font-weight: 400 !important;
     cursor: pointer;
     margin-top: 10px;
