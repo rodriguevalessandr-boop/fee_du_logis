@@ -77,6 +77,96 @@ label {
     margin-bottom: 10px;
 }
 
+/*Boutique*/
+
+/* Container de la boutique */
+.modal-card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.modal-title-magic {
+    font-family: 'Emilys Candy', cursive;
+    color: #8e44ad;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+/* Zone des scores (XP et Diamants) */
+.shop-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.stat-badge {
+    background: #f3f0ff;
+    padding: 8px 12px;
+    border-radius: 12px;
+    color: #6c5ce7;
+    border: 1px solid #d1b3ff;
+}
+
+/* Grille des objets */
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.shop-item {
+    background: #fff;
+    border: 2px solid #eee;
+    padding: 15px;
+    border-radius: 15px;
+    transition: transform 0.2s;
+}
+
+.shop-item:hover {
+    transform: translateY(-5px);
+    border-color: #d1b3ff;
+}
+
+.item-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.item-name {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+/* Bouton d'achat */
+.buy-btn {
+    background: #8e44ad;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    transition: background 0.3s;
+}
+
+.buy-btn:hover {
+    background: #6c5ce7;
+}
+
+.btn-full-width {
+    width: 100%;
+}
+
+
+/*Animations*/
 
 @keyframes pulserDoucement {
     0%, 100% { transform: rotate(-5deg) scale(1); }

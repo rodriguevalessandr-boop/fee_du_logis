@@ -12,6 +12,11 @@ let state = {
   creatureActive: 'fleur'
 };
 
+const boutiqueObjets = [
+    { id: 'theme-pastel', nom: 'Thème Pastel', prix: 50, icone: '🎨', monnaie: 'xp' },
+    { id: 'potion-xp', nom: 'Potion Magique', prix: 100, icone: '🧪', monnaie: 'xp' }
+];
+
 const catalogue = [
   { id: 'fleur',    nom: 'Fleur à pétales',       prix: 0,   stades: ['🌱','🪴','🌿','🌸','🌹'], nomsStades: ['Petite graine', 'Jolie pousse', 'Plante germée', 'Bourgeon timide', 'Fleur à pétales'] },
   { id: 'poule',    nom: 'Poule cui-cui',         prix: 50,  stades: ['🥚','🐣','🐤','🐔','🪽'], nomsStades: ['Petit œuf', 'Éclosion surprise', 'Poussin duveteux', 'Poule rousse', 'Majestueuse Cocotte'] },
@@ -19,7 +24,6 @@ const catalogue = [
   { id: 'chaton',   nom: 'Chaton poilu',          prix: 100, stades: ['🐾','😸','🐈‍⬛','🐈','🐱'], nomsStades: ['Boule de poils', 'Chaton poilu', 'Chaton sur pattes', 'Chaton coquin', 'Chaton devenu Chat'] },
   { id: 'lune',     nom: 'Lune solaire',          prix: 200, stades: ['🌚','🌑','🌛','🌝','🌞'], nomsStades: ['Nouvelle Lune', 'Lune Noire', 'Premier Quartier', 'Pleine Lune', 'Lune de Lumière'] },
   { id: 'etoiles',  nom: 'Étoiles brillantes',    prix: 150, stades: ['⚡','✨','🌟','⭐','💫'], nomsStades: ['Étincelle', 'Éclat céleste', 'Étoile filante', 'Astre brillant', 'Constellation infinie'] },
-  { id: 'coeurs',   nom: "Cœurs d'amour",         prix: 180, stades: ['🧡','💛','💚','🩷','❤️'], nomsStades: ['Petit élan', 'Affection douce', 'Amitié sincère', 'Cœur vibrant', 'Grand Amour'] },
   { id: 'sirene',   nom: "Sirène d'argent",       prix: 250, stades: ['🐟','🐳','🧝‍♀️','👸','🧜‍♀️'], nomsStades: ['Petit poisson', 'Grand saut', 'Esprit des eaux', 'Princesse des mers', 'Reine des Océans'] },
   { id: 'reine',    nom: 'Reine Queen B',         prix: 220, stades: ['👗','🥻','👠','👑','💍'], nomsStades: ['Tenue de jour', 'Robe de bal', 'Défilé chic', 'Sacre royal', 'Impératrice du style'] },
   { id: 'licorne',  nom: 'Licorne Rose',          prix: 280, stades: ['🥚','🎠','🪅','🌈','🦄'], nomsStades: ['Œuf étincelant', 'Petit poney', 'Esprit de fête', 'Pont arc-en-ciel', 'Licorne Divine'] },
@@ -201,6 +205,7 @@ function afficherTaches() {
                 <p style="color:#6c5ce7; font-size:14px; margin:0;">Le sanctuaire est étincelant. 🧚</p>
             </div>` : "";
     }
+    
 
     // 4. Rendu HTML
     listeJour.innerHTML = tJour.map(t => genererHtmlTache(t, true)).join('') || 
@@ -210,6 +215,22 @@ function afficherTaches() {
         listeFutur.innerHTML = tFutur.map(t => genererHtmlTache(t, false)).join('') || 
                                '<p style="text-align:center; color:#a594b5; margin:20px 0;">🌿 Libre !</p>';
     }
+
+      const bravoEl = document.getElementById('bravo-container');
+if (bravoEl) {
+    const toutesFaites = tJour.length > 0 && tJour.every(t => t.datesFaites?.includes(dateAuj));
+    bravoEl.innerHTML = toutesFaites ? `
+        <div style="text-align:center; background:#f0e6ff; padding:15px; 
+                    border-radius:15px; margin-bottom:15px; border:2px dashed #d1b3ff;">
+            <div style="font-size:2rem;">✨⭐✨</div>
+            <div style="font-family:'Berkshire Swash',cursive; color:#8e44ad; font-size:1.2rem;">
+                Sanctuaire étincelant !
+            </div>
+            <div style="color:#6c5ce7; font-size:0.9rem;">
+                Ta créature est fière de toi 🧚
+            </div>
+        </div>` : '';
+}
 }
 
 function genererHtmlTache(tache, estAuj) {
@@ -237,15 +258,15 @@ function genererHtmlTache(tache, estAuj) {
     </div>`;
 }
 
-// ==========================================
-// 5. ACTIONS (Nettoyé)
-// ==========================================
 window.reporterTache = (id) => {
     const tache = state.tasks.find(t => t.id === id);
     if (!tache) return;
+    
     const demain = new Date();
     demain.setDate(demain.getDate() + 1);
+    
     tache.prochaineDate = demain.toISOString().split('T')[0];
+    
     sauvegarder();
     mettreAJourUI();
 };
@@ -270,28 +291,21 @@ window.cocherTache = (id) => {
             state.diamonds += (10 + Math.min(state.dayCount, 20));
             state.lastValidatedDate = dateAuj;
         }
-
-        const nouvelleDate = calculerProchaineDate(dateAuj, tache.frequence);
-        if (nouvelleDate === 'terminee') {
-            setTimeout(() => {
-                state.tasks = state.tasks.filter(t => t.id !== tache.id);
-                sauvegarder();
-                mettreAJourUI();
-            }, 1500);
-        } else if (nouvelleDate) {
-            tache.prochaineDate = nouvelleDate;
+        
+        // On ne change la prochaineDate que si c'est une tâche récurrente
+        // et on attend un peu pour laisser l'utilisateur voir qu'il a coché
+        if (tache.frequence !== 'Ponctuelle') {
+            tache.prochaineDate = calculerProchaineDate(dateAuj, tache.frequence);
         }
     } else {
+        // Logique de décochage
         jouerSon('loss');
         tache.datesFaites = tache.datesFaites.filter(d => d !== dateAuj);
-        state.diamonds = Math.max(0, state.diamonds - 1);
-        if (creature) creature.xp = Math.max(0, creature.xp - (tache.xp || 10));
-
-        const encore = state.tasks.some(t => t.datesFaites?.includes(dateAuj));
-        if (!encore) {
-            state.dayCount = Math.max(0, state.dayCount - 1);
-            state.lastValidatedDate = null;
-        }
+        // ... (ton code de retrait d'XP)
+        
+        // /!\ IMPORTANT : Si on décoche, il faut remettre la date à aujourd'hui 
+        // sinon elle reste bloquée dans le futur
+        tache.prochaineDate = dateAuj;
     }
     sauvegarder();
     mettreAJourUI();
@@ -327,24 +341,7 @@ window.afficherRecord = () => {
     setTimeout(() => popup.remove(), 3000);
 };
 
-window.reporterTache = (id) => {
-    const tache = state.tasks.find(t => t.id === id);
-    if (!tache) return;
-const demain = new Date();
-demain.setDate(demain.getDate() + 1);
-const demainStr = demain.toISOString().split('T')[0];
-};
 
-// Missions du jour : dues aujourd'hui ou avant, OU cochées aujourd'hui
-window.reporterTache = (id) => {
-    const tache = state.tasks.find(t => t.id === id);
-    if (!tache) return;
-    const demain = new Date();
-    demain.setDate(demain.getDate() + 1);
-    tache.prochaineDate = demain.toISOString().split('T')[0];
-    sauvegarder();
-    mettreAJourUI();
-};
 
 // Masquer/afficher les tâches cochées
 window.toggleMasquer = (listId, btn) => {
@@ -430,42 +427,73 @@ function ajouterNouvelleTache() {
 // 6. BOUTIQUE
 // ==========================================
 window.ouvrirBoutique = () => {
-  document.getElementById('shop-diamonds').textContent = state.diamonds;
-  const grille = document.getElementById('shop-items');
-  grille.innerHTML = catalogue.map(item => {
-    const possedee = state.creatures.find(c => c.id === item.id);
-    const estActive = state.creatureActive === item.id;
-    return `
-      <div style="background:#fdfaf5; padding:10px; border-radius:15px;
-                  text-align:center; border:1px solid #eaddff; box-sizing:border-box;">
-        <div style="font-size:30px;">${item.stades[4]}</div>
-        <div style="font-size:14px; margin:5px 0;">${item.nom}</div>
-        <button onclick="acheter('${item.id}', ${item.prix})"
-          style="background:${estActive ? '#e8a0b4' : possedee ? '#aaa' : '#5e9aca'};
-                 color:white; border:none; border-radius:10px;
-                 padding:8px; cursor:pointer; width:100%; font-size:14px;">
-          ${estActive ? '✓ Active' : possedee ? 'Choisir' : '💎 ' + item.prix}
-        </button>
-      </div>`;
-  }).join('');
-  document.getElementById('shop-modal').classList.remove('hidden');
+    const creatureActive = state.creatures.find(c => c.id === state.creatureActive);
+    
+    // Mettre à jour les compteurs en haut de la modal
+    document.getElementById('shop-diamonds').textContent = state.diamonds || 0;
+    if (document.getElementById('shop-xp')) {
+        document.getElementById('shop-xp').textContent = creatureActive ? creatureActive.xp : 0;
+    }
+
+    const grille = document.getElementById('shop-items');
+    
+    // 1. On génère le HTML pour les CRÉATURES (Diamants)
+    const htmlCreatures = catalogue.map(item => {
+        const possedee = state.creatures.find(c => c.id === item.id);
+        const estActive = state.creatureActive === item.id;
+        return `
+          <div class="shop-item">
+            <div class="item-icon">${item.stades[4]}</div>
+            <div class="item-name">${item.nom}</div>
+            <button onclick="acheter('${item.id}', ${item.prix})" 
+                    class="buy-btn"
+                    style="background:${estActive ? '#e8a0b4' : possedee ? '#aaa' : '#5e9aca'};">
+              ${estActive ? '✓ Active' : possedee ? 'Choisir' : '💎 ' + item.prix}
+            </button>
+          </div>`;
+    }).join('');
+
+    // 2. On génère le HTML pour les OBJETS (XP)
+    const htmlObjets = boutiqueObjets.map(obj => {
+        const dejaAchete = state.inventory?.includes(obj.id);
+        return `
+          <div class="shop-item">
+            <div class="item-icon">${obj.icone}</div>
+            <div class="item-name">${obj.nom}</div>
+            <button onclick="acheterItem('${obj.id}', ${obj.prix}, '${obj.monnaie}')" 
+                    class="buy-btn"
+                    style="background: ${dejaAchete ? '#9b59b6' : '#6c5ce7'};">
+              ${dejaAchete ? '✓ Possédé' : obj.prix + ' ✨'}
+            </button>
+          </div>`;
+    }).join('');
+
+    // On combine les deux dans la grille
+    grille.innerHTML = htmlCreatures + htmlObjets;
+    
+    document.getElementById('shop-modal').classList.remove('hidden');
 };
 
 window.acheter = (id, prix) => {
   const possedee = state.creatures.find(c => c.id === id);
+  
   if (possedee) {
+    // Si on l'a déjà, on l'équipe simplement
     state.creatureActive = id;
   } else if (state.diamonds >= prix) {
+    // Si on ne l'a pas et qu'on a les sous
     state.diamonds -= prix;
-    state.creatures.push({ id, xp: 0 });
+    state.creatures.push({ id, xp: 0 }); 
     state.creatureActive = id;
     jouerSon('win');
   } else {
     alert('Pas assez de diamants ! 💎');
     return;
   }
+  
   sauvegarder();
   mettreAJourUI();
+  // On ferme la boutique pour voir notre nouvelle créature !
   document.getElementById('shop-modal').classList.add('hidden');
 };
 

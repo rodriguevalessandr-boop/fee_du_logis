@@ -27,7 +27,7 @@
   <!-- La ligne magique unique -->
 <div class="header-row-buttons">
     <button class="diamonds-display" id="diamonds-btn">
-      <span>💎</span>
+      <span>📦</span>
       <span class="btn-label">Boutique <span id="diamond-count">37</span></span>
     </button>
 
@@ -86,6 +86,9 @@
   <button onclick="toggleMasquer('tasks-list', this)" class="btn-masquer">
     👁️ Masquer les faites
   </button>
+
+  <div id="bravo-container"></div>
+<div id="tasks-list"></div>
   <div id="tasks-list"></div>
 </section>
 
@@ -187,31 +190,27 @@
   </div>
 </div>
 
-  <!-- MODAL BOUTIQUE -->
-<div class="modal-overlay hidden" id="shop-modal">
-  <div class="modal">
-    <div class="modal-title-magic">✨ Boutique ✨</div>
-    <p class="shop-diamonds-text">Tes diamants : <span id="shop-diamonds">0</span> 💎</p>
-    <div id="shop-items" class="shop-grid"></div>
-<button id="btn-fermer-boutique" class="btn-magic btn-confirm btn-full-width">
-  ← Retour
-</button>
-  </div>
-</div>
-<!-- Tout en bas du fichier HTML -->
+<!-- MODAL BOUTIQUE -->
+<!-- MODAL BOUTIQUE -->
+<div id="shop-modal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <h2 class="modal-title-magic"> ✨ Boutique Magique ✨</h2>
     
-    <div class="shop-grid">
-      <!-- Les items seront ici -->
-      <div class="shop-item">
-        <div class="item-icon">🎨</div>
-        <div class="item-name">Thème Pastel</div>
-        <button class="buy-btn">50 XP</button>
-      </div>
+    <div class="shop-stats">
+        <div class="stat-badge"> Diamants : <span id="shop-diamonds">0</span> 💎</div>
+        <div class="stat-badge">Créature : <span id="shop-xp">0</span> XP </div>
+    </div>
+
+    <!-- LE COUPABLE EST ICI : Il faut absolument l'id="shop-items" -->
+    <div id="shop-items" class="shop-grid">
+        <!-- Le JS va injecter les items ici -->
     </div>
     
-    <button id="close-shop" class="close-btn">Retour au Logis</button>
+    <button id="btn-fermer-boutique" class="btn-magic btn-full-width">
+      ← Retour au Logis
+    </button>
   </div>
-</div>
+</div> 
   <script src="app.js"></script>
 </body>
 </html>
