@@ -178,7 +178,8 @@ function afficherTaches() {
         let veille = new Date(t.prochaineDate);
         veille.setDate(veille.getDate() - 1);
         const veilleStr = veille.toISOString().split('T')[0];
-        return dateAuj >= veilleStr && t.prochaineDate > dateAuj && !t.datesFaites?.includes(dateAuj);
+        const cocheeAuj = t.datesFaites?.includes(dateAuj);
+        return dateAuj >= veilleStr && t.prochaineDate > dateAuj && !cocheeAuj;
     });
 
     // 2. Tri
@@ -190,43 +191,33 @@ function afficherTaches() {
     tJour.sort(tri);
     tFutur.sort(tri);
 
-    // 3. Gestion du message "GG"
+    // 3. Message de victoire
     if (bravoContainer) {
         const toutesFaites = tJour.length > 0 && tJour.every(t => t.datesFaites?.includes(dateAuj));
-        if (toutesFaites) {
-            bravoContainer.innerHTML = `
-                <div class="victoire-message" style="text-align:center; background:#f0e6ff; padding:15px; border-radius:15px; margin-bottom:15px; border:2px dashed #d1b3ff; animation: popIn 0.5s ease-out;">
-                    <div style="font-size:25px;">✨⭐✨</div>
-                    <h3 style="font-family:'Emilys Candy', cursive; color:#8e44ad; margin:5px 0;">GG ! Félicitations !</h3>
-                    <p style="color:#6c5ce7; font-size:14px; margin:0;">Le sanctuaire est étincelant. 🧚</p>
-                </div>`;
-        } else {
-            bravoContainer.innerHTML = ""; // On vide si tout n'est pas fait
-        }
+        bravoContainer.innerHTML = toutesFaites ? `
+            <div class="victoire-message" style="text-align:center; background:#f0e6ff; padding:15px; border-radius:15px; margin-bottom:15px; border:2px dashed #d1b3ff; animation: popIn 0.5s ease-out;">
+                <div style="font-size:25px;">✨⭐✨</div>
+                <h3 style="font-family:'Emilys Candy', cursive; color:#8e44ad; margin:5px 0;">GG ! Félicitations !</h3>
+                <p style="color:#6c5ce7; font-size:14px; margin:0;">Le sanctuaire est étincelant. 🧚</p>
+            </div>` : "";
     }
 
-    // 4. Rendu des listes (Le retour à la méthode classique qui marche)
+    // 4. Rendu HTML
     listeJour.innerHTML = tJour.map(t => genererHtmlTache(t, true)).join('') || 
                           '<p style="text-align:center; color:#a594b5; margin:20px 0;">🌿 Rien pour aujourd\'hui !</p>';
 
     if (listeFutur) {
         listeFutur.innerHTML = tFutur.map(t => genererHtmlTache(t, false)).join('') || 
-                               '<p style="text-align:center; color:#a594b5; margin:20px 0;">🌿 Pas de tâches en approche.</p>';
+                               '<p style="text-align:center; color:#a594b5; margin:20px 0;">🌿 Libre !</p>';
     }
-
-
-  if (listeFutur) {
-    listeFutur.innerHTML = tFutur.map(t => genererHtmlTache(t, false)).join('') ||
-      '<p style="text-align:center; color:#a594b5; margin:20px 0;">🌿 Libre !</p>';
-  }
 }
 
 function genererHtmlTache(tache, estAuj) {
-  const faite = tache.datesFaites?.includes(aujourdhui());
-  return `
+    const faite = tache.datesFaites?.includes(aujourdhui());
+    return `
     <div class="task-card ${faite ? 'completed' : ''}">
-      <input type="checkbox" ${faite ? 'checked' : ''}
-             onclick="event.stopPropagation(); cocherTache(${tache.id})"
+      <input type="checkbox" ${faite ? 'checked' : ''} 
+             onclick="event.stopPropagation(); cocherTache(${tache.id})" 
              class="task-checkbox">
       <div class="task-info" onclick="ouvrirPourModifier(${tache.id})">
         <div class="task-name">${tache.nom}</div>
@@ -235,94 +226,75 @@ function genererHtmlTache(tache, estAuj) {
       </div>
       <div class="task-actions-group">
         <span class="task-xp-badge">+${tache.xp} XP</span>
-    <div class="task-btns">
-  ${!faite ? `<span onclick="event.stopPropagation(); reporterTache(${tache.id})" style="cursor:pointer" title="Reporter à demain">📅</span>` : ''}
-  <span onclick="ouvrirPourModifier(${tache.id})" class="edit-icon">✏️</span>
-  <div id="delete-zone-${tache.id}" class="delete-zone">
-    <button onclick="event.stopPropagation(); demanderSuppression(${tache.id})" class="delete-btn">🗑️</button>
-  </div>
-</div>
+        <div class="task-btns">
+            <span onclick="ouvrirPourModifier(${tache.id})" class="edit-icon">✏️</span>
+            <div id="delete-zone-${tache.id}" class="delete-zone">
+                <button onclick="event.stopPropagation(); reporterTache(${tache.id})" class="delete-btn" title="Reporter">📅</button>
+                <button onclick="event.stopPropagation(); demanderSuppression(${tache.id})" class="delete-btn">🗑️</button>
+            </div>
+        </div>
       </div>
     </div>`;
 }
 
 // ==========================================
-// 5. ACTIONS
+// 5. ACTIONS (Nettoyé)
 // ==========================================
+window.reporterTache = (id) => {
+    const tache = state.tasks.find(t => t.id === id);
+    if (!tache) return;
+    const demain = new Date();
+    demain.setDate(demain.getDate() + 1);
+    tache.prochaineDate = demain.toISOString().split('T')[0];
+    sauvegarder();
+    mettreAJourUI();
+};
+
 window.cocherTache = (id) => {
-  const tache = state.tasks.find(t => t.id === id);
-  if (!tache) return;
-  const dateAuj = aujourdhui();
-  if (!tache.datesFaites) tache.datesFaites = [];
-  const dejaFaite = tache.datesFaites.includes(dateAuj);
-  const creature = state.creatures.find(c => c.id === state.creatureActive);
+    const tache = state.tasks.find(t => t.id === id);
+    if (!tache) return;
+    const dateAuj = aujourdhui();
+    if (!tache.datesFaites) tache.datesFaites = [];
+    const dejaFaite = tache.datesFaites.includes(dateAuj);
+    const creature = state.creatures.find(c => c.id === state.creatureActive);
 
-  if (!dejaFaite) {
-    // --- ACTIONS : VALIDER LA TÂCHE ---
-    jouerSon('win');
-    if (window.event && typeof animerXP === 'function') {
-        animerXP(window.event.clientX, window.event.clientY); 
+    if (!dejaFaite) {
+        jouerSon('win');
+        tache.datesFaites.push(dateAuj);
+        state.diamonds = (state.diamonds || 0) + 1;
+        if (creature) creature.xp = (creature.xp || 0) + (tache.xp || 10);
+
+        if (state.lastValidatedDate !== dateAuj) {
+            state.dayCount = (state.dayCount || 0) + 1;
+            if (state.dayCount > state.meilleurScore) state.meilleurScore = state.dayCount;
+            state.diamonds += (10 + Math.min(state.dayCount, 20));
+            state.lastValidatedDate = dateAuj;
+        }
+
+        const nouvelleDate = calculerProchaineDate(dateAuj, tache.frequence);
+        if (nouvelleDate === 'terminee') {
+            setTimeout(() => {
+                state.tasks = state.tasks.filter(t => t.id !== tache.id);
+                sauvegarder();
+                mettreAJourUI();
+            }, 1500);
+        } else if (nouvelleDate) {
+            tache.prochaineDate = nouvelleDate;
+        }
+    } else {
+        jouerSon('loss');
+        tache.datesFaites = tache.datesFaites.filter(d => d !== dateAuj);
+        state.diamonds = Math.max(0, state.diamonds - 1);
+        if (creature) creature.xp = Math.max(0, creature.xp - (tache.xp || 10));
+
+        const encore = state.tasks.some(t => t.datesFaites?.includes(dateAuj));
+        if (!encore) {
+            state.dayCount = Math.max(0, state.dayCount - 1);
+            state.lastValidatedDate = null;
+        }
     }
-
-    tache.datesFaites.push(dateAuj);
-    state.diamonds = (state.diamonds || 0) + 1; 
-
-    if (creature) {
-        creature.xp = (creature.xp || 0) + (tache.xp || 10);
-    }
-
-    if (state.lastValidatedDate !== dateAuj) {
-        state.dayCount = (state.dayCount || 0) + 1;
-        const bonusSerie = Math.min(state.dayCount, 20); 
-    if (state.dayCount > state.meilleurScore) {
-    state.meilleurScore = state.dayCount;
-}
-        state.diamonds += (10 + bonusSerie); 
-        state.lastValidatedDate = dateAuj;
-    }
-
-    // --- GESTION DES DATES (MODIFIÉ ICI) ---
-    tache.datePrecedente = tache.prochaineDate; 
-    const nouvelleDate = calculerProchaineDate(dateAuj, tache.frequence);
-
-    if (nouvelleDate === 'terminee') {
-        // Tâche ponctuelle : on la supprime après un petit délai pour voir l'animation
-        setTimeout(() => {
-            state.tasks = state.tasks.filter(t => t.id !== tache.id);
-            sauvegarder();
-            mettreAJourUI();
-        }, 1500);
-    } else if (nouvelleDate) {
-        tache.prochaineDate = nouvelleDate;
-    }
-    
-    if (typeof changerMantra === 'function') changerMantra();
-
-  } else {
-    // --- ACTIONS : DÉCOCHER LA TÂCHE ---
-    jouerSon('loss');
-    tache.datesFaites = tache.datesFaites.filter(d => d !== dateAuj);
-    state.diamonds = Math.max(0, state.diamonds - 1);
-
-    if (creature) {
-        creature.xp = Math.max(0, (creature.xp || 0) - (tache.xp || 10));
-    }
-
-    const encore = state.tasks.some(t => t.datesFaites?.includes(dateAuj));
-    if (!encore) {
-        const bonusSerie = Math.min(state.dayCount, 20);
-        state.diamonds = Math.max(0, state.diamonds - (10 + bonusSerie));
-        state.dayCount = Math.max(0, state.dayCount - 1);
-        state.lastValidatedDate = null;
-    }
-
-    if (tache.datePrecedente) {
-        tache.prochaineDate = tache.datePrecedente;
-    }
-  }
-
-  sauvegarder();
-  mettreAJourUI();
+    sauvegarder();
+    mettreAJourUI();
 };
 
 window.afficherRecord = () => {
@@ -361,34 +333,14 @@ window.reporterTache = (id) => {
 const demain = new Date();
 demain.setDate(demain.getDate() + 1);
 const demainStr = demain.toISOString().split('T')[0];
+};
 
 // Missions du jour : dues aujourd'hui ou avant, OU cochées aujourd'hui
-let tJour = state.tasks.filter(t => {
-    const dueAujourdhui = t.prochaineDate && t.prochaineDate <= dateAuj;
-    const cocheeAujourdhui = t.datesFaites?.includes(dateAuj);
-    return dueAujourdhui || cocheeAujourdhui;
-});
-
-// Avenir : dues après aujourd'hui, pas cochées aujourd'hui
-// La veille apparaît aussi dans Avenir (prochaineDate === demain)
-// Tâches futures : on les affiche dans "Avenir" si on est à la veille de l'échéance (ou après)
-// mais qu'elles ne sont pas encore dues aujourd'hui.
-let tFutur = state.tasks.filter(t => {
-    const dateAuj = aujourdhui();
-    
-    // Calcul de la date d'hier par rapport à l'échéance
-    let veilleEcheance = new Date(t.prochaineDate);
-    veilleEcheance.setDate(veilleEcheance.getDate() - 1);
-    const veilleStr = veilleEcheance.toISOString().split('T')[0];
-
-    const estCocheeAujourdhui = t.datesFaites?.includes(dateAuj);
-    
-    // On affiche dans Avenir si :
-    // 1. On est au moins la veille de la tâche
-    // 2. Elle n'est pas encore "due" (elle est prévue pour strictement après aujourd'hui)
-    // 3. Elle n'a pas été cochée aujourd'hui
-    return dateAuj >= veilleStr && t.prochaineDate > dateAuj && !estCocheeAujourdhui;
-});
+window.reporterTache = (id) => {
+    const tache = state.tasks.find(t => t.id === id);
+    if (!tache) return;
+    const demain = new Date();
+    demain.setDate(demain.getDate() + 1);
     tache.prochaineDate = demain.toISOString().split('T')[0];
     sauvegarder();
     mettreAJourUI();
@@ -419,15 +371,20 @@ window.ouvrirPourModifier = (id) => {
   document.getElementById('task-piece').value = tache.piece;
   document.getElementById('task-xp').value = tache.xp;
   document.getElementById('task-frequence').value = tache.frequence;
-  document.getElementById('btn-sauvegarder').onclick = () => {
+ document.getElementById('btn-sauvegarder').onclick = () => {
     tache.nom = document.getElementById('task-nom').value;
     tache.piece = document.getElementById('task-piece').value;
     tache.xp = parseInt(document.getElementById('task-xp').value);
     tache.frequence = document.getElementById('task-frequence').value;
+    // Recalculer la prochaine date si la fréquence a changé
+    const nouvelleDate = calculerProchaineDate(aujourdhui(), tache.frequence);
+    if (nouvelleDate && nouvelleDate !== 'terminee') {
+        tache.prochaineDate = nouvelleDate;
+    }
     sauvegarder();
     fermerModal();
     mettreAJourUI();
-  };
+};
   document.getElementById('task-modal').classList.remove('hidden');
 };
 
